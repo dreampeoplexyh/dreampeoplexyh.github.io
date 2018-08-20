@@ -275,6 +275,26 @@ master分支用来存储hexo静态博客发布的文件</br>
 hexo 用来存储源文件及其配置文件</br>
 跟换电脑的时候只需要下载github上的hexo文件就可以了。然后就是和方法一一样完成配置跟新
 
+实现方法3
+我们之前说过hexo文件夹中文件的作用，那么我说下其实对我们源文件备份，更新最重要的文件主要有这么几个文件
+```hexo
+source           源文件
+themes           主题文件
+_config.yml      站点配置文件
+```
+我们备份的话可以选择这样，本地创建一个分支上传分支到github,这样我们就在github上就有两个分支，一个用来存静态博客，一个用来存源代码的。在存放hexo的文件夹下
+```  
+git init                             //将这个文件夹创建成git仓库
+git checkout -b hexo                //hexo为分支名字，创建并进到hexo分支
+git add .                          //将所有文件添加到缓存区
+git commit -m "你觉得更新要注意的点"  //将缓存区的数据添加到git终极区
+git remote add origin git@github.com:dreampeoplexyh/dreampeoplexyh.github.io.git                       //添加远程仓库
+git push origin hexo                //推送hexo分支到github上对应的hexo分支上，github上如果么有hexo，github会自动创建爱你一个，或报错
+```
+
+
+
+
 参考下其他方法  [https://www.zhihu.com/question/21193762](https://www.zhihu.com/question/21193762)
 
 
