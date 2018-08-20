@@ -261,21 +261,21 @@ content: 'true'
 ----------
 
 ## **0x03 博客备份**
-实现方法1
+**实现方法1**
 
 只需要把HEXO根目录下的文件打包，发到qq某个自己的群里
 即完成打包，下次写博客的时候只需要将博客的源文件发到qq群里就行
 
 电脑换了的话只需要将里面的文件下载下来，安装完HEXO，配置完git秘钥到github上即可完成更新
 
-实现方法二2
+**实现方法二2**
 
 将github上的博客仓库分成两个分支master---hexo</br>
 master分支用来存储hexo静态博客发布的文件</br>
 hexo 用来存储源文件及其配置文件</br>
 跟换电脑的时候只需要下载github上的hexo文件就可以了。然后就是和方法一一样完成配置跟新
 
-实现方法3
+**实现方法3**
 我们之前说过hexo文件夹中文件的作用，那么我说下其实对我们源文件备份，更新最重要的文件主要有这么几个文件
 ```hexo
 source           源文件
@@ -294,8 +294,112 @@ git push origin hexo                //推送hexo分支到github上对应的hexo�
 
 
 
+那么日常跟新博客怎么办呢。直接
+```
+git chechout hexo           //切换到到hexo分区
+git add .      //将跟新的东西放到缓存区里面
+git commit -m "跟新说明"   //将缓存区的文件添加到git终极仓库中
+git push origin hexo      //直接推送到hexo中 
+
+删除远程文件的话可以删除本地文件，或更改，照着上面的再提交一遍就行了
+```
+换了电脑之后呢？怎么备份跟新呢？这是个好问题，我们可以这样做
+
+```
+git clone -b hexo git@github.com:dreampeoplexyh/dreampeoplexyh.github.io.git    //下载有源代码的hexo分支下的文件
+
+npm install hexo-cli      //下载hexo
+npm install               //下载跟新
+npm install hexo-deployer-git   //下载上传到服务器端的
+
+```
+补充一些备份需要注意的点吧。首先满足的条件  
+```
+node.js
+git
+```
+node.js 就是官网下载点下一步下步安装，当然这只是在windows下安装咯，还有其他操作系统以后再说。</br>
+git默认一直点确定的话需要点确定的话需要配置环境变量</br>
+就是直接进环境变量里将path里添加
+```
+E:\c盘的一些安装文件\Git\cmd    //看安装在那个盘，比如我就是安装在E盘下的c盘的一些安装文件这个文件下
+```
+git 的话还需要配置与github链接的秘钥，这样才好上传
+配置的话其实也好办</br>
+首先配置用户名和邮箱，运行git bash
+```
+git config --global user.name "你要写的名字，最好英文"
+git config --global user.email "邮箱地址"
+```
+先看看有没有秘钥咯，基本没配的话基本没有，ssh公钥一般存在~/.ssh里面，看一看咯
+```
+cd ~/.ssh
+ls
+```
+看看执行命令之后的ls有没有些文件，比如id_rsa和id_rsa.pub，这样的，有的话那好办，这个.pub的文件就是公钥，
+执行
+```
+cat xxx.pub
+```
+把文件下的东西全都复制下来，粘贴到github上的setting 里面的ssh and GPG keys,添加进去就ok。</br>
+假如没有这个秘钥的话也不要慌，慢慢的来</br>
+```
+ssh-keygen -t rsa -C "your_email@youremail.com"
+Creates a new ssh key using the provided email # Generating public/private rsa key pair.
+
+Enter file in which to save the key (/home/you/.ssh/id_rsa):
+```
+直接按Enter就行。然后，会提示你输入密码，如下(建议输一个，安全一点，当然不输也行，应该不会有人闲的无聊冒充你去修改你的代码)：
+```
+Enter same passphrase again: [Type passphrase again]
+```
+完了之后，大概是这样：
+```
+Your public key has been saved in /home/you/.ssh/id_rsa.pub.
+The key fingerprint is: # 01:0f:f4:3b:ca:85:d6:17:a1:7d:f0:68:9d:f0:a2:db your_email@youremail.com
+```
+1、查看你生成的公钥：
+```
+$ cat ~/.ssh/id_rsa.pub
+
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0X6L1zLL4VHuvGb8aJH3ippTozmReSUzgntvk434aJ/v7kOdJ/MTyBlWXFCR+HAo3FXRitBqxiX1nKhXpHAZsMciLq8vR3c8E7CjZN733f5AL8uEYJA+YZevY5UCvEg+umT7PHghKYaJwaCxV7sjYP7Z6V79OMCEAGDNXC26IBMdMgOluQjp6o6j2KAdtRBdCDS/QIU5THQDxJ9lBXjk1fiq9tITo/aXBvjZeD+gH/Apkh/0GbO8VQLiYYmNfqqAHHeXdltORn8N7C9lOa/UW3KM7QdXo6J0GFlBVQeTE/IGqhMS5PMln3 admin@admin-PC
+```
+本地秘钥就有了，把公钥放进github的设置里面，然后测试看通不通咯
+```
+$ ssh -T git@github.com
+
+Attempts to ssh to github
+```
+如果，看到：
+```
+Hi xxx! You've successfully authenticated, but GitHub does not # provide shell access
+```
+那么就连通了github了，
+以上我觉得环境是配置好了，所有的部署都是在配置好环境之后才操作的
+
+说实话，这玩意事是真的多，我也是无奈。哈哈
+
+
+
+**实现方法四**</br>
+我们之前说过，hexo最重要的三个文件就是
+```hexo
+source           源文件
+themes           主题文件
+_config.yml      站点配置文件
+```
+我们可以如上把上传到github上的文件拷贝下俩，直接提取这三个文件，其他文件可以删除了，然后怎么样呢，我们可以这样做</br>
+在一个文件夹下</br>
+```
+npm install -g hexo-cli     //使用 npm 即可完成 Hexo 的安装。
+hexo init                   //初始化hexo
+npm install                 //安装完npm
+```
+ok了，直接将这三个文件替换就行了，后面的操作如上，下载上传插件，git上传秘钥配置。
+
+
+
 
 参考下其他方法  [https://www.zhihu.com/question/21193762](https://www.zhihu.com/question/21193762)
 
 
-  [1]: http://localhost:4000
