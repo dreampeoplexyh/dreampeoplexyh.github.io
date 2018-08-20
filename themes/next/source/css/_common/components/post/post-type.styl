@@ -1,0 +1,24 @@
+// TODO: Refactor.
+
+.page-home, .page-post-detail {
+  .post-type-quote {
+    .post-header,
+    .post-tags {
+      display: none;
+    }
+
+    blockquote {
+      @extend .blockquote-center
+    }
+  }
+}
+
+
+.post-body p a{
+      color: #0593d3;
+      border-bottom: none;
+      &:hover {
+        color: #0477ab;
+        text-decoration: underline;
+      }
+    }
