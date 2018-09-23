@@ -81,22 +81,22 @@
 
 <meta name="description" content="Centos+nginx  搭建网站Nginx (engine x) 是一个高性能的HTTP和反向代理服务，也是一个IMAP/POP3/SMTP服务。Nginx是由伊戈尔·赛索耶夫为俄罗斯访问量第二的Rambler.ru站点（俄文：Рамблер）开发的，第一个公开版本0.1.0发布于2004年10月4日。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Bootstrap 之网站部署">
-<meta property="og:url" content="https://dreampeoplexyh.github.io/2018/08/25/Bootstrap/index.html">
+<meta property="og:title" content="Bootstrap 之网站部署（一）">
+<meta property="og:url" content="https://dreampeoplexyh.github.io/2018/08/25/Bootstrap 基础知识（一）/index.html">
 <meta property="og:site_name" content="jusk?">
 <meta property="og:description" content="Centos+nginx  搭建网站Nginx (engine x) 是一个高性能的HTTP和反向代理服务，也是一个IMAP/POP3/SMTP服务。Nginx是由伊戈尔·赛索耶夫为俄罗斯访问量第二的Rambler.ru站点（俄文：Рамблер）开发的，第一个公开版本0.1.0发布于2004年10月4日。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/08/25/Bootstrap/firewall.png">
-<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/08/25/Bootstrap/1.png">
-<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/08/25/Bootstrap/2.png">
-<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/08/25/Bootstrap/3.png">
-<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/08/25/Bootstrap/4.png">
-<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/08/25/Bootstrap/5.png">
-<meta property="og:updated_time" content="2018-08-25T11:54:08.313Z">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/08/25/Bootstrap%20基础知识（一）/Bootstrap基础知识（一）/firewall.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/08/25/Bootstrap%20基础知识（一）/Bootstrap基础知识（一）p/1.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/08/25/Bootstrap%20基础知识（一）/Bootstrap基础知识（一）/2.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/08/25/Bootstrap%20基础知识（一）/Bootstrap基础知识（一）/3.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/08/25/Bootstrap%20基础知识（一）/Bootstrap基础知识（一）/4.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/08/25/Bootstrap%20基础知识（一）/Bootstrap基础知识（一）/5.png">
+<meta property="og:updated_time" content="2018-09-23T01:37:46.882Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Bootstrap 之网站部署">
+<meta name="twitter:title" content="Bootstrap 之网站部署（一）">
 <meta name="twitter:description" content="Centos+nginx  搭建网站Nginx (engine x) 是一个高性能的HTTP和反向代理服务，也是一个IMAP/POP3/SMTP服务。Nginx是由伊戈尔·赛索耶夫为俄罗斯访问量第二的Rambler.ru站点（俄文：Рамблер）开发的，第一个公开版本0.1.0发布于2004年10月4日。">
-<meta name="twitter:image" content="https://dreampeoplexyh.github.io/2018/08/25/Bootstrap/firewall.png">
+<meta name="twitter:image" content="https://dreampeoplexyh.github.io/2018/08/25/Bootstrap%20基础知识（一）/Bootstrap基础知识（一）/firewall.png">
 
 
 
@@ -126,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="https://dreampeoplexyh.github.io/2018/08/25/Bootstrap/"/>
+  <link rel="canonical" href="https://dreampeoplexyh.github.io/2018/08/25/Bootstrap 基础知识（一）/"/>
 
 
 
 
 
-  <title>Bootstrap 之网站部署 | jusk?</title>
+  <title>Bootstrap 之网站部署（一） | jusk?</title>
   
 
 
@@ -303,7 +303,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://dreampeoplexyh.github.io/2018/08/25/Bootstrap/">
+    <link itemprop="mainEntityOfPage" href="https://dreampeoplexyh.github.io/2018/08/25/Bootstrap 基础知识（一）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BrightLoong">
@@ -320,7 +320,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Bootstrap 之网站部署</h1>
+          <h1 class="post-title" itemprop="name headline">Bootstrap 之网站部署（一）</h1>
         
 
         <div class="post-meta">
@@ -348,8 +348,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-25T19:54:08+08:00">
-                2018-08-25
+              <time title="更新于" itemprop="dateModified" datetime="2018-09-23T09:37:46+08:00">
+                2018-09-23
               </time>
             
           </span>
@@ -429,27 +429,27 @@ nginx配置
 网站发布
 </code></pre><h2 id="0x00-Centos服务器配置"><a href="#0x00-Centos服务器配置" class="headerlink" title="0x00 Centos服务器配置   "></a><strong>0x00 Centos服务器配置</strong>   </h2><h4 id="搭建Centos-服务器"><a href="#搭建Centos-服务器" class="headerlink" title="搭建Centos 服务器"></a>搭建Centos 服务器</h4><p>可以在虚拟机中搭建一个Centos 服务器或者去阿里或其他地方购买。有了服务器之后可以就可以干很多事情了。搭建过程就不详细说明了。</p>
 <h4 id="配置Centos防火墙"><a href="#配置Centos防火墙" class="headerlink" title="配置Centos防火墙"></a>配置Centos防火墙</h4><p>然后就是启动服务器查看配置了，首先看服务器防火墙版本号<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --version</span><br></pre></td></tr></table></figure></p>
-<p>查看防火墙状态<br>firewall-cmd –state<br><img src="/2018/08/25/Bootstrap/firewall.png" alt=""></p>
+<p>查看防火墙状态<br>firewall-cmd –state<br><img src="/2018/08/25/Bootstrap 基础知识（一）/Bootstrap基础知识（一）/firewall.png" alt=""></p>
 <p>添加80端口的权限<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=80/tcp --permanent</span><br><span class="line">命令含义：</span><br><span class="line">--zone #作用域</span><br><span class="line">--add-port=80/tcp #添加端口，格式为：端口/通讯协议</span><br><span class="line">--permanent #永久生效，没有此参数重启后失效</span><br></pre></td></tr></table></figure></p>
 <p>重启防火墙<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart firewalld</span><br></pre></td></tr></table></figure></p>
 <p>扩展点Centos的的知识吧<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">firewalld的命令</span><br><span class="line">运行、停止、禁用firewalld</span><br><span class="line">启动：# systemctl start firewalld</span><br><span class="line">重启：# systemctl restart firewalld</span><br><span class="line">查看状态：# systemctl status firewalld 或者 firewall-cmd --state</span><br><span class="line">停止：# systemctl disable firewalld</span><br><span class="line">禁用：# systemctl stop firewalld</span><br><span class="line">配置firewalld</span><br><span class="line">查看版本：$ firewall-cmd --version</span><br><span class="line">查看帮助：$ firewall-cmd --help</span><br><span class="line">显示状态：$ firewall-cmd --state</span><br><span class="line">查看区域信息: $ firewall-cmd --get-active-zones</span><br><span class="line">查看指定接口所属区域：$ firewall-cmd --get-zone-of-interface=eth0</span><br><span class="line">拒绝所有包：# firewall-cmd --panic-on</span><br><span class="line">取消拒绝状态：# firewall-cmd --panic-off</span><br><span class="line">查看是否拒绝：$ firewall-cmd --query-panic</span><br><span class="line">更新防火墙规则：</span><br><span class="line"># firewall-cmd --reload</span><br><span class="line"># firewall-cmd --complete-reload</span><br><span class="line">两者的区别就是第一个无需断开连接，就是firewalld特性之一动态添加规则，第二个需要断开连接，类似重启服务</span><br><span class="line">将接口添加到区域，默认接口都在public</span><br><span class="line"># firewall-cmd --zone=public --add-interface=eth0</span><br><span class="line">永久生效再加上 --permanent 然后reload防火墙</span><br><span class="line">设置默认接口区域</span><br><span class="line"># firewall-cmd --set-default-zone=public</span><br><span class="line">立即生效无需重启</span><br><span class="line">打开端口（貌似这个才最常用）</span><br><span class="line">查看所有打开的端口：</span><br><span class="line"># firewall-cmd --zone=dmz --list-ports</span><br><span class="line">加入一个端口到区域：</span><br><span class="line"># firewall-cmd --zone=dmz --add-port=8080/tcp</span><br><span class="line">若要永久生效方法同上</span><br><span class="line">打开一个服务，类似于将端口可视化，服务需要在配置文件中添加，/etc/firewalld 目录下有services文件夹，这个不详细说了，详情参考文档</span><br><span class="line"># firewall-cmd --zone=work --add-service=smtp</span><br><span class="line">移除服务</span><br><span class="line"># firewall-cmd --zone=work --remove-service=smtp</span><br><span class="line"></span><br><span class="line">作者：轩轩他爸</span><br><span class="line">链接：https://www.jianshu.com/p/6ac0a9afa080</span><br><span class="line">來源：简书</span><br><span class="line">简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。</span><br></pre></td></tr></table></figure></p>
 <p>开启了http  80默认端口之后就可以继续接下来的事情了</p>
 <h2 id="0x01-nginx安装配置"><a href="#0x01-nginx安装配置" class="headerlink" title="0x01  nginx安装配置  "></a><strong>0x01  nginx安装配置</strong>  </h2><h4 id="安装nginx"><a href="#安装nginx" class="headerlink" title="安装nginx"></a>安装nginx</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install nginx -y   //安装nginx  -y是默认接下来的指示一直是y</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/08/25/Bootstrap/1.png" alt=""><br> 安装完成后看是否安装成功<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -v</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2018/08/25/Bootstrap/2.png" alt=""></p>
+<p><img src="/2018/08/25/Bootstrap 基础知识（一）/Bootstrap基础知识（一）p/1.png" alt=""><br> 安装完成后看是否安装成功<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -v</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/08/25/Bootstrap 基础知识（一）/Bootstrap基础知识（一）/2.png" alt=""></p>
 <p>ok成功安装</p>
 <p>也可以卸载重装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum remove nginx -y    //卸载nginx</span><br></pre></td></tr></table></figure></p>
 <p>直接配置nginx,nginx的配置文件的安装目录放在/etc/nginx/nginx.conf 下</p>
 <h4 id="如果你不确定路径的话也可以查看配置文件路径"><a href="#如果你不确定路径的话也可以查看配置文件路径" class="headerlink" title="如果你不确定路径的话也可以查看配置文件路径"></a>如果你不确定路径的话也可以查看配置文件路径</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -t</span><br></pre></td></tr></table></figure>
-<p><img src="/2018/08/25/Bootstrap/3.png" alt=""></p>
+<p><img src="/2018/08/25/Bootstrap 基础知识（一）/Bootstrap基础知识（一）/3.png" alt=""></p>
 <p>打开配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/nginx/nginx.conf    //在根目录下打开</span><br><span class="line">vim /nginx.conf              //在nginx目录下打开</span><br></pre></td></tr></table></figure></p>
 <p>主要就是把root /usr/share/nginx/html; 修改为: root /data/www; 其他也不用配置</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">user nginx;</span><br><span class="line">worker_processes auto;</span><br><span class="line">error_log /var/log/nginx/error.log;</span><br><span class="line">pid /run/nginx.pid;</span><br><span class="line"></span><br><span class="line">include /usr/share/nginx/modules/*.conf;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections 1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;</span><br><span class="line">                      &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;</span><br><span class="line">                      &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;</span><br><span class="line"></span><br><span class="line">    access_log  /var/log/nginx/access.log  main;</span><br><span class="line"></span><br><span class="line">    sendfile            on;</span><br><span class="line">    tcp_nopush          on;</span><br><span class="line">    tcp_nodelay         on;</span><br><span class="line">    keepalive_timeout   65;</span><br><span class="line">    types_hash_max_size 2048;</span><br><span class="line"></span><br><span class="line">    include             /etc/nginx/mime.types;</span><br><span class="line">    default_type        application/octet-stream;</span><br><span class="line"></span><br><span class="line">    include /etc/nginx/conf.d/*.conf;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80 default_server;</span><br><span class="line">        listen       [::]:80 default_server;</span><br><span class="line">        server_name  _;</span><br><span class="line">        root         /data/www;</span><br><span class="line"></span><br><span class="line">        include /etc/nginx/default.d/*.conf;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        error_page 404 /404.html;</span><br><span class="line">            location = /40x.html &#123;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        error_page 500 502 503 504 /50x.html;</span><br><span class="line">            location = /50x.html &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>重启nginx<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure></p>
 <p>重启后就就是创建我们刚的配置文件/data/www<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/www</span><br></pre></td></tr></table></figure></p>
 <h4 id="扩展nginx配置知识"><a href="#扩展nginx配置知识" class="headerlink" title="扩展nginx配置知识"></a>扩展nginx配置知识</h4><figure class="highlight plain"><figcaption><span>#打开 nginx</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">nginx -s reload|reopen|stop|quit  #重新加载配置|重启|停止|退出 nginx</span><br><span class="line">nginx -t   #测试配置是否有语法错误</span><br><span class="line"></span><br><span class="line">nginx [-?hvVtq] [-s signal] [-c filename] [-p prefix] [-g directives]</span><br><span class="line"></span><br><span class="line">-?,-h           : 打开帮助信息</span><br><span class="line">-v              : 显示版本信息并退出</span><br><span class="line">-V              : 显示版本和配置选项信息，然后退出</span><br><span class="line">-t              : 检测配置文件是否有语法错误，然后退出</span><br><span class="line">-q              : 在检测配置文件期间屏蔽非错误信息</span><br><span class="line">-s signal       : 给一个 nginx 主进程发送信号：stop（停止）, quit（退出）, reopen（重启）, reload（重新加载配置文件）</span><br><span class="line">-p prefix       : 设置前缀路径（默认是：/usr/local/nginx/）</span><br><span class="line">-c filename     : 设置配置文件（默认是：/usr/local/nginx/conf/nginx.conf）</span><br><span class="line">-g directives   : 设置配置文件外的全局指令</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">查看进程号：</span><br><span class="line">$ ps -ef|grep nginx</span><br><span class="line">root      5747     1  0 May23 ?        00:00:00 nginx: master process /usr/local/nginx/sbin/nginx</span><br><span class="line">500      12037  7886  0 10:00 pts/1    00:00:00 grep nginx</span><br><span class="line">nobody   25581  5747  0 Sep27 ?        00:01:16 nginx: worker process      </span><br><span class="line">nobody   25582  5747  0 Sep27 ?        00:01:25 nginx: worker process      </span><br><span class="line">nobody   25583  5747  0 Sep27 ?        00:02:59 nginx: worker process      </span><br><span class="line">nobody   25584  5747  0 Sep27 ?        00:02:05 nginx: worker process</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">杀死进程：</span><br><span class="line">$ kill -9 5747</span><br></pre></td></tr></table></figure>
-<h2 id="0x02-网站发布"><a href="#0x02-网站发布" class="headerlink" title="0x02  网站发布  "></a><strong>0x02  网站发布</strong>  </h2><p>可以选择xftps链接到服务器，然后将网站的目录上场到/data/www目录下<br><img src="/2018/08/25/Bootstrap/4.png" alt=""></p>
-<p>接下来就是直接访问公网ip<br><img src="/2018/08/25/Bootstrap/5.png" alt=""></p>
+<h2 id="0x02-网站发布"><a href="#0x02-网站发布" class="headerlink" title="0x02  网站发布  "></a><strong>0x02  网站发布</strong>  </h2><p>可以选择xftps链接到服务器，然后将网站的目录上场到/data/www目录下<br><img src="/2018/08/25/Bootstrap 基础知识（一）/Bootstrap基础知识（一）/4.png" alt=""></p>
+<p>接下来就是直接访问公网ip<br><img src="/2018/08/25/Bootstrap 基础知识（一）/Bootstrap基础知识（一）/5.png" alt=""></p>
 <p>ok成功完成网站的部署过程</p>
 <p>接下来我就要写Bootstrap的实战教程了</p>
 
@@ -494,6 +494,10 @@ nginx配置
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/15/bootstrap基础知识（二）/" rel="prev" title="bootstrap基础知识(二)">
+                bootstrap基础知识(二) <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -564,7 +568,7 @@ nginx配置
                 alt="BrightLoong" />
             
               <p class="site-author-name" itemprop="name">BrightLoong</p>
-              <p class="site-description motion-element" itemprop="description">做个思想者而不是麻木者</p>
+              <p class="site-description motion-element" itemprop="description">现实本就是不可逆的，心肠只会越来越硬</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -574,7 +578,7 @@ nginx配置
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

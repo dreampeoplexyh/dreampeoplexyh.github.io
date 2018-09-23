@@ -1,5 +1,5 @@
 ---
-title: Bootstrap 之网站部署
+title: Bootstrap 之网站部署（一）
 date: 2018-08-25 18:22:25
 tags:
 categories: Bootstrap实战五部曲
@@ -29,7 +29,7 @@ firewall-cmd --version
 ```
 查看防火墙状态
 firewall-cmd --state
-![](Bootstrap/firewall.png)
+![](Bootstrap基础知识（一）/firewall.png)
 
 添加80端口的权限
 ```
@@ -98,12 +98,12 @@ firewalld的命令
 ```
 yum install nginx -y   //安装nginx  -y是默认接下来的指示一直是y
 ```
-![](Bootstrap/1.png)
+![](Bootstrap基础知识（一）p/1.png)
  安装完成后看是否安装成功
 ```
 nginx -v
 ```
-![](Bootstrap/2.png)
+![](Bootstrap基础知识（一）/2.png)
 
 ok成功安装
 
@@ -117,7 +117,7 @@ yum remove nginx -y    //卸载nginx
 ```
 nginx -t
 ```
-![](Bootstrap/3.png)
+![](Bootstrap基础知识（一）/3.png)
 
 打开配置文件
 ```
@@ -225,10 +225,10 @@ $ kill -9 5747
 
 ## **0x02  网站发布**  </b>
 可以选择xftps链接到服务器，然后将网站的目录上场到/data/www目录下
-![](Bootstrap/4.png)
+![](Bootstrap基础知识（一）/4.png)
 
 接下来就是直接访问公网ip
-![](Bootstrap/5.png)
+![](Bootstrap基础知识（一）/5.png)
 
 ok成功完成网站的部署过程
 
