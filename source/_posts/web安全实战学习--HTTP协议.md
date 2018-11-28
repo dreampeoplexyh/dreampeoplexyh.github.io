@@ -1,8 +1,9 @@
 ---
 layout: _post
-title: web安全实战学习(一) HTTP协议
+title: web安全实战学习-- HTTP协议
 date: 2018-11-05 13:36:26
 tags:
+categories: web安全实战学习
 ---
 ![](web安全实战学习--HTTP协议/1.png)
 
