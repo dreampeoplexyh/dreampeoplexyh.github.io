@@ -92,7 +92,7 @@
 <meta property="og:image" content="https://dreampeoplexyh.github.io/2018/11/28/web安全实战学习-Command-Injection/7.jpg">
 <meta property="og:image" content="https://dreampeoplexyh.github.io/2018/11/28/web安全实战学习-Command-Injection/4.jpg">
 <meta property="og:image" content="https://dreampeoplexyh.github.io/2018/11/28/web安全实战学习-Command-Injection/8.jpg">
-<meta property="og:updated_time" content="2018-11-28T06:34:54.320Z">
+<meta property="og:updated_time" content="2018-11-28T06:42:51.284Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="web安全实战学习-Command Injection">
 <meta name="twitter:image" content="https://dreampeoplexyh.github.io/2018/11/28/web安全实战学习-Command-Injection/0.jpg.jpeg">
@@ -347,7 +347,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-11-28T14:34:54+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-11-28T14:42:51+08:00">
                 2018-11-28
               </time>
             
@@ -424,7 +424,7 @@
       
         <p><img src="/2018/11/28/web安全实战学习-Command-Injection/0.jpg.jpeg" alt=""></p>
 <a id="more"></a>
-<h3 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a><strong>0x00 前言</strong></h3><p>这次我们讲下命令行注入,由于没有过滤很多字符，导致在开发者本来只允许调用的系统命令，让某些别有用心的人发现漏洞后直接调用其他系统命令，直接控制电脑的行为。</p>
+<h3 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a><strong>0x00 前言</strong></h3><p>这次我们讲下命令注入,由于没有过滤很多字符，导致在开发者本来只允许调用的系统命令，让某些别有用心的人发现漏洞后直接调用其他系统命令，直接控制电脑的行为。</p>
 <h3 id="0x01-开始实验"><a href="#0x01-开始实验" class="headerlink" title="0x01 开始实验"></a><strong>0x01 开始实验</strong></h3><p>这次没有基本知识，都是些浅而易见的知识</p>
 <h4 id="low等级"><a href="#low等级" class="headerlink" title="low等级"></a>low等级</h4><p>我们看下源码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">Command Injection Source</span><br><span class="line">&lt;?php </span><br><span class="line"></span><br><span class="line">if( isset( $_POST[ &apos;Submit&apos; ]  ) ) &#123; </span><br><span class="line">    // Check Anti-CSRF token </span><br><span class="line">    checkToken( $_REQUEST[ &apos;user_token&apos; ], $_SESSION[ &apos;session_token&apos; ], &apos;index.php&apos; ); </span><br><span class="line"></span><br><span class="line">    // Get input </span><br><span class="line">    $target = $_REQUEST[ &apos;ip&apos; ]; </span><br><span class="line">    $target = stripslashes( $target ); </span><br><span class="line"></span><br><span class="line">    // Split the IP into 4 octects </span><br><span class="line">    $octet = explode( &quot;.&quot;, $target ); </span><br><span class="line"></span><br><span class="line">    // Check IF each octet is an integer </span><br><span class="line">    if( ( is_numeric( $octet[0] ) ) &amp;&amp; ( is_numeric( $octet[1] ) ) &amp;&amp; ( is_numeric( $octet[2] ) ) &amp;&amp; ( is_numeric( $octet[3] ) ) &amp;&amp; ( sizeof( $octet ) == 4 ) ) &#123;</span><br><span class="line">        // If all 4 octets are int&apos;s put the IP back together. </span><br><span class="line">        $target = $octet[0] . &apos;.&apos; . $octet[1] . &apos;.&apos; . $octet[2] . &apos;.&apos; . $octet[3]; </span><br><span class="line"></span><br><span class="line">        // Determine OS and execute the ping command. </span><br><span class="line">        if( stristr( php_uname( &apos;s&apos; ), &apos;Windows NT&apos; ) ) &#123; </span><br><span class="line">            // Windows </span><br><span class="line">            $cmd = shell_exec( &apos;ping  &apos; . $target ); </span><br><span class="line">        &#125; </span><br><span class="line">        else &#123; </span><br><span class="line">            // *nix </span><br><span class="line">            $cmd = shell_exec( &apos;ping  -c 4 &apos; . $target ); </span><br><span class="line">        &#125; </span><br><span class="line"></span><br><span class="line">        // Feedback for the end user </span><br><span class="line">        echo &quot;&lt;pre&gt;&#123;$cmd&#125;&lt;/pre&gt;&quot;; </span><br><span class="line">    &#125; </span><br><span class="line">    else &#123; </span><br><span class="line">        // Ops. Let the user name theres a mistake </span><br><span class="line">        echo &apos;&lt;pre&gt;ERROR: You have entered an invalid IP.&lt;/pre&gt;&apos;; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">// Generate Anti-CSRF token </span><br><span class="line">generateSessionToken(); </span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></p>
 <p>无任何过滤，直接调用系统ping命令，我们试下看</p>
@@ -485,6 +485,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/02/windows常用软件/" rel="prev" title="windows常用软件">
+                windows常用软件 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -565,7 +569,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
