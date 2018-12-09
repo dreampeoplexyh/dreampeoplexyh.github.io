@@ -397,6 +397,79 @@ npm install                 //安装完npm
 ```
 ok了，直接将这三个文件替换就行了，后面的操作如上，下载上传插件，git上传秘钥配置。
 
+## **0x04 博客自动化和图片改名**
+> 每次都得hexo clean,hexo g,hexo s,hexo d,git等等，能不能一键自动化？好的
+```
+# os.chdir(path)改变当前工作目录到指定目录
+# path -- 要切换到的新路径。如果允许访问返回 True , 否则返回False。
+import os
+import time
+import sys
+path = "E:/text1111111111/dreampeoplexyh.github.io"
+# 查看当前工作目录
+retval = os.getcwd()
+print("当前工作目录为 %s" % retval)
+# 修改当前工作目录
+os.chdir(path)
+# 查看修改后的工作目录
+retval = os.getcwd()
+
+def infor():
+    print("输入1就是本地查看")
+    print("输入2就是上传到github")
+    print("输入到3就是备份到github上")
+    print("输入到4就是正常退出")
+def See():
+    print("当前工作目录%s" %retval)
+    os.system("hexo clean&&hexo g&&hexo s")
+    time.sleep(3)
+def NewSee():
+    print("当前工作目录%s" %retval)
+    os.system("hexo clean&&hexo g&&hexo d")
+    time.sleep(3)
+def git():
+    str = input("你跟新了什么内容")
+    time.sleep(3)
+    os.system("git add .&&git commit -m'str'&&git push origin hexo")
+
+
+if __name__ == '__main__':
+    infor()
+    while True:
+        num = int(input("请输入你需要的功能提交的功能"))
+        if num == 1:
+            See()
+        elif num == 2:
+            NewSee()
+        elif num == 3:
+            git()
+        elif num == 4:
+            sys.exit()
+```
+缺点也有很多，以后慢慢完善吧，现在用着还挺爽的
+
+> 每次做的图和截的图名字都好长啊，我还得一个个去改名字，能不能一键批量改啊，ok,一键批量从1到末尾改好名字
+
+```
+import os
+str1 = input("请输入地址")
+for i in str1:
+    if i=="\\":
+        str1 = str1.replace(i, "/")
+    else:
+        pass
+path = str1
+f = os.listdir(path)
+n = 0
+for i in f:
+    old_name = path+"/"+f[n]
+    new_name = path+"/"+str(n+1)+".jpg"
+    os.rename(old_name, new_name)
+    n+=1
+    if n == len(f):
+        break
+```
+
 
 
 

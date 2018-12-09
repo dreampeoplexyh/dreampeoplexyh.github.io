@@ -196,7 +196,7 @@ categories: 工具
 * 开源和应用性比较好的软件，相对成熟，但随着。。。
 ![](windows常用软件/30.png)
 
-### [Brook](http://dwz.cn/fjr47)
+### [Brook](https://github.com/txthinking/brook)
 * 开源和跨平台比较好的代理软件、项目不算很成熟，偶尔掉线
 ![](windows常用软件/31.png)
 
