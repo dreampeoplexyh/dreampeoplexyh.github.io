@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="web安全实战学习-Brute-CSRF">
+<meta property="og:url" content="https://dreampeoplexyh.github.io/2018/12/08/web安全实战学习-CSRF/index.html">
+<meta property="og:site_name" content="jusk?">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/12/08/web安全实战学习-CSRF/17.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/12/08/web安全实战学习-CSRF/1.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/12/08/web安全实战学习-CSRF/2.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/12/08/web安全实战学习-CSRF/3.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/12/08/web安全实战学习-CSRF/4.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/12/08/web安全实战学习-CSRF/5.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/12/08/web安全实战学习-CSRF/3.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/12/08/web安全实战学习-CSRF/6.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/12/08/web安全实战学习-CSRF/7.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/12/08/web安全实战学习-CSRF/8.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/12/08/web安全实战学习-CSRF/9.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/12/08/web安全实战学习-CSRF/10.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/12/08/web安全实战学习-CSRF/11.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/12/08/web安全实战学习-CSRF/12.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/12/08/web安全实战学习-CSRF/13.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/12/08/web安全实战学习-CSRF/14.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/12/08/web安全实战学习-CSRF/15.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/12/08/web安全实战学习-CSRF/3.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/12/08/web安全实战学习-CSRF/16.png">
+<meta property="og:updated_time" content="2018-12-09T11:05:37.112Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="web安全实战学习-Brute-CSRF">
+<meta name="twitter:image" content="https://dreampeoplexyh.github.io/2018/12/08/web安全实战学习-CSRF/17.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://dreampeoplexyh.github.io/2018/12/08/web安全实战学习-CSRF/"/>
+
+
+
+
+
+  <title>web安全实战学习-Brute-CSRF | jusk?</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">jusk?</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录、分享、思想自由</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dreampeoplexyh.github.io/2018/12/08/web安全实战学习-CSRF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BrightLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jusk?">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">web安全实战学习-Brute-CSRF</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-08T16:04:50+08:00">
+                2018-12-08
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-12-09T19:05:37+08:00">
+                2018-12-09
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web安全实战学习/" itemprop="url" rel="index">
+                    <span itemprop="name">web安全实战学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/2018/12/08/web安全实战学习-CSRF/17.png" alt=""></p>
+<a id="more"></a>
+<h3 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a><strong>0x00 前言</strong></h3><p>有时候我们常常在听到这样的新闻，点了某个链接，就突然钱没了，这并不是匪夷所思，这是完全可能的事，攻击者利用的就是CSRF(Cross-site request forgery)跨站请求伪造，攻击者欺骗浏览器，让受害者以自己的名义执行攻击者想要的操作。可能你会问，我傻啊，骗子链接我可能点吗？但是如果攻击者利用社会工程学，将链接包装成美图图片等的话，你又会不会去点呢。直接我们来操作一下，看下CSRF是如何登录的。</p>
+<p>我们可以先看下实验<br><img src="/2018/12/08/web安全实战学习-CSRF/1.png" alt=""><br>攻击者诱使受害者点一下自己构建的链接，从而将密码改成自己想要设置的密码，从而登录受害者账号。</p>
+<p>我们的正常登录流程<br><img src="/2018/12/08/web安全实战学习-CSRF/2.png" alt=""><br><img src="/2018/12/08/web安全实战学习-CSRF/3.png" alt=""></p>
+<p>我们将两次相同的密码输入进去，他的密码就算改变了，之后就只能用新的密码登录</p>
+<h3 id="0x01-开始实验"><a href="#0x01-开始实验" class="headerlink" title="0x01 开始实验"></a><strong>0x01 开始实验</strong></h3><p>这次工具还是前几次介绍的工具，主要是利用的burp。</p>
+<h4 id="low等级"><a href="#low等级" class="headerlink" title="low等级"></a>low等级</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">CSRF Source</span><br><span class="line">&lt;?php </span><br><span class="line"></span><br><span class="line">if( isset( $_GET[ &apos;Change&apos; ] ) ) &#123; </span><br><span class="line">    // Get input </span><br><span class="line">    $pass_new  = $_GET[ &apos;password_new&apos; ]; </span><br><span class="line">    $pass_conf = $_GET[ &apos;password_conf&apos; ]; </span><br><span class="line"></span><br><span class="line">    // Do the passwords match? </span><br><span class="line">    if( $pass_new == $pass_conf ) &#123; </span><br><span class="line">        // They do! </span><br><span class="line">        $pass_new = mysql_real_escape_string( $pass_new ); </span><br><span class="line">        $pass_new = md5( $pass_new ); </span><br><span class="line"></span><br><span class="line">        // Update the database </span><br><span class="line">        $insert = &quot;UPDATE `users` SET password = &apos;$pass_new&apos; WHERE user = &apos;&quot; . dvwaCurrentUser() . &quot;&apos;;&quot;;</span><br><span class="line">        $result = mysql_query( $insert ) or die( &apos;&lt;pre&gt;&apos; . mysql_error() . &apos;&lt;/pre&gt;&apos; ); </span><br><span class="line"></span><br><span class="line">        // Feedback for the user </span><br><span class="line">        echo &quot;&lt;pre&gt;Password Changed.&lt;/pre&gt;&quot;; </span><br><span class="line">    &#125; </span><br><span class="line">    else &#123; </span><br><span class="line">        // Issue with passwords matching </span><br><span class="line">        echo &quot;&lt;pre&gt;Passwords did not match.&lt;/pre&gt;&quot;; </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    mysql_close(); </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>在代码层面我们可以知道并没有任何的防御，我们看下截获的包<br><img src="/2018/12/08/web安全实战学习-CSRF/4.png" alt=""></p>
+<p>哈哈，直接get的包被明文传输，ok,直接构建链接我们来看下<br>192.168.20.4/DVWA-1.9/vulnerabilities/csrf/?password_new=xiaoming&amp;password_conf=xiaoming&amp;Change=Change#</p>
+<p> 当然你也可以包装一下咯，学过html的我们可以构建出我们想要的页面，只需要将链接隐藏在里面就可以了<br> 我们看下，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;!--[if lt IE 7]&gt;      &lt;html class=&quot;no-js lt-ie9 lt-ie8 lt-ie7&quot;&gt; &lt;![endif]--&gt;</span><br><span class="line">&lt;!--[if IE 7]&gt;         &lt;html class=&quot;no-js lt-ie9 lt-ie8&quot;&gt; &lt;![endif]--&gt;</span><br><span class="line">&lt;!--[if IE 8]&gt;         &lt;html class=&quot;no-js lt-ie9&quot;&gt; &lt;![endif]--&gt;</span><br><span class="line">&lt;!--[if gt IE 8]&gt;&lt;!--&gt; &lt;html class=&quot;no-js&quot;&gt; &lt;!--&lt;![endif]--&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">        &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</span><br><span class="line">        &lt;title&gt;&lt;/title&gt;</span><br><span class="line">        &lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;</span><br><span class="line">        &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;</span><br><span class="line">        &lt;link rel=&quot;stylesheet&quot; href=&quot;&quot;&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;form action=&quot;192.168.20.4/DVWA-1.9/vulnerabilities/csrf/?password_new=xiaoming&amp;password_conf=xiaoming&amp;Change=Change#&quot;&gt;</span><br><span class="line">			&lt;input type=&quot;hidden&quot; AUTOCOMPLETE=&quot;off&quot; name=&quot;password_new&quot;&gt;</span><br><span class="line">			&lt;input type=&quot;hidden&quot; AUTOCOMPLETE=&quot;off&quot; name=&quot;password_conf&quot;&gt;</span><br><span class="line">			&lt;input type=&quot;hidden&quot; value=&quot;Change&quot; name=&quot;Change&quot;&gt;</span><br><span class="line">            &lt;input type=&quot;submit&quot; value=&quot;美女图片&quot;&gt;</span><br><span class="line">        &lt;/form&gt;</span><br><span class="line">        </span><br><span class="line">        &lt;script src=&quot;&quot; async defer&gt;&lt;/script&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="/2018/12/08/web安全实战学习-CSRF/5.png" alt=""></p>
+<p>我们把他放在本地服务器上测试，面运行起来看看效果，ok，成功跳转，成功改密。<br><img src="/2018/12/08/web安全实战学习-CSRF/3.png" alt=""></p>
+<h4 id="medium-等级"><a href="#medium-等级" class="headerlink" title="medium 等级"></a>medium 等级</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">CSRF Source</span><br><span class="line">&lt;?php </span><br><span class="line"></span><br><span class="line">if( isset( $_GET[ &apos;Change&apos; ] ) ) &#123; </span><br><span class="line">    // Checks to see where the request came from </span><br><span class="line">    if( eregi( $_SERVER[ &apos;SERVER_NAME&apos; ], $_SERVER[ &apos;HTTP_REFERER&apos; ] ) ) &#123; </span><br><span class="line">        // Get input </span><br><span class="line">        $pass_new  = $_GET[ &apos;password_new&apos; ]; </span><br><span class="line">        $pass_conf = $_GET[ &apos;password_conf&apos; ]; </span><br><span class="line"></span><br><span class="line">        // Do the passwords match? </span><br><span class="line">        if( $pass_new == $pass_conf ) &#123; </span><br><span class="line">            // They do! </span><br><span class="line">            $pass_new = mysql_real_escape_string( $pass_new ); </span><br><span class="line">            $pass_new = md5( $pass_new ); </span><br><span class="line"></span><br><span class="line">            // Update the database </span><br><span class="line">            $insert = &quot;UPDATE `users` SET password = &apos;$pass_new&apos; WHERE user = &apos;&quot; . dvwaCurrentUser() . &quot;&apos;;&quot;;</span><br><span class="line">            $result = mysql_query( $insert ) or die( &apos;&lt;pre&gt;&apos; . mysql_error() . &apos;&lt;/pre&gt;&apos; ); </span><br><span class="line"></span><br><span class="line">            // Feedback for the user </span><br><span class="line">            echo &quot;&lt;pre&gt;Password Changed.&lt;/pre&gt;&quot;; </span><br><span class="line">        &#125; </span><br><span class="line">        else &#123; </span><br><span class="line">            // Issue with passwords matching </span><br><span class="line">            echo &quot;&lt;pre&gt;Passwords did not match.&lt;/pre&gt;&quot;; </span><br><span class="line">        &#125; </span><br><span class="line">    &#125; </span><br><span class="line">    else &#123; </span><br><span class="line">        // Didn&apos;t come from a trusted source </span><br><span class="line">        echo &quot;&lt;pre&gt;That request didn&apos;t look correct.&lt;/pre&gt;&quot;; </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    mysql_close(); </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>里面的函数我们可以看下<br>int eregi(string pattern, string string)<br>检查string中是否含有pattern（不区分大小写），如果有返回TRUE,反之False。<br>他还保留了源地址，检查http包头是否含有源地址以此来防御CSRF攻击</p>
+<p>我们来看下正常到底发的啥包<br><img src="/2018/12/08/web安全实战学习-CSRF/6.png" alt=""><br>如果我们还是用low等级构造的链接，但是失败了，到底什么原因造成的呢？<br>我们对比一下我们失败的包和成功的包</p>
+<p>失败包<br><img src="/2018/12/08/web安全实战学习-CSRF/7.png" alt=""></p>
+<p>成功包<br><img src="/2018/12/08/web安全实战学习-CSRF/8.png" alt=""></p>
+<p>我们发现成功的包中有referer(来源地址)，而失败的包中没有referer,然道是在代码中校验了，带着好奇心我们进入将发送改密失败的包改了几次，第一次将成功的包referer中的数据全都复制到失败包中，成功，我们继续实验，发现原来只要包中包含自己发送者的ip，就能成功改密。<br><img src="/2018/12/08/web安全实战学习-CSRF/9.png" alt=""></p>
+<p>这样我们就知道怎么构造链接了，只需要让发送的包含有本地ip就可以，我们可以这么做，在WWW目录下新建一个本地ip的文件夹，然后将原来low等级的网页放进去。<br><img src="/2018/12/08/web安全实战学习-CSRF/10.png" alt=""></p>
+<p>然后我们试一下是不是能改密码，成功改密。<br><img src="/2018/12/08/web安全实战学习-CSRF/11.png" alt=""></p>
+<h4 id="hign-等级"><a href="#hign-等级" class="headerlink" title="hign 等级"></a>hign 等级</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">CSRF Source</span><br><span class="line">&lt;?php </span><br><span class="line"></span><br><span class="line">if( isset( $_GET[ &apos;Change&apos; ] ) ) &#123; </span><br><span class="line">    // Check Anti-CSRF token </span><br><span class="line">    checkToken( $_REQUEST[ &apos;user_token&apos; ], $_SESSION[ &apos;session_token&apos; ], &apos;index.php&apos; ); </span><br><span class="line"></span><br><span class="line">    // Get input </span><br><span class="line">    $pass_new  = $_GET[ &apos;password_new&apos; ]; </span><br><span class="line">    $pass_conf = $_GET[ &apos;password_conf&apos; ]; </span><br><span class="line"></span><br><span class="line">    // Do the passwords match? </span><br><span class="line">    if( $pass_new == $pass_conf ) &#123; </span><br><span class="line">        // They do! </span><br><span class="line">        $pass_new = mysql_real_escape_string( $pass_new ); </span><br><span class="line">        $pass_new = md5( $pass_new ); </span><br><span class="line"></span><br><span class="line">        // Update the database </span><br><span class="line">        $insert = &quot;UPDATE `users` SET password = &apos;$pass_new&apos; WHERE user = &apos;&quot; . dvwaCurrentUser() . &quot;&apos;;&quot;;</span><br><span class="line">        $result = mysql_query( $insert ) or die( &apos;&lt;pre&gt;&apos; . mysql_error() . &apos;&lt;/pre&gt;&apos; ); </span><br><span class="line"></span><br><span class="line">        // Feedback for the user </span><br><span class="line">        echo &quot;&lt;pre&gt;Password Changed.&lt;/pre&gt;&quot;; </span><br><span class="line">    &#125; </span><br><span class="line">    else &#123; </span><br><span class="line">        // Issue with passwords matching </span><br><span class="line">        echo &quot;&lt;pre&gt;Passwords did not match.&lt;/pre&gt;&quot;; </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    mysql_close(); </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">// Generate Anti-CSRF token </span><br><span class="line">generateSessionToken(); </span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>这边加了Generate Anti-CSRF token，也就是说每次我们用户访问改密请求时，需要提交token参数，而服务器在收到请求时，会优先检查token,只有token正确，才会处理客户端的请求</p>
+<p>我们看下high等级截获的正常的包<br><img src="/2018/12/08/web安全实战学习-CSRF/12.png" alt=""><br>加了user_token,随机字符串能有效CSRF攻击，</p>
+<p>在源代码中我们可以清晰的看见这个user_token<br><img src="/2018/12/08/web安全实战学习-CSRF/13.png" alt=""></p>
+<p>绕过就要获取对方页面的token，怎么办，现在浏览器都是不允许跨域请求的，也就是说域名A（攻击者）是不允许获取域名B（受害者）页面中的内容的。那我们转念一想，能不能B（受害者）自己将自己页面的token值乖乖送到A(攻击者)手上呢。<br>要乖乖送到手上，如果有存储型xss漏洞就好了啊，这样我们只要注入页面中，只要等B（受害者）上钩就可以了，果不其然，我们发现现成的存储型Xss漏洞<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注入 &lt;img src=1 onerror=alert(1)&gt;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/12/08/web安全实战学习-CSRF/14.png" alt=""></p>
+<p>想吐槽下这个程序网站，明明存在xss漏洞，怎么都不弹窗存在，关机之后，开机之后又可以，真不知道是什么原因，然后就是反复出现这个问题，网上其他同学的方法都试了，构造不成，我知道肯定是我的问题，那么我们就抓包实战吧，盗取cookie，看能不能改下密码</p>
+<p><img src="/2018/12/08/web安全实战学习-CSRF/15.png" alt=""></p>
+<p>果然成功<br><img src="/2018/12/08/web安全实战学习-CSRF/3.png" alt=""></p>
+<p>这次的构造就算失败了，xss没法利用，我看下次这网站好了没。</p>
+<h4 id="impossible-等级"><a href="#impossible-等级" class="headerlink" title="impossible 等级"></a>impossible 等级</h4><p>还是老样子，先看下源码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">CSRF Source</span><br><span class="line">&lt;?php </span><br><span class="line"></span><br><span class="line">if( isset( $_GET[ &apos;Change&apos; ] ) ) &#123; </span><br><span class="line">    // Check Anti-CSRF token </span><br><span class="line">    checkToken( $_REQUEST[ &apos;user_token&apos; ], $_SESSION[ &apos;session_token&apos; ], &apos;index.php&apos; ); </span><br><span class="line"></span><br><span class="line">    // Get input </span><br><span class="line">    $pass_curr = $_GET[ &apos;password_current&apos; ]; </span><br><span class="line">    $pass_new  = $_GET[ &apos;password_new&apos; ]; </span><br><span class="line">    $pass_conf = $_GET[ &apos;password_conf&apos; ]; </span><br><span class="line"></span><br><span class="line">    // Sanitise current password input </span><br><span class="line">    $pass_curr = stripslashes( $pass_curr ); </span><br><span class="line">    $pass_curr = mysql_real_escape_string( $pass_curr ); </span><br><span class="line">    $pass_curr = md5( $pass_curr ); </span><br><span class="line"></span><br><span class="line">    // Check that the current password is correct </span><br><span class="line">    $data = $db-&gt;prepare( &apos;SELECT password FROM users WHERE user = (:user) AND password = (:password) LIMIT 1;&apos; );</span><br><span class="line">    $data-&gt;bindParam( &apos;:user&apos;, dvwaCurrentUser(), PDO::PARAM_STR ); </span><br><span class="line">    $data-&gt;bindParam( &apos;:password&apos;, $pass_curr, PDO::PARAM_STR ); </span><br><span class="line">    $data-&gt;execute(); </span><br><span class="line"></span><br><span class="line">    // Do both new passwords match and does the current password match the user? </span><br><span class="line">    if( ( $pass_new == $pass_conf ) &amp;&amp; ( $data-&gt;rowCount() == 1 ) ) &#123; </span><br><span class="line">        // It does! </span><br><span class="line">        $pass_new = stripslashes( $pass_new ); </span><br><span class="line">        $pass_new = mysql_real_escape_string( $pass_new ); </span><br><span class="line">        $pass_new = md5( $pass_new ); </span><br><span class="line"></span><br><span class="line">        // Update database with new password </span><br><span class="line">        $data = $db-&gt;prepare( &apos;UPDATE users SET password = (:password) WHERE user = (:user);&apos; ); </span><br><span class="line">        $data-&gt;bindParam( &apos;:password&apos;, $pass_new, PDO::PARAM_STR ); </span><br><span class="line">        $data-&gt;bindParam( &apos;:user&apos;, dvwaCurrentUser(), PDO::PARAM_STR ); </span><br><span class="line">        $data-&gt;execute(); </span><br><span class="line"></span><br><span class="line">        // Feedback for the user </span><br><span class="line">        echo &quot;&lt;pre&gt;Password Changed.&lt;/pre&gt;&quot;; </span><br><span class="line">    &#125; </span><br><span class="line">    else &#123; </span><br><span class="line">        // Issue with passwords matching </span><br><span class="line">        echo &quot;&lt;pre&gt;Passwords did not match or current password incorrect.&lt;/pre&gt;&quot;; </span><br><span class="line">    &#125; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">// Generate Anti-CSRF token </span><br><span class="line">generateSessionToken(); </span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2018/12/08/web安全实战学习-CSRF/16.png" alt=""><br>这次我们试下之前的方法，都失败了，原因是不知道B(受害者)之前的密码，没法改</p>
+<p>我们可以结合图片看下源码，不仅需要输入原来的密码，而且加入了Anti-CSRF token 来防止CSRF攻击，有效防止了跨站请求攻击。<br>防御的话我们还可以加入验证码这种防御措施，这样也可以有效防止CSRF攻击</p>
+<h3 id="0x03-总结"><a href="#0x03-总结" class="headerlink" title="0x03 总结"></a><strong>0x03 总结</strong></h3><p>我们这次介绍了CSRF攻击，知道了他在我们网页中还是危害很大的。所以千万别点击陌生人的链接哦。</p>
+
+      
+    </div>
+    
+    
+    
+  
+      <div>
+          
+    <div style="text-align:center;color: #ccc;font-size:16px;">
+        ------ 本文结束------</div>
+    
+      </div>
+    
+
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/02/windows常用软件/" rel="next" title="windows常用软件">
+                <i class="fa fa-chevron-left"></i> windows常用软件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="BrightLoong" />
+            
+              <p class="site-author-name" itemprop="name">BrightLoong</p>
+              <p class="site-description motion-element" itemprop="description">现实本就是不可逆的，心肠只会越来越硬</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/dreampeoplexyh" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x00-前言"><span class="nav-number">1.</span> <span class="nav-text">0x00 前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-开始实验"><span class="nav-number">2.</span> <span class="nav-text">0x01 开始实验</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#low等级"><span class="nav-number">2.1.</span> <span class="nav-text">low等级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#medium-等级"><span class="nav-number">2.2.</span> <span class="nav-text">medium 等级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hign-等级"><span class="nav-number">2.3.</span> <span class="nav-text">hign 等级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#impossible-等级"><span class="nav-number">2.4.</span> <span class="nav-text">impossible 等级</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-总结"><span class="nav-number">3.</span> <span class="nav-text">0x03 总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BrightLoong</span>
+
+  
+</div>
+
+
+  <!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+  -->
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
