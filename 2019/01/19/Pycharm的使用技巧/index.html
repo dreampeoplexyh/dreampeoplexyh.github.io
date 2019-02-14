@@ -80,15 +80,16 @@
 
 
 <meta property="og:type" content="article">
-<meta property="og:title" content="shadowsocks搭建笔记">
-<meta property="og:url" content="https://dreampeoplexyh.github.io/2018/08/14/shadowsocks搭建笔记/index.html">
+<meta property="og:title" content="Pycharm的使用技巧">
+<meta property="og:url" content="https://dreampeoplexyh.github.io/2019/01/19/Pycharm的使用技巧/index.html">
 <meta property="og:site_name" content="jusk?">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/08/14/shadowsocks搭建笔记/shadowsocks.png">
-<meta property="og:updated_time" content="2018-09-23T01:35:24.379Z">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/01/19/Pycharm的使用技巧/1.jpg">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/01/19/Pycharm的使用技巧/3.png">
+<meta property="og:updated_time" content="2019-01-19T07:54:25.020Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="shadowsocks搭建笔记">
-<meta name="twitter:image" content="https://dreampeoplexyh.github.io/2018/08/14/shadowsocks搭建笔记/shadowsocks.png">
+<meta name="twitter:title" content="Pycharm的使用技巧">
+<meta name="twitter:image" content="https://dreampeoplexyh.github.io/2019/01/19/Pycharm的使用技巧/1.jpg">
 
 
 
@@ -118,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://dreampeoplexyh.github.io/2018/08/14/shadowsocks搭建笔记/"/>
+  <link rel="canonical" href="https://dreampeoplexyh.github.io/2019/01/19/Pycharm的使用技巧/"/>
 
 
 
 
 
-  <title>shadowsocks搭建笔记 | jusk?</title>
+  <title>Pycharm的使用技巧 | jusk?</title>
   
 
 
@@ -295,7 +296,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://dreampeoplexyh.github.io/2018/08/14/shadowsocks搭建笔记/">
+    <link itemprop="mainEntityOfPage" href="https://dreampeoplexyh.github.io/2019/01/19/Pycharm的使用技巧/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BrightLoong">
@@ -312,7 +313,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">shadowsocks搭建笔记</h1>
+          <h1 class="post-title" itemprop="name headline">Pycharm的使用技巧</h1>
         
 
         <div class="post-meta">
@@ -324,8 +325,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-14T23:08:00+08:00">
-                2018-08-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-19T14:35:43+08:00">
+                2019-01-19
               </time>
             
 
@@ -340,8 +341,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-23T09:35:24+08:00">
-                2018-09-23
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-19T15:54:25+08:00">
+                2019-01-19
               </time>
             
           </span>
@@ -393,34 +394,63 @@
       
 
       
-        <p><img src="/2018/08/14/shadowsocks搭建笔记/shadowsocks.png" alt=""></p>
+        <p><img src="/2019/01/19/Pycharm的使用技巧/1.jpg" alt=""></p>
 <a id="more"></a>
-<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">shadowsocks简介</span><br><span class="line">Centos安装4.17内核</span><br><span class="line">shadowsocks搭建过程</span><br><span class="line">安装BBR谷歌加速</span><br></pre></td></tr></table></figure>
-<h3 id="0x00-shadowsocks简介"><a href="#0x00-shadowsocks简介" class="headerlink" title="0x00 shadowsocks简介"></a><strong>0x00 shadowsocks简介</strong></h3><p>shadowsocks：<a href="https://vc2tea.com/whats-shadowsocks/这里面有比较详细的解答" target="_blank" rel="noopener">https://vc2tea.com/whats-shadowsocks/这里面有比较详细的解答</a>  简单来说是一个正向代理，可以欺骗绕过GFW的过滤规则，但是现在流量特征也比较明显，也可能之后被识别成无用吧。</p>
-<h3 id="0x01-CentOs安装4-17内核"><a href="#0x01-CentOs安装4-17内核" class="headerlink" title="0x01 CentOs安装4.17内核"></a><strong>0x01 CentOs安装4.17内核</strong></h3><p>很多时候那个Centos服务器不是那个内核4.17的，这时候就需要去改变Centos服务器的内核了<br>确定是否是4.17内核<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -r</span><br></pre></td></tr></table></figure></p>
-<p>不是则导入elrepo安装源<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</span><br><span class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm</span><br></pre></td></tr></table></figure></p>
-<p>安装4.17内核<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum --enablerepo=elrepo-kernel install -y kernel-ml</span><br></pre></td></tr></table></figure></p>
-<p>确认安装结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa | grep kernel-ml</span><br></pre></td></tr></table></figure></p>
-<p>列出当前grub2启动菜单的所有项<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -F\&apos; &apos;$1==&quot;menuentry &quot; &#123;print i++ &quot;:&quot; $2&#125;&apos; /etc/grub2.cfg</span><br></pre></td></tr></table></figure></p>
-<p>结果实例如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0:CentOS Linux (4.17.0-1.el7.elrepo.x86_64) 7 (Core)</span><br><span class="line">1:CentOS Linux (3.10.0-862.3.2.el7.x86_64) 7 (Core)</span><br><span class="line">2:CentOS Linux (3.10.0-862.2.3.el7.x86_64) 7 (Core)</span><br><span class="line">3:CentOS Linux (0-rescue-6bdeb3da718c4577872532063c9d3ab2) 7 (Core)</span><br></pre></td></tr></table></figure></p>
-<p>我们需要将新的内核设置为启动项，在结果中编号为0，那么执行以下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo grub2-set-default 0</span><br></pre></td></tr></table></figure></p>
-<p>重启系统<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl reboot</span><br></pre></td></tr></table></figure></p>
-<p>重启完成后确认内核版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">uname -r</span><br><span class="line">4.17.0-1.el7.elrepo.x86_64</span><br></pre></td></tr></table></figure></p>
-<h3 id="0x02-shadowsocks搭建过程"><a href="#0x02-shadowsocks搭建过程" class="headerlink" title="0x02 shadowsocks搭建过程"></a><strong>0x02 shadowsocks搭建过程</strong></h3><p><strong>方案一：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum -y install wget</span><br><span class="line"></span><br><span class="line">wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/ssr.sh &amp;&amp; chmod +x ssr.sh &amp;&amp; bash ssr.sh</span><br></pre></td></tr></table></figure></p>
-<p><strong>提示：全程跟着脚本提示走</strong></p>
-<h3 id="0x03-安装BBR谷歌加速"><a href="#0x03-安装BBR谷歌加速" class="headerlink" title="0x03 安装BBR谷歌加速"></a><strong>0x03 安装BBR谷歌加速</strong></h3><p><strong>方案一</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yum -y install wget</span><br><span class="line"></span><br><span class="line">wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh</span><br><span class="line"></span><br><span class="line">chmod +x bbr.sh</span><br><span class="line"></span><br><span class="line">./bbr.sh</span><br></pre></td></tr></table></figure></p>
-<p><strong>方案二：</strong><br>执行以下命令开启内核BBR功能<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo &apos;net.core.default_qdisc=fq&apos; | sudo tee -a /etc/sysctl.conf</span><br><span class="line">echo &apos;net.ipv4.tcp_congestion_control=bbr&apos; | sudo tee -a /etc/sysctl.conf</span><br><span class="line">sudo sysctl -p</span><br></pre></td></tr></table></figure></p>
-<p>使用以下命令确认BBR是否启用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.ipv4.tcp_available_congestion_control</span><br></pre></td></tr></table></figure></p>
-<p>输出结果应为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.tcp_available_congestion_control = bbr cubic reno</span><br></pre></td></tr></table></figure></p>
-<p>再输入以下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -n net.ipv4.tcp_congestion_control</span><br></pre></td></tr></table></figure></p>
-<p>输出结果应为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bbr</span><br></pre></td></tr></table></figure></p>
-<p>最后确认内核模块是否启用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsmod | grep bbr</span><br></pre></td></tr></table></figure></p>
-<p>输出结果应为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcp_bbr                16384  0</span><br></pre></td></tr></table></figure></p>
-<p>全剧终  shadowsocks搭建完成</p>
-<p>参考连接：<br><a href="http://www.ebanban.com/?p=562" target="_blank" rel="noopener">http://www.ebanban.com/?p=562</a></p>
-<p><a href="https://github.com/Alvin9999/new-pac/wiki/%E8%87%AA%E5%BB%BAss%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%99%E7%A8%8B" target="_blank" rel="noopener">https://github.com/Alvin9999/new-pac/wiki/%E8%87%AA%E5%BB%BAss%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%99%E7%A8%8B</a></p>
-<p><a href="https://github.com/iMeiji/shadowsocks_install/wiki/shadowsocks-optimize" target="_blank" rel="noopener">https://github.com/iMeiji/shadowsocks_install/wiki/shadowsocks-optimize</a></p>
-<p><a href="https://github.com/iMeiji/shadowsocks_install/pulse" target="_blank" rel="noopener">https://github.com/iMeiji/shadowsocks_install/pulse</a></p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>我们都知道Python有很多技巧使用，下面我们来聊聊我们经常使用的一些方法。</p>
+<h3 id="快捷键使用"><a href="#快捷键使用" class="headerlink" title="快捷键使用"></a>快捷键使用</h3><blockquote>
+<p>普通操作</p>
+</blockquote>
+<pre><code>ctrl+鼠标左键                  
+# 可以直接查找这个函数或类等，在实际代码中非常有用
+
+ctrl+F4
+# 可以关掉目前的标签页，但是不经常用啊，手哪有这么长
+
+ctrl+F
+# 这个挺有用的，查找什么的，直接用这个快捷键，查找这个文件下的东西
+
+ctrl + 向上箭头
+# 这个是调整视角用的，光标不变，但是视角会让你视角向上
+
+![](Pycharm的使用技巧/GIF.gif)
+
+
+ctrl + 向下箭头
+# 和上面的向上箭头刚好相反。
+
+ctrl + /
+# 注释和反注释代码
+
+F1 
+# 直接网页查找源代码解释
+
+ALT + F1
+# 直接查找当前文件
+
+双击shift
+# 这个真的神器，直接查找本项目的所有东西，什么文件夹，文件，类等都可以查
+
+Alt+1 
+# 显示左侧工程栏,和那个vscode的ctrl + B 是一样的
+
+Ctrl + R            
+# 替换 
+
+Ctrl + Shift + F  
+# 全局查找 
+
+Ctrl + Shift + R  
+# 全局替换 
+
+什么全选，粘贴，复制都是和平时快捷键一样
+</code></pre><blockquote>
+<p>调试操作</p>
+</blockquote>
+<p>我们都知道，调试在程序修改和程序运行时都是非常有用的，那么我们来讲下调试技巧</p>
+<p>F9：进入调试模式选择框，可以选择进行调试的脚本（）</p>
+<p>F8：一直往下一步走，每次跳一步，遇到调用方法（函数）时，直接返回函数结果，仍然继续往下</p>
+<p>F7：一直往下一步走，当遇到调用方法（函数）时，跳到该方法（函数）位置，执行完函数后再回到原来位置继续往下走<br>Shift + F9：直接进入Debugger模式，在Debugger中的Variables中可以查看步骤执行之后的变量值，想要查看没有显示的变量值，可以通过“+”号添加，或者“-”号移除</p>
+<p><img src="/2019/01/19/Pycharm的使用技巧/3.png" alt=""></p>
 
       
     </div>
@@ -454,8 +484,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/09/hexo-next搭建及其备份/" rel="next" title="HEXO+NEXT 搭建及其备份">
-                <i class="fa fa-chevron-left"></i> HEXO+NEXT 搭建及其备份
+              <a href="/2018/12/30/scrapy学习笔记-一/" rel="next" title="scrapy学习笔记(一)">
+                <i class="fa fa-chevron-left"></i> scrapy学习笔记(一)
               </a>
             
           </div>
@@ -463,10 +493,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/25/Bootstrap 基础知识（一）/" rel="prev" title="Bootstrap 之网站部署（一）">
-                Bootstrap 之网站部署（一） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -603,7 +629,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x00-shadowsocks简介"><span class="nav-number">2.</span> <span class="nav-text">0x00 shadowsocks简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-CentOs安装4-17内核"><span class="nav-number">3.</span> <span class="nav-text">0x01 CentOs安装4.17内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-shadowsocks搭建过程"><span class="nav-number">4.</span> <span class="nav-text">0x02 shadowsocks搭建过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-安装BBR谷歌加速"><span class="nav-number">5.</span> <span class="nav-text">0x03 安装BBR谷歌加速</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快捷键使用"><span class="nav-number">2.</span> <span class="nav-text">快捷键使用</span></a></li></ol></div>
             
 
           </div>
