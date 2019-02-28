@@ -167,8 +167,13 @@ categories: 工具
     * 屏蔽广告
         * [AdBlock](http://dwz.cn/fjr47)
     * 印象笔记*剪裁
+        * 配合印象笔记使用方便
     * SwitchyOmega
         * 配合一些软件代理比较方便
+    * json-viewer
+        * 直接解析json数据
+    * XPath Helper
+        * 玩爬虫的应该不陌生吧，解析网页
 
 ### Firefox浏览器
 * 和谷歌一样跨平台也好，同步性也好

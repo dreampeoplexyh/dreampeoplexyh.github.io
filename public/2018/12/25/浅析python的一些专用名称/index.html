@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="jusk?">
 <meta property="og:description" content="前言多少时候，被那些专有名词搞得很伤，但是又不得不去遵循那套规则。今天我们来聊一聊 可迭代对象，迭代器，生成器，闭包，装饰器这个几个专有名词的意思。 可迭代对象这个名称挺有意思的，从我们中文博大精深的字面意思可知，他首先是个对象，然后是可以迭代的,在聊这个可迭代对象这儿专有名词之前，我们可以先来认识认识什么是容器，容器我们可以理解为可以装东西的物件，平常我们经常吃饭，碗就成了容器，因为他可以装饭，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-25T09:09:29.459Z">
+<meta property="og:updated_time" content="2019-01-01T03:05:41.272Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅析python的一些专用名称">
 <meta name="twitter:description" content="前言多少时候，被那些专有名词搞得很伤，但是又不得不去遵循那套规则。今天我们来聊一聊 可迭代对象，迭代器，生成器，闭包，装饰器这个几个专有名词的意思。 可迭代对象这个名称挺有意思的，从我们中文博大精深的字面意思可知，他首先是个对象，然后是可以迭代的,在聊这个可迭代对象这儿专有名词之前，我们可以先来认识认识什么是容器，容器我们可以理解为可以装东西的物件，平常我们经常吃饭，碗就成了容器，因为他可以装饭，">
@@ -341,8 +341,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-12-25T17:09:29+08:00">
-                2018-12-25
+              <time title="更新于" itemprop="dateModified" datetime="2019-01-01T11:05:41+08:00">
+                2019-01-01
               </time>
             
           </span>
@@ -416,7 +416,7 @@
       
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>多少时候，被那些专有名词搞得很伤，但是又不得不去遵循那套规则。今天我们来聊一聊 可迭代对象，迭代器，生成器，闭包，装饰器这个几个专有名词的意思。</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>多少时候，被那些专有名词搞得很伤，但是又不得不去遵循那套规则。今天我们来聊一聊 可迭代对象，迭代器，生成器，闭包，装饰器这个几个专有名词的意思。</p>
 <h3 id="可迭代对象"><a href="#可迭代对象" class="headerlink" title="可迭代对象"></a>可迭代对象</h3><p>这个名称挺有意思的，从我们中文博大精深的字面意思可知，他首先是个对象，然后是可以迭代的,在聊这个可迭代对象这儿专有名词之前，我们可以先来认识认识什么是容器，容器我们可以理解为可以装东西的物件，平常我们经常吃饭，碗就成了容器，因为他可以装饭，在程序中，我们定义将多个元素组织在一起的数据结构称之为容器，常见的容器对象有:</p>
 <blockquote>
 <ul>
@@ -493,6 +493,7 @@
 <p>一般情况下为了让装饰器更通用，可以有return</p>
 <h4 id="装饰器—-装饰器带参数"><a href="#装饰器—-装饰器带参数" class="headerlink" title="装饰器—-装饰器带参数"></a>装饰器—-装饰器带参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">from time import ctime, sleep</span><br><span class="line"></span><br><span class="line">def timefun_arg(pre=&quot;hello&quot;):</span><br><span class="line">    def timefun(func):</span><br><span class="line">        def wrappedfunc():</span><br><span class="line">            print(&quot;%s called at %s %s&quot;%(func.__name__, ctime(), pre))</span><br><span class="line">            return func()</span><br><span class="line">        return wrappedfunc</span><br><span class="line">    return timefun</span><br><span class="line"></span><br><span class="line">@timefun_arg(&quot;itcast&quot;)</span><br><span class="line">def foo():</span><br><span class="line">    print(&quot;I am foo&quot;)</span><br><span class="line"></span><br><span class="line">@timefun_arg(&quot;python&quot;)</span><br><span class="line">def too():</span><br><span class="line">    print(&quot;I am too&quot;)</span><br><span class="line"></span><br><span class="line">foo()</span><br><span class="line">sleep(2)</span><br><span class="line">foo()</span><br><span class="line"></span><br><span class="line">too()</span><br><span class="line">sleep(2)</span><br><span class="line">too()</span><br></pre></td></tr></table></figure>
 <p>可以理解为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foo()==timefun_arg(&quot;itcast&quot;)(foo)()</span><br></pre></td></tr></table></figure></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>今天的名词解析就到这了，关于这些名词其实还有很多需要注意的地方，学无止境。</p>
 
       
     </div>
@@ -535,6 +536,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/30/scrapy学习笔记-一/" rel="prev" title="scrapy学习笔记(一)">
+                scrapy学习笔记(一) <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -615,7 +620,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -671,7 +676,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#可迭代对象"><span class="nav-number">1.1.</span> <span class="nav-text">可迭代对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代器"><span class="nav-number">1.2.</span> <span class="nav-text">迭代器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成器"><span class="nav-number">1.3.</span> <span class="nav-text">生成器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包"><span class="nav-number">1.4.</span> <span class="nav-text">闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么要使用闭包"><span class="nav-number">1.4.1.</span> <span class="nav-text">为什么要使用闭包</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装饰器"><span class="nav-number">1.5.</span> <span class="nav-text">装饰器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#缘起"><span class="nav-number">1.5.1.</span> <span class="nav-text">缘起</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#装饰器代码例子"><span class="nav-number">1.5.2.</span> <span class="nav-text">装饰器代码例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#装饰器—-被装饰的函数有参数"><span class="nav-number">1.5.3.</span> <span class="nav-text">装饰器—-被装饰的函数有参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#装饰器—-装饰器中的return"><span class="nav-number">1.5.4.</span> <span class="nav-text">装饰器—-装饰器中的return</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#装饰器—-装饰器带参数"><span class="nav-number">1.5.5.</span> <span class="nav-text">装饰器—-装饰器带参数</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可迭代对象"><span class="nav-number">2.</span> <span class="nav-text">可迭代对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代器"><span class="nav-number">3.</span> <span class="nav-text">迭代器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成器"><span class="nav-number">4.</span> <span class="nav-text">生成器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包"><span class="nav-number">5.</span> <span class="nav-text">闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么要使用闭包"><span class="nav-number">5.1.</span> <span class="nav-text">为什么要使用闭包</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装饰器"><span class="nav-number">6.</span> <span class="nav-text">装饰器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#缘起"><span class="nav-number">6.1.</span> <span class="nav-text">缘起</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#装饰器代码例子"><span class="nav-number">6.2.</span> <span class="nav-text">装饰器代码例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#装饰器—-被装饰的函数有参数"><span class="nav-number">6.3.</span> <span class="nav-text">装饰器—-被装饰的函数有参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#装饰器—-装饰器中的return"><span class="nav-number">6.4.</span> <span class="nav-text">装饰器—-装饰器中的return</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#装饰器—-装饰器带参数"><span class="nav-number">6.5.</span> <span class="nav-text">装饰器—-装饰器带参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -698,7 +703,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
