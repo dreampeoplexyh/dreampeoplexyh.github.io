@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="django启动之后，关于View源码分析">
+<meta property="og:url" content="https://dreampeoplexyh.github.io/2019/03/30/django启动之后，一些源码分析/index.html">
+<meta property="og:site_name" content="jusk?">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/03/30/django启动之后，一些源码分析/14.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/03/30/django启动之后，一些源码分析/1.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/03/30/django启动之后，一些源码分析/2.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/03/30/django启动之后，一些源码分析/3.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/03/30/django启动之后，一些源码分析/4.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/03/30/django启动之后，一些源码分析/5.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/03/30/django启动之后，一些源码分析/6.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/03/30/django启动之后，一些源码分析/7.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/03/30/django启动之后，一些源码分析/8.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/03/30/django启动之后，一些源码分析/9.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/03/30/django启动之后，一些源码分析/10.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/03/30/django启动之后，一些源码分析/11.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/03/30/django启动之后，一些源码分析/12.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/03/30/django启动之后，一些源码分析/13.png">
+<meta property="og:updated_time" content="2019-03-31T06:03:00.366Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="django启动之后，关于View源码分析">
+<meta name="twitter:image" content="https://dreampeoplexyh.github.io/2019/03/30/django启动之后，一些源码分析/14.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://dreampeoplexyh.github.io/2019/03/30/django启动之后，一些源码分析/"/>
+
+
+
+
+
+  <title>django启动之后，关于View源码分析 | jusk?</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">jusk?</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录、分享、思想自由</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dreampeoplexyh.github.io/2019/03/30/django启动之后，一些源码分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BrightLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jusk?">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">django启动之后，关于View源码分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-30T17:55:46+08:00">
+                2019-03-30
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-03-31T14:03:00+08:00">
+                2019-03-31
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Django/" itemprop="url" rel="index">
+                    <span itemprop="name">Django</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/2019/03/30/django启动之后，一些源码分析/14.png" alt=""></p>
+<a id="more"></a>
+<p>django启动之后，我们可以看看他的逻辑顺序</p>
+<p><img src="/2019/03/30/django启动之后，一些源码分析/1.png" alt=""></p>
+<p>drf view的基本思路<br><img src="/2019/03/30/django启动之后，一些源码分析/2.png" alt="da24807c038420307ae200feabcb8d49.png"></p>
+<p>我们先来了解下结构关系，大体的结构关系就是如图所示<br>view–&gt;APIView–&gt;GenericAPIView–&gt;GenericViewSet(viewsets)</p>
+<p>django的CBV和FBV</p>
+<ol>
+<li>FBV（function base views）就是在视图里使用函数处理请求</li>
+<li>CBV（class base views）就是在视图中使用类处理请求</li>
+</ol>
+<p>就好比我们要处理一个GET方法的view,用函数写就这样<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from django.http import HttpResponse</span><br><span class="line"></span><br><span class="line">def my_view(request):</span><br><span class="line">    if request.method == &apos;GET&apos;:</span><br><span class="line">        return HttpResponse(&apos;ok&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>如果用类方法我们可以这样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from django.http import HttpResponse</span><br><span class="line">from django.views import View</span><br><span class="line">  </span><br><span class="line">class MyView(View):</span><br><span class="line">      def get(self, request):</span><br><span class="line">            return HttpResponse(&apos;OK&apos;)</span><br></pre></td></tr></table></figure>
+<h4 id="View源码解析"><a href="#View源码解析" class="headerlink" title="View源码解析"></a>View源码解析</h4><p>在View类中 的类方法as_view,放回了一个view.function对象</p>
+<p><img src="/2019/03/30/django启动之后，一些源码分析/3.png" alt="4bfad9b958be88419f7949c355a7f4b8.png"><br><img src="/2019/03/30/django启动之后，一些源码分析/4.png" alt="91d826112f73f430bbec57e074afe0be.png"></p>
+<p><img src="/2019/03/30/django启动之后，一些源码分析/5.png" alt="5e0914dfbfdbec41a577273728643513.png"></p>
+<p><img src="/2019/03/30/django启动之后，一些源码分析/6.png" alt="aa956b930576d5c350b2ad2e8ac804aa.png"></p>
+<p>当我们启动的时候<br><img src="/2019/03/30/django启动之后，一些源码分析/7.png" alt="91d826112f73f430bbec57e074afe0be.png"></p>
+<p>如果重写dispatch方法，就会走我们自己写的dispatch</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">from django.views import  View</span><br><span class="line">class IndexView(View):</span><br><span class="line">    def get(self,request, *args, **kwargs):</span><br><span class="line">        print(&quot;get&quot;)</span><br><span class="line">        return HttpResponse(&quot;ok&quot;)</span><br><span class="line"></span><br><span class="line">    def dispatch(self, request, *args, **kwargs):</span><br><span class="line">        print(&quot;dispatch&quot;)</span><br><span class="line">        ret = super(IndexView,self).dispatch(request, *args, **kwargs)</span><br><span class="line">        print(&quot;ret&quot;,ret )</span><br><span class="line">        return  HttpResponse(ret)</span><br></pre></td></tr></table></figure>
+<p>流程如下</p>
+<p>print(“dispatch”) ——&gt; print(“get”) ———&gt; return HttpResponse(“ok”) ——-&gt; print(“ret”,ret ) —–&gt; return HttpResponse(ret)</p>
+<p>总结： 从View 的源码中可以分析出，执行View的 as_view方法意味着要去执行当前调用对象的dispatch方法</p>
+<h4 id="APIView（rest-framework-views-APIView）源码解析"><a href="#APIView（rest-framework-views-APIView）源码解析" class="headerlink" title="APIView（rest_framework.views.APIView）源码解析"></a>APIView（rest_framework.views.APIView）源码解析</h4><p>我们先来明确下APIView是干什么的，他是APIView是REST framework提供的所有视图的基类，继承Django View父类</p>
+<p>APIView与view的不同之处在于</p>
+<ol>
+<li>传入到视图方法中的是REST framework的Request对象，而不是Django的HttpRequest对象</li>
+<li>视图方法可以放回REST framework的Response对象，视图会为响应数据设置（render）符合前端要求的格式</li>
+<li>任何APIException异常都会被捕获到，并且处理成合适的响应信息</li>
+<li>在进行dispatch()分发前，会对请求进行身份认证、权限检查、流量控制</li>
+</ol>
+<p>支持定义的属性</p>
+<ol>
+<li>authentication_classes 列表或元祖，身份认证类</li>
+<li>permissoin_classes列表或元祖，权限检查类</li>
+<li>throttle_classes列表或元祖，流量控制类</li>
+</ol>
+<p>APIView方法有很多方法，我们先来看看他的as_view方法<br><img src="/2019/03/30/django启动之后，一些源码分析/8.png" alt="db83c5e5f02e497c4e3dfcfadb5b5310.png"></p>
+<p>从他的super()方法中我们可以知道，他是去执行APIView类的as_view方法，最后执行当前调用对象的dispatch方法（<strong>参考上面总结</strong>），在APIView 他重写了他的父类（View）的dispath方法<br><img src="/2019/03/30/django启动之后，一些源码分析/9.png" alt="17c7a41743efc826bf837d0a24623770.png"></p>
+<p>我们可以点进去initialize_request中看看到底添加了什么功能<br><img src="/2019/03/30/django启动之后，一些源码分析/10.png" alt="52d8366131fdefeb84f3b65916428716.png"></p>
+<p>initialize_request 最后返回了一个Request对象，该对象接受了自定义CBV的request,我们再来看看这个Request对象进行了什么的处理</p>
+<p>Request对象<br><img src="/2019/03/30/django启动之后，一些源码分析/11.png" alt="fa68f740b13c5926caaa5a7c54cf4d0f.png"></p>
+<p><img src="/2019/03/30/django启动之后，一些源码分析/12.png" alt="23dcb3e8cd12b7dc3e7d587e4cc892ad.png"></p>
+<ol>
+<li>request.query_params        可以拿到原来URL里面的参数</li>
+<li>request.data                    可以拿到前端提交过来的所有数据</li>
+</ol>
+<p>总结：源码解析<br><img src="/2019/03/30/django启动之后，一些源码分析/13.png" alt="75a041cd897c4c19848e018ab9378cbd.png"></p>
+<hr>
+<h4 id="GenericAPIView-rest-framework-generics-GenericAPIView"><a href="#GenericAPIView-rest-framework-generics-GenericAPIView" class="headerlink" title="GenericAPIView(rest_framework.generics.GenericAPIView)"></a>GenericAPIView(rest_framework.generics.GenericAPIView)</h4><p>他是继承自APIView,增加对与列表视图和详情视图可能用到的通用支持方法，通常使用时，可以搭配一个或多个Mixin扩展类</p>
+<blockquote>
+<p>支持定义的属性</p>
+</blockquote>
+<ol>
+<li><p>列表视图与详情视图的查询集</p>
+<pre><code>queryset 列表视图的查询集
+serializer_class 视图使用的序列化器
+</code></pre><ol>
+<li><p>列表视图的使用<br>  pagination_class分页控制类<br>  filter_backends 过滤控制后端</p>
+</li>
+<li><p>详情页视图的使用<br>  lookup_field 查询单一数据库对像时使用的条件字段， 默认为‘pk’<br>  lookup_url_kwarg 查询单一数据时URL中的参数关键字名称，默认与look_field相同</p>
+</li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<p>提供的方法  </p>
+</blockquote>
+<ol>
+<li>列表视图与详情视图通用</li>
+</ol>
+<ul>
+<li>get_querset(self)<br> 返回视图使用的查询集，是列表视图与详情视图获取数据的基础 ，默认返回queryset属性，可以重写，例如：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def get_querset(self):</span><br><span class="line">    user = self.request.user</span><br><span class="line">    return user.accounts.all()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>get_serializer_class(self)<br> 返回序列化类，默认返回serializer_class, 可以重写，例如：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def get_serializer_class(serlf):</span><br><span class="line">       if self.request.user.is_staff:</span><br><span class="line">           return FullAccountSerializer</span><br><span class="line">       return BasicAccountSerializer</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p> get_serializer(self, args, *kwargs)</p>
+</blockquote>
+<ul>
+<li>返回序列对象，被其他视图或扩展类使用，如果我在视图中想要获取序列化器对象，可以直接调用此方法</li>
+<li>注意，在提供序列化器的时候，REST framework会向对象的context属性补充三个数据：reuest, format, view, 这三个数据对象可以在定义序列化器时使用</li>
+</ul>
+<blockquote>
+<p>详情视图使用：</p>
+</blockquote>
+<ul>
+<li>get_object(self) 返回详情视图所需的模型类数据对象，默认使用lookup_field参数来过滤queryset。在视图中可以调用改方法获取详情信息的模型类对象</li>
+<li>若详情访问的模型类对象不存在，会返回404。</li>
+<li>该方法会默认使用APIView提供的check_object_permissions方法检查当前对象是否有权限访问</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class BookDetailView(GenericAPIView)；</span><br><span class="line">      queryset = BookInfoSerializer</span><br><span class="line">      </span><br><span class="line">      def get(self, request, pk):</span><br><span class="line">             book = self.get_object()</span><br><span class="line">             serializer = self.get_serializer(book)</span><br><span class="line">             return Response(serializer.data)</span><br></pre></td></tr></table></figure>
+<h4 id="五个扩展类"><a href="#五个扩展类" class="headerlink" title="五个扩展类"></a>五个扩展类</h4><p> ListModelMixin<br> 列表视图扩展类，提供list(request, *args, **kwargs)方法快速实现列表视图，返回200状态码。</p>
+<p> 该Mixin的list方法会对数据进行过滤和分页<br> 源代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class ListModelMixin(object):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    List a queryset.</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def list(self, request, *args, **kwargs):</span><br><span class="line">        # 过滤</span><br><span class="line">        queryset = self.filter_queryset(self.get_queryset())</span><br><span class="line">        # 分页</span><br><span class="line">        page = self.paginate_queryset(queryset)</span><br><span class="line">        if page is not None:</span><br><span class="line">            serializer = self.get_serializer(page, many=True)</span><br><span class="line">            return self.get_paginated_response(serializer.data)</span><br><span class="line">        # 序列化</span><br><span class="line">        serializer = self.get_serializer(queryset, many=True)</span><br></pre></td></tr></table></figure>
+<p>举例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">from rest_framework.mixins import ListModelMixin</span><br><span class="line">class BookListView(ListModelMixin, GenericAPIView):</span><br><span class="line">        queryset = BookInfo.object.all()</span><br><span class="line">        serializer_class = BookInfoSerializer</span><br><span class="line">        </span><br><span class="line">        def get(self, request):</span><br><span class="line">                return self.list(reqiest)</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>CreateModelMixin</p>
+</blockquote>
+<ul>
+<li><p>创建视图扩展类，提供create(reqiest, *args, **kwargs) 方法快速实现创建资源的视图， 成功返回201状态码</p>
+</li>
+<li><p>如果序列化器对前端发送的数据验证失败， 返回400错误</p>
+</li>
+</ul>
+<p>源代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class CreateModelMixin(object):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Create a model instance.</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def create(self, request, *args, **kwargs):</span><br><span class="line">        # 获取序列化器</span><br><span class="line">        serializer = self.get_serializer(data=request.data)</span><br><span class="line">        # 验证</span><br><span class="line">        serializer.is_valid(raise_exception=True)</span><br><span class="line">        # 保存</span><br><span class="line">        self.perform_create(serializer)</span><br><span class="line">        headers = self.get_success_headers(serializer.data)</span><br><span class="line">        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)</span><br><span class="line"> </span><br><span class="line">    def perform_create(self, serializer):</span><br><span class="line">        serializer.save()</span><br><span class="line"> </span><br><span class="line">    def get_success_headers(self, data):</span><br><span class="line">        try:</span><br><span class="line">            return &#123;&apos;Location&apos;: str(data[api_settings.URL_FIELD_NAME])&#125;</span><br><span class="line">        except (TypeError, KeyError):</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>RetrieveModelMixin</p>
+</blockquote>
+<p>详情视图扩展类， 提供retrieve(request, *args, **kwargs)方法，可以快速实现返回一个存在的数据对象</p>
+<p>如果存在，返回200， 否则返回404.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class RetrieveModelMixin(object):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Retrieve a model instance.</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def retrieve(self, request, *args, **kwargs):</span><br><span class="line">        # 获取对象，会检查对象的权限</span><br><span class="line">        instance = self.get_object()</span><br><span class="line">        # 序列化</span><br><span class="line">        serializer = self.get_serializer(instance)</span><br><span class="line">        return Response(serializer.data)</span><br></pre></td></tr></table></figure>
+<p>举个例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class BookDetailView(RetrieveModelMixin, GenericAPIView):</span><br><span class="line">    queryset = BookInfo.objects.all()</span><br><span class="line">    serializer_class = BookInfoSerializer</span><br><span class="line"> </span><br><span class="line">    def get(self, request, pk):</span><br><span class="line">        return self.retrieve(request)</span><br></pre></td></tr></table></figure>
+<p>举例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class BookDetailView(RetrieveModelMixin, GenericAPIView):</span><br><span class="line">    queryset = BookInfo.objects.all()</span><br><span class="line">    serializer_class = BookInfoSerializer</span><br><span class="line"> </span><br><span class="line">    def get(self, request, pk):</span><br><span class="line">        return self.retrieve(request)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>UpdateModelMixin</p>
+</blockquote>
+<p>更新视图扩展类， 提供update(request, *args, **kwargs)方法，可以快速实现更新一个存在的数据对象</p>
+<p>同事也提供partial_update(request, *args, **kwargs)方法， 可以实现局部更新<br>成功返回200， 序列化器校验数据失败时，返回400错误</p>
+<p>源代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class UpdateModelMixin(object):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Update a model instance.</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def update(self, request, *args, **kwargs):</span><br><span class="line">        partial = kwargs.pop(&apos;partial&apos;, False)</span><br><span class="line">        instance = self.get_object()</span><br><span class="line">        serializer = self.get_serializer(instance, data=request.data, partial=partial)</span><br><span class="line">        serializer.is_valid(raise_exception=True)</span><br><span class="line">        self.perform_update(serializer)</span><br><span class="line"></span><br><span class="line">        if getattr(instance, &apos;_prefetched_objects_cache&apos;, None):</span><br><span class="line">            # If &apos;prefetch_related&apos; has been applied to a queryset, we need to</span><br><span class="line">            # forcibly invalidate the prefetch cache on the instance.</span><br><span class="line">            instance._prefetched_objects_cache = &#123;&#125;</span><br><span class="line"></span><br><span class="line">        return Response(serializer.data)</span><br><span class="line"></span><br><span class="line">    def perform_update(self, serializer):</span><br><span class="line">        serializer.save()</span><br><span class="line"></span><br><span class="line">    def partial_update(self, request, *args, **kwargs):</span><br><span class="line">        kwargs[&apos;partial&apos;] = True</span><br><span class="line">        return self.update(request, *args, **kwargs)</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>DestroyModelMixin</p>
+</blockquote>
+<p>删除视图扩展类，提供destroy（request, *args, **kwargs）方法，可以快速实现删除一个存在的数据对象</p>
+<p>成功返回204， 不存在返回404</p>
+<p>源代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class DestroyModelMixin(object):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Destroy a model instance.</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    def destroy(self, request, *args, **kwargs):</span><br><span class="line">        instance = self.get_object()</span><br><span class="line">        self.perform_destroy(instance)</span><br><span class="line">        return Response(status=status.HTTP_204_NO_CONTENT)</span><br><span class="line"> </span><br><span class="line">    def perform_destroy(self, instance):</span><br><span class="line">        instance.delet</span><br></pre></td></tr></table></figure>
+<p>其他的一些之类视图</p>
+<ol>
+<li><p>CreateAPIView<br>提供pist 方法<br>继承自：GenericAPIView、CreateModelMixin</p>
+</li>
+<li><p>ListAPIView<br>提供get方法·<br>继承自：GenericAPIView、ListModelMixin</p>
+</li>
+<li><p>RetireveAPIView<br>提供get方法<br>继承自： GenericAPIView、 RetrueveModelMixin</p>
+</li>
+<li><p>DestoryAPIView<br>提供delete方法<br>继承自：GenericAPIView、DestoryModelMixin</p>
+</li>
+<li><p>UpdateAPIView<br>提供put 和 patch方法<br>继承自：GenericAPIView、 UPdateAPIView</p>
+</li>
+<li><p>RetrieveUpdateAPIView<br>提供get、put、patch方法<br>继承自：GenericAPIView、RetrieveModelMixin、UpdateModelMixin</p>
+</li>
+<li><p>RetrieveUpdateDestoryAPIView<br>提供 get、put 、patch、delete方法<br>继承自：GenericAPIView、RetrieveModelMixin、UpdateModelMixin、DestoryModelMixin</p>
+</li>
+</ol>
+<h4 id="视图集"><a href="#视图集" class="headerlink" title="视图集"></a>视图集</h4><p>使用视图集ViewSet, 可以将一系列逻辑先关的工作放到一个类中：</p>
+<ol>
+<li>list()提供一组数据</li>
+<li>retrieve()提供单个数据</li>
+<li>create()创建视图</li>
+<li>update()保存数据</li>
+<li>destory()删除数据</li>
+</ol>
+<p>ViewSet视图集不在实现get()、post()等方法，而是实现动作action 如list()、create()等</p>
+<p>视图集旨在使用as_view()方法的时候，才会将action动作与具体请求方式对应上。如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class BookInfoViewSet(viewsets.ViewSet):</span><br><span class="line">        def list(self, request):</span><br><span class="line">        ....</span><br><span class="line">        </span><br><span class="line">        def retrieve(self, request, pk=None):</span><br><span class="line">        ......</span><br></pre></td></tr></table></figure>
+<p>我们在设置路由时，我们可以如下操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">urlpatterns = [</span><br><span class="line">    url(r&apos;^books/$&apos;, BookInfoViewSet.as_view(&#123;&apos;get&apos;:&apos;list&apos;&#125;),</span><br><span class="line">    url(r&apos;^books/(?P&lt;pk&gt;\d+)/$&apos;, BookInfoViewSet.as_view(&#123;&apos;get&apos;: &apos;retrieve&apos;&#125;)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>action属性</p>
+<p>我们在视图集中，我们可以通过action对象属性来获取当前请求视图集时的action动作那个</p>
+<p>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def get_serializer_class(self):</span><br><span class="line">    if self.action == &apos;create&apos;:</span><br><span class="line">        return OrderCommitSerializer</span><br><span class="line">    else:</span><br><span class="line">        return OrderDataSerializer</span><br></pre></td></tr></table></figure></p>
+<p>常见视图集父类</p>
+<ul>
+<li>ViewSet</li>
+</ul>
+<p>继承自APIView，作用也与APIView基本类似，提供了身份认证，权限校验，流量管理等</p>
+<p>在ViewSet中，没有提供动作action方法，需要我们自己实现action方法</p>
+<ul>
+<li>GenericViewSet</li>
+</ul>
+<p>继承自GenericAPIView, 作用也与GennericAPIView类似， 提供了get_object、get_queryset等方法便于列表视图与详情信息视图的开发</p>
+<ul>
+<li>ModelViewSet</li>
+</ul>
+<p>继承自GenericAPIView, 同时包括了ListModelMixin、RetrieveModelMixin、CreateModelMixin、UpdateModelMinxin、DestoryModelMixin</p>
+<ul>
+<li>ReadOnlyModelViewSet<br>继承自GenericAPIView, 同时包括了ListModelMixin、RetrieveModelMixin</li>
+</ul>
+<p>视图集中定义附加action动作<br>在视图集中，出了上述默认的方法动作外，还可以添加自定义动作<br>添加自定义动作需要使用rest_framework.decorators.action装饰器<br>以action装饰器装饰的方法名会作为action动作名，与list、retrieve等同</p>
+<p>action装饰器可以接收两个参数</p>
+<ul>
+<li>methods: 该action支持的请求方式，列表传递</li>
+<li><p>detail:表示是action中要处理的是否是视图资源的对象（即是否通过url路径获取主键）</p>
+<ul>
+<li>True 表示使用通过URL获取的主键对应的数据对象</li>
+<li>False 表示不适用URL获取主键</li>
+</ul>
+</li>
+</ul>
+<p>举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">from rest_framework import mixins</span><br><span class="line">from rest_framework.viewsets import GenericViewSet</span><br><span class="line">from rest_framework.decorators import action</span><br><span class="line"> </span><br><span class="line">class BookInfoViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, GenericViewSet):</span><br><span class="line">    queryset = BookInfo.objects.all()</span><br><span class="line">    serializer_class = BookInfoSerializer</span><br><span class="line"> </span><br><span class="line">    # detail为False 表示不需要处理具体的BookInfo对象</span><br><span class="line">    @action(methods=[&apos;get&apos;], detail=False)</span><br><span class="line">    def latest(self, request):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        返回最新的图书信息</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        book = BookInfo.objects.latest(&apos;id&apos;)</span><br><span class="line">        serializer = self.get_serializer(book)</span><br><span class="line">        return Response(serializer.data)</span><br><span class="line"> </span><br><span class="line">    # detail为True，表示要处理具体与pk主键对应的BookInfo对象</span><br><span class="line">    @action(methods=[&apos;put&apos;], detail=True)</span><br><span class="line">    def read(self, request, pk):</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        修改图书的阅读量数据</span><br><span class="line">        &quot;&quot;&quot;</span><br><span class="line">        book = self.get_object()</span><br><span class="line">        book.bread = request.data.get(&apos;read&apos;)</span><br><span class="line">        book.save()</span><br><span class="line">        serializer = self.get_serializer(book)</span><br></pre></td></tr></table></figure>
+<p>url 的定义</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">urlpatterns = [</span><br><span class="line">    url(r&apos;^books/$&apos;, views.BookInfoViewSet.as_view(&#123;&apos;get&apos;: &apos;list&apos;&#125;)),</span><br><span class="line">    url(r&apos;^books/latest/$&apos;, views.BookInfoViewSet.as_view(&#123;&apos;get&apos;: &apos;latest&apos;&#125;)),</span><br><span class="line">    url(r&apos;^books/(?P&lt;pk&gt;\d+)/$&apos;, views.BookInfoViewSet.as_view(&#123;&apos;get&apos;: &apos;retrieve&apos;&#125;)),</span><br><span class="line">    url(r&apos;^books/(?P&lt;pk&gt;\d+)/read/$&apos;, views.BookInfoViewSet.as_view(&#123;&apos;put&apos;: &apos;read&apos;&#125;)),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>**</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>这次我们浅析了django到drf的一些源码，drf是如何对代码进行封装的，这在我们下次写代码时很有帮助。</p>
+
+      
+    </div>
+    
+    
+    
+  
+      <div>
+          
+    <div style="text-align:center;color: #ccc;font-size:16px;">
+        ------ 本文结束------</div>
+    
+      </div>
+    
+
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/05/Django的一些配置/" rel="next" title="Djangod的一些配置">
+                <i class="fa fa-chevron-left"></i> Djangod的一些配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="BrightLoong" />
+            
+              <p class="site-author-name" itemprop="name">BrightLoong</p>
+              <p class="site-description motion-element" itemprop="description">现实本就是不可逆的，心肠只会越来越硬</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/dreampeoplexyh" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#View源码解析"><span class="nav-number">1.</span> <span class="nav-text">View源码解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#APIView（rest-framework-views-APIView）源码解析"><span class="nav-number">2.</span> <span class="nav-text">APIView（rest_framework.views.APIView）源码解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GenericAPIView-rest-framework-generics-GenericAPIView"><span class="nav-number">3.</span> <span class="nav-text">GenericAPIView(rest_framework.generics.GenericAPIView)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#五个扩展类"><span class="nav-number">4.</span> <span class="nav-text">五个扩展类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#视图集"><span class="nav-number">5.</span> <span class="nav-text">视图集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BrightLoong</span>
+
+  
+</div>
+
+
+  <!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+  -->
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

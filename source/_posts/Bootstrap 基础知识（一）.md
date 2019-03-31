@@ -103,6 +103,7 @@ yum install nginx -y   //安装nginx  -y是默认接下来的指示一直是y
 ```
 nginx -v
 ```
+
 ![](Bootstrap基础知识（一）/2.png)
 
 ok成功安装
