@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="加密 解密," />
 
 
 
@@ -79,16 +79,19 @@
 
 
 
+<meta name="keywords" content="加密 解密">
 <meta property="og:type" content="article">
-<meta property="og:title" content="shadowsocks搭建笔记">
-<meta property="og:url" content="https://dreampeoplexyh.github.io/2018/08/14/shadowsocks搭建笔记/index.html">
+<meta property="og:title" content="有道云翻译">
+<meta property="og:url" content="https://dreampeoplexyh.github.io/2019/04/25/有道云翻译/index.html">
 <meta property="og:site_name" content="jusk?">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://dreampeoplexyh.github.io/2018/08/14/shadowsocks搭建笔记/shadowsocks.png">
-<meta property="og:updated_time" content="2018-09-23T01:35:24.379Z">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/04/25/有道云翻译/01.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/04/25/有道云翻译/02.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/04/25/有道云翻译/03.png">
+<meta property="og:updated_time" content="2019-04-25T01:45:14.919Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="shadowsocks搭建笔记">
-<meta name="twitter:image" content="https://dreampeoplexyh.github.io/2018/08/14/shadowsocks搭建笔记/shadowsocks.png">
+<meta name="twitter:title" content="有道云翻译">
+<meta name="twitter:image" content="https://dreampeoplexyh.github.io/2019/04/25/有道云翻译/01.png">
 
 
 
@@ -118,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="https://dreampeoplexyh.github.io/2018/08/14/shadowsocks搭建笔记/"/>
+  <link rel="canonical" href="https://dreampeoplexyh.github.io/2019/04/25/有道云翻译/"/>
 
 
 
 
 
-  <title>shadowsocks搭建笔记 | jusk?</title>
+  <title>有道云翻译 | jusk?</title>
   
 
 
@@ -295,7 +298,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://dreampeoplexyh.github.io/2018/08/14/shadowsocks搭建笔记/">
+    <link itemprop="mainEntityOfPage" href="https://dreampeoplexyh.github.io/2019/04/25/有道云翻译/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BrightLoong">
@@ -312,7 +315,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">shadowsocks搭建笔记</h1>
+          <h1 class="post-title" itemprop="name headline">有道云翻译</h1>
         
 
         <div class="post-meta">
@@ -324,8 +327,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-14T23:08:00+08:00">
-                2018-08-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-25T11:43:39+08:00">
+                2019-04-25
               </time>
             
 
@@ -340,12 +343,34 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-09-23T09:35:24+08:00">
-                2018-09-23
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-25T09:45:14+08:00">
+                2019-04-25
               </time>
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js解密/" itemprop="url" rel="index">
+                    <span itemprop="name">js解密</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -393,34 +418,30 @@
       
 
       
-        <p><img src="/2018/08/14/shadowsocks搭建笔记/shadowsocks.png" alt=""></p>
+        <p><img src="/2019/04/25/有道云翻译/01.png" alt=""></p>
 <a id="more"></a>
-<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">shadowsocks简介</span><br><span class="line">Centos安装4.17内核</span><br><span class="line">shadowsocks搭建过程</span><br><span class="line">安装BBR谷歌加速</span><br></pre></td></tr></table></figure>
-<h3 id="0x00-shadowsocks简介"><a href="#0x00-shadowsocks简介" class="headerlink" title="0x00 shadowsocks简介"></a><strong>0x00 shadowsocks简介</strong></h3><p>shadowsocks：<a href="https://vc2tea.com/whats-shadowsocks/这里面有比较详细的解答" target="_blank" rel="noopener">https://vc2tea.com/whats-shadowsocks/这里面有比较详细的解答</a>  简单来说是一个正向代理，可以欺骗绕过GFW的过滤规则，但是现在流量特征也比较明显，也可能之后被识别成无用吧。</p>
-<h3 id="0x01-CentOs安装4-17内核"><a href="#0x01-CentOs安装4-17内核" class="headerlink" title="0x01 CentOs安装4.17内核"></a><strong>0x01 CentOs安装4.17内核</strong></h3><p>很多时候那个Centos服务器不是那个内核4.17的，这时候就需要去改变Centos服务器的内核了<br>确定是否是4.17内核<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -r</span><br></pre></td></tr></table></figure></p>
-<p>不是则导入elrepo安装源<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</span><br><span class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm</span><br></pre></td></tr></table></figure></p>
-<p>安装4.17内核<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum --enablerepo=elrepo-kernel install -y kernel-ml</span><br></pre></td></tr></table></figure></p>
-<p>确认安装结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa | grep kernel-ml</span><br></pre></td></tr></table></figure></p>
-<p>列出当前grub2启动菜单的所有项<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk -F\&apos; &apos;$1==&quot;menuentry &quot; &#123;print i++ &quot;:&quot; $2&#125;&apos; /etc/grub2.cfg</span><br></pre></td></tr></table></figure></p>
-<p>结果实例如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0:CentOS Linux (4.17.0-1.el7.elrepo.x86_64) 7 (Core)</span><br><span class="line">1:CentOS Linux (3.10.0-862.3.2.el7.x86_64) 7 (Core)</span><br><span class="line">2:CentOS Linux (3.10.0-862.2.3.el7.x86_64) 7 (Core)</span><br><span class="line">3:CentOS Linux (0-rescue-6bdeb3da718c4577872532063c9d3ab2) 7 (Core)</span><br></pre></td></tr></table></figure></p>
-<p>我们需要将新的内核设置为启动项，在结果中编号为0，那么执行以下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo grub2-set-default 0</span><br></pre></td></tr></table></figure></p>
-<p>重启系统<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl reboot</span><br></pre></td></tr></table></figure></p>
-<p>重启完成后确认内核版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">uname -r</span><br><span class="line">4.17.0-1.el7.elrepo.x86_64</span><br></pre></td></tr></table></figure></p>
-<h3 id="0x02-shadowsocks搭建过程"><a href="#0x02-shadowsocks搭建过程" class="headerlink" title="0x02 shadowsocks搭建过程"></a><strong>0x02 shadowsocks搭建过程</strong></h3><p><strong>方案一：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum -y install wget</span><br><span class="line"></span><br><span class="line">wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubi/doubi/master/ssr.sh &amp;&amp; chmod +x ssr.sh &amp;&amp; bash ssr.sh</span><br></pre></td></tr></table></figure></p>
-<p><strong>提示：全程跟着脚本提示走</strong></p>
-<h3 id="0x03-安装BBR谷歌加速"><a href="#0x03-安装BBR谷歌加速" class="headerlink" title="0x03 安装BBR谷歌加速"></a><strong>0x03 安装BBR谷歌加速</strong></h3><p><strong>方案一</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yum -y install wget</span><br><span class="line"></span><br><span class="line">wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh</span><br><span class="line"></span><br><span class="line">chmod +x bbr.sh</span><br><span class="line"></span><br><span class="line">./bbr.sh</span><br></pre></td></tr></table></figure></p>
-<p><strong>方案二：</strong><br>执行以下命令开启内核BBR功能<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo &apos;net.core.default_qdisc=fq&apos; | sudo tee -a /etc/sysctl.conf</span><br><span class="line">echo &apos;net.ipv4.tcp_congestion_control=bbr&apos; | sudo tee -a /etc/sysctl.conf</span><br><span class="line">sudo sysctl -p</span><br></pre></td></tr></table></figure></p>
-<p>使用以下命令确认BBR是否启用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl net.ipv4.tcp_available_congestion_control</span><br></pre></td></tr></table></figure></p>
-<p>输出结果应为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.tcp_available_congestion_control = bbr cubic reno</span><br></pre></td></tr></table></figure></p>
-<p>再输入以下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -n net.ipv4.tcp_congestion_control</span><br></pre></td></tr></table></figure></p>
-<p>输出结果应为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bbr</span><br></pre></td></tr></table></figure></p>
-<p>最后确认内核模块是否启用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsmod | grep bbr</span><br></pre></td></tr></table></figure></p>
-<p>输出结果应为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcp_bbr                16384  0</span><br></pre></td></tr></table></figure></p>
-<p>全剧终  shadowsocks搭建完成</p>
-<p>参考连接：<br><a href="http://www.ebanban.com/?p=562" target="_blank" rel="noopener">http://www.ebanban.com/?p=562</a></p>
-<p><a href="https://github.com/Alvin9999/new-pac/wiki/%E8%87%AA%E5%BB%BAss%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%99%E7%A8%8B" target="_blank" rel="noopener">https://github.com/Alvin9999/new-pac/wiki/%E8%87%AA%E5%BB%BAss%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%99%E7%A8%8B</a></p>
-<p><a href="https://github.com/iMeiji/shadowsocks_install/wiki/shadowsocks-optimize" target="_blank" rel="noopener">https://github.com/iMeiji/shadowsocks_install/wiki/shadowsocks-optimize</a></p>
-<p><a href="https://github.com/iMeiji/shadowsocks_install/pulse" target="_blank" rel="noopener">https://github.com/iMeiji/shadowsocks_install/pulse</a></p>
+<p><img src="/2019/04/25/有道云翻译/02.png" alt="image"></p>
+<p>谷歌浏览器中ctrl+shilt+f    是全局搜索<br>ctrl+f                      是当前文件夹下搜索</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">i: dog</span><br><span class="line">from: AUTO</span><br><span class="line">to: AUTO</span><br><span class="line">smartresult: dict</span><br><span class="line">client: fanyideskweb</span><br><span class="line">salt: 15551412876771</span><br><span class="line">sign: efd6e4b79562ad26b450b343afe25501</span><br><span class="line">ts: 1555141287677</span><br><span class="line">bv: 6dde0faab0f2bdfa21065a7e1c9dd8df</span><br><span class="line">doctype: json</span><br><span class="line">version: 2.1</span><br><span class="line">keyfrom: fanyi.web</span><br><span class="line">action: FY_BY_REALTlME</span><br></pre></td></tr></table></figure>
+<p>这里我们如果我们直接salt,sign, ts ,bv的值，那么我们就可以了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var r = function(e) &#123;</span><br><span class="line">    var t = n.md5(navigator.appVersion)</span><br><span class="line">        , r = &quot;&quot; + (new Date).getTime()</span><br><span class="line">        , i = r + parseInt(10 * Math.random(), 10);</span><br><span class="line">    return &#123;</span><br><span class="line">        ts: r,</span><br><span class="line">        bv: t,</span><br><span class="line">        salt: i,</span><br><span class="line">        sign: n.md5(&quot;fanyideskweb&quot; + e + i + &quot;@6f#X3=cCuncYssPsuRUE&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>我们可以清楚的知道return 已经将这几个值返回来了，我们也可以知道==r==的加密方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">r = &quot;&quot; + (new Date).getTime()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t = n.md5(navigator.appVersion)         #将当前浏览器md5加密</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i = r + parseInt(10 * Math.random(), 10);</span><br></pre></td></tr></table></figure>
+<p>当然最难的是sign加密了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sign: n.md5(&quot;fanyideskweb&quot; + e + i + &quot;@6f#X3=cCuncYssPsuRUE&quot;)</span><br></pre></td></tr></table></figure>
+<p>这里加了个e,我们得想想这个e是什么了，e可以看到这样函数中传过来的值<br>直接打上断点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">function(e) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/04/25/有道云翻译/03.png" alt="image"></p>
+<p>哦哦，我们知道了其实e的值就是我们传入的值，这样我们就知道他的规律了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ts : r = &quot;&quot; + (new Date).getTime()</span><br><span class="line"></span><br><span class="line">bv ：t = n.md5(navigator.appVersion)         #将当前浏览器md5加密</span><br><span class="line"></span><br><span class="line">salt : i = r + parseInt(10 * Math.random(), 10);</span><br><span class="line"></span><br><span class="line">sign ： n.md5(&quot;fanyideskweb&quot; + e + i + &quot;@6f#X3=cCuncYssPsuRUE&quot;)     #e为传入的值</span><br></pre></td></tr></table></figure></p>
+<p>完美，直接上代码吧。</p>
+<p>调试过程中发现一些加密字段没什么鬼用。坑比</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import time</span><br><span class="line">import random</span><br><span class="line">import hashlib</span><br><span class="line">headers = &#123;</span><br><span class="line">    &quot;Host&quot;: &quot;fanyi.youdao.com&quot;,</span><br><span class="line">    &quot;Connection&quot;: &quot;keep-alive&quot;,</span><br><span class="line">    &quot;Content-Length&quot;: &quot;236&quot;,</span><br><span class="line">    &quot;Accept&quot;: &quot;application/json, text/javascript, */*; q=0.01&quot;,</span><br><span class="line">    &quot;Origin&quot;: &quot;http://fanyi.youdao.com&quot;,</span><br><span class="line">    &quot;X-Requested-With&quot;: &quot;XMLHttpRequest&quot;,</span><br><span class="line">    &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.119 Safari/537.36&quot;,</span><br><span class="line">    &quot;DNT&quot;: &quot;1&quot;,</span><br><span class="line">    &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded; charset=UTF-8&quot;,</span><br><span class="line">    &quot;Referer&quot;: &quot;http://fanyi.youdao.com/&quot;,</span><br><span class="line">    &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;,</span><br><span class="line">    &quot;Accept-Language&quot;: &quot;zh-CN,zh;q=0.9,en;q=0.8&quot;,</span><br><span class="line">    &quot;Cookie&quot;: &quot;OUTFOX_SEARCH_USER_ID_NCOO=56338450.16575574; OUTFOX_SEARCH_USER_ID=-744237137@10.169.0.83; JSESSIONID=aaaIWa-5cAq5Of1zoyvOw; ___rl__test__cookies=1555137597319&quot;,</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">data = &#123;</span><br><span class="line">    &apos;client&apos;: &apos;fanyideskweb&apos;,</span><br><span class="line">    &apos;i&apos;: &apos;look&apos;,</span><br><span class="line">    &apos;keyfrom&apos;: &apos;fanyi.web&apos;,</span><br><span class="line">    &apos;salt&apos;: &apos;1540087006029&apos;,</span><br><span class="line">    &apos;sign&apos;: &apos;675f5b51df2c8db9a12fe102f3355277&apos;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">url = &quot;http://fanyi.youdao.com/translate_o?smartresult=dict&amp;smartresult=rule&quot;</span><br><span class="line">e = input(&apos;请输入单词&gt;&gt;&apos;)</span><br><span class="line">t = str(time.time()*1000 + random.randint(1, 10))</span><br><span class="line">tmp = &apos;fanyideskweb&apos; + e + t + &apos;6x(ZHw]mwzX#u0V7@yfwK&apos;</span><br><span class="line">sign = hashlib.md5(tmp.encode(&apos;utf-8&apos;)).hexdigest()</span><br><span class="line"></span><br><span class="line">data[&apos;i&apos;] = e</span><br><span class="line">data[&apos;salt&apos;] = t</span><br><span class="line">data[&apos;sign&apos;] = sign</span><br><span class="line"></span><br><span class="line">res = requests.post(url, headers=headers, data=data)</span><br><span class="line"></span><br><span class="line">print(res.text)</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;translateResult&quot;:[[&#123;&quot;tgt&quot;:&quot;狗&quot;,&quot;src&quot;:&quot;dog&quot;&#125;]],&quot;errorCode&quot;:0,&quot;type&quot;:&quot;en2zh-CHS&quot;,&quot;smartResult&quot;:&#123;&quot;entries&quot;:[&quot;&quot;,&quot;n. 狗；卑鄙的人；(俚)朋友\r\n&quot;,&quot;vt. 跟踪；尾随\r\n&quot;],&quot;type&quot;:1&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>就这样吗。步步，这样我们还得将js加密转换为python加密发过去，我们能不能有个简单的方法实现这个过程。有的</p>
+<p><a href="https://xingzx.org/blog/eval-js-in-python" target="_blank" rel="noopener">execjs</a></p>
+<p>这个库可以让我们直接在python环境下执行js代码<br>因为这个加密还是比较简单，所以就没必要用库了，直接python换算一下就行了</p>
 
       
     </div>
@@ -445,6 +466,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/加密-解密/" rel="tag"># 加密 解密</a>
+          
+        </div>
+      
 
       
       
@@ -454,8 +481,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/09/hexo-next搭建及其备份/" rel="next" title="HEXO+NEXT 搭建及其备份">
-                <i class="fa fa-chevron-left"></i> HEXO+NEXT 搭建及其备份
+              <a href="/2019/04/21/学习python常见加密方式/" rel="next" title="学习python常见加密方式">
+                <i class="fa fa-chevron-left"></i> 学习python常见加密方式
               </a>
             
           </div>
@@ -463,10 +490,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/25/Bootstrap 基础知识（一）/" rel="prev" title="Bootstrap 之网站部署（一）">
-                Bootstrap 之网站部署（一） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -518,17 +541,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -602,22 +616,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x00-shadowsocks简介"><span class="nav-number">2.</span> <span class="nav-text">0x00 shadowsocks简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-CentOs安装4-17内核"><span class="nav-number">3.</span> <span class="nav-text">0x01 CentOs安装4.17内核</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-shadowsocks搭建过程"><span class="nav-number">4.</span> <span class="nav-text">0x02 shadowsocks搭建过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-安装BBR谷歌加速"><span class="nav-number">5.</span> <span class="nav-text">0x03 安装BBR谷歌加速</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
