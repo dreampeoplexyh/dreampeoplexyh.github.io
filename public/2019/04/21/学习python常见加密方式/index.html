@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="加密 解密," />
+
+
+
+
+
+
+
+
+
+
+<meta name="keywords" content="加密 解密">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习python常见加密方式">
+<meta property="og:url" content="https://dreampeoplexyh.github.io/2019/04/21/学习python常见加密方式/index.html">
+<meta property="og:site_name" content="jusk?">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/04/21/学习python常见加密方式/08.png">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/04/21/学习python常见加密方式/clipboard.png">
+<meta property="og:updated_time" content="2019-04-21T08:53:43.801Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="学习python常见加密方式">
+<meta name="twitter:image" content="https://dreampeoplexyh.github.io/2019/04/21/学习python常见加密方式/08.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://dreampeoplexyh.github.io/2019/04/21/学习python常见加密方式/"/>
+
+
+
+
+
+  <title>学习python常见加密方式 | jusk?</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">jusk?</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录、分享、思想自由</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dreampeoplexyh.github.io/2019/04/21/学习python常见加密方式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BrightLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jusk?">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">学习python常见加密方式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-21T11:43:39+08:00">
+                2019-04-21
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-21T16:53:43+08:00">
+                2019-04-21
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js解密/" itemprop="url" rel="index">
+                    <span itemprop="name">js解密</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/2019/04/21/学习python常见加密方式/../学习python常见加密方式/08.png" alt=""></p>
+<a id="more"></a>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>我们的加密实现方式是对二进制编码的格式进行加密的。也就是Bytes</p>
+<p>字符串与Bytes互转，使用encode()和decode()方法</p>
+<table>
+<thead>
+<tr>
+<th>encode()</th>
+<th>decode()</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>str—–&gt;bytes</td>
+<td>bytes—–&gt;str</td>
+</tr>
+<tr>
+<td>data = “岁月静好”.encode()—-&gt;b’\xe5\xb2\x81\xe6\x9c\x88\xe9\x9d\x99\xe5\xa5\xbd’</td>
+<td>turn_data = data.decode()—-&gt;岁月静好</td>
+</tr>
+</tbody>
+</table>
+<p>两位十六进制常用来显示一个二进制字节</p>
+<p>利用==binascii==模块可以将十六进制显示的字节转换成我们在加密中更常用的方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import binascii</span><br><span class="line">data = binascii.b2a_hex(&apos;岁月静好&apos;.encode())</span><br><span class="line">print(data)</span><br></pre></td></tr></table></figure>
+<p>结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b&apos;e5b281e69c88e99d99e5a5bd&apos;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data = binascii.a2b_hex(b&apos;e5b281e69c88e99d99e5a5bd&apos;)</span><br><span class="line">print(data)</span><br></pre></td></tr></table></figure>
+<p>结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b&apos;\xe5\xb2\x81\xe6\x9c\x88\xe9\x9d\x99\xe5\xa5\xbd&apos;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data = binascii.a2b_hex(b&apos;e5b281e69c88e99d99e5a5bd&apos;).decode()</span><br><span class="line">print(data)</span><br></pre></td></tr></table></figure>
+<p>结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">岁月静好</span><br></pre></td></tr></table></figure>
+<p>总结</p>
+<p>binascii</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>b2a_hex()</td>
+<td>字符串转16进制</td>
+</tr>
+<tr>
+<td>a2b_hex()</td>
+<td>16进制转 字符串</td>
+</tr>
+</tbody>
+</table>
+<h4 id="URL-编码"><a href="#URL-编码" class="headerlink" title="URL 编码"></a>URL 编码</h4><p>正常的url中只包含ASCII字符串，也就是字符、数字和一些符号。而URL编码就是一种浏览器用来避免url中出现特殊字符（如汉字）的编码方式</p>
+<p>其实就是将超出ASCII范围的字符转换成带%的是十六进制格式</p>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from urllib import parse</span><br><span class="line">data = parse.quote(&apos;岁月静好&apos;)</span><br><span class="line">print(data)</span><br><span class="line">turn_data = parse.unquote(data)</span><br><span class="line">print(turn_data)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">%E5%B2%81%E6%9C%88%E9%9D%99%E5%A5%BD</span><br><span class="line">岁月静好</span><br></pre></td></tr></table></figure>
+<h4 id="Base64-编码"><a href="#Base64-编码" class="headerlink" title="Base64 编码"></a>Base64 编码</h4><p>Base64是一种用64个字符来表示任意二进制数据的方法</p>
+<p>Base64 编码可以成为密码学的基石，可以将任意的二进制数据进行Base64编码。 所有的数据都能被编码为并只用65个字符就能表示的文本文件</p>
+<h4 id="MD5-信息-摘要算法"><a href="#MD5-信息-摘要算法" class="headerlink" title="MD5 (信息-摘要算法)"></a>MD5 (信息-摘要算法)</h4><p>message-digest algorithm 5（信息-摘要算法）。经常说的“MD5加密”，就是信息摘要算法。</p>
+<p>md5, 其实就是一种算法，可以将一个字符串，或文件，或压缩包，执行md5后，就可以生成一个固定长度128bit的串，这个串，基本上是唯一的</p>
+<blockquote>
+<p>特点</p>
+</blockquote>
+<ol>
+<li>压缩性，任意铲毒的数据，算出的MD5值长度都是固定的</li>
+<li>容易计算：从原数据计算出MD5值很容易</li>
+<li>抗修改性：对原数据进行任何改动，哪怕只修改1个字节，所得到的MD5值都有很大区别</li>
+<li>强抗碰撞：已知源数据和其MD5值，想到一个具有相同MD5值的数据（即诶找数据）是非常困难的</li>
+<li>==不可逆性==：每个人都有不同的指纹，看到这个人，可以得出他的指纹等信息，并且唯一对应，但你只看到或读取到这个人的长相或身份等信息</li>
+<li></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import hashlib</span><br><span class="line"></span><br><span class="line"># 待加密信息</span><br><span class="line">str = &apos;这是一个测试&apos;</span><br><span class="line"></span><br><span class="line"># 创建md5对象</span><br><span class="line">h = hashlib.md5()</span><br><span class="line"></span><br><span class="line"># 此处鼻血声明encode</span><br><span class="line"># 若写法为hl.update(str)  报错为： Unicode-objects must be encoded before hashing</span><br><span class="line"></span><br><span class="line">h.update(str.encode(encoding=&apos;utf-8&apos;))</span><br><span class="line"></span><br><span class="line">print(&apos;MD5加密前为：&apos; + str)</span><br><span class="line">print(&apos;MD5加密后为:&apos; + h.hexdigest())</span><br></pre></td></tr></table></figure>
+<p>结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MD5加密前为：这是一个测试</span><br><span class="line">MD5加密后为:cfca700b9e09cf664f3ae80733274d9f</span><br></pre></td></tr></table></figure>
+<p>md5的长度，默认为128bit, 也就是128个0和1的二进制。这样表达是很不友好的，所以将二进制转16进制，每4个bit表示一个16进制，所以128/4=32换成16进制表示后，为32位</p>
+<p>为什么网上还有md5是16进制呢？</p>
+<p>其实16位的长度，是从32为md5值来的，是将32位md5去掉前八位，去掉后八位得到的</p>
+<h4 id="第三方包PyCryptodome"><a href="#第三方包PyCryptodome" class="headerlink" title="第三方包PyCryptodome"></a>第三方包PyCryptodome</h4><p>PyCrypto 是Python 中国密码学方面最有名的第三方软件包，提供了许多加密算法的使用，可惜的是，他的开发工作于2012年就停止</p>
+<p>但是他的一个分支PyCrytodome 取代了PyCrypto</p>
+<blockquote>
+<p>linux</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pycryptodome</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>导入</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import Crypto</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>windows</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pycryptodomex</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>导入</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import Cryptodome</span><br></pre></td></tr></table></figure>
+<h4 id="DES"><a href="#DES" class="headerlink" title="DES"></a>DES</h4><p>DES 算法为密码体质中的对称密码体质，又被称为美国数据加密标准</p>
+<p>DES是一个分组加密算法，典型的DES以64位为分组对数据加密，加密和解密用的是同一个算法</p>
+<p>DES 算法的入口参数有三个：Key、Data、Mode。其中Key为7个字节共56位，是DES算法的工作秘钥;Data 为8个字节64位，是要被加密或解密的数据；Mode为DES的工作方式，有两种：加密或解密</p>
+<p>秘钥长64位，秘钥事实上是56位参与DES运算（第8、16、24、32、40、48、56、64）是校验位，使得每个秘钥都有奇数个1),分组后的明文组和56位的秘钥按位替换或交换的方法形成的密文组</p>
+<h5 id="python-使用"><a href="#python-使用" class="headerlink" title="python 使用"></a>python 使用</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># d导入DES模块</span><br><span class="line">from Crypto.Cipher import DES</span><br><span class="line">import binascii</span><br><span class="line"></span><br><span class="line"># 这是秘钥</span><br><span class="line"></span><br><span class="line">key = b&apos;abcdefgh&apos;</span><br><span class="line"># 需要去生成一个DES对象</span><br><span class="line">des = DES.new(key, DES.MODE_ECB)</span><br><span class="line"># 需要加密的数据</span><br><span class="line">text = &apos;python spider&apos;</span><br><span class="line">text = text + (8 - (len(text) % 8)) * &apos;=&apos;</span><br><span class="line"></span><br><span class="line"># 加密的过程</span><br><span class="line">encrypto_text = des.encrypt(text.encode())</span><br><span class="line">encrypto_text = binascii.b2a_hex(encrypto_text)</span><br><span class="line">print(encrypto_text)</span><br></pre></td></tr></table></figure>
+<p>结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b&apos;084725d8f5ffafc68b7ddb6887c46c02&apos;</span><br></pre></td></tr></table></figure>
+<h4 id="3DES"><a href="#3DES" class="headerlink" title="3DES"></a>3DES</h4><p>升级版DES</p>
+<p>由于计算机运算能力的增强，原版DES密码的秘钥长度变得容易被暴力破解。<br>3DES即是设计用来提供一种相对简单的方法，即通过增加DES的秘钥长度来避免类似的攻击，而不是设计一种全新的块密码算法</p>
+<p>3DES 是DES向AES过渡的加密算法（1999年，NIST将3-DES指定为过渡的加密标准）, 加密算法，其具体算法如下：</p>
+<p>设 Ek()和Dk()代表DES算法的加密和解密过程，K代表DES算法使用的秘钥，M代表明文，C代表密文，这样;</p>
+<p>3DES 加密过程为 ：C=EK3(DK2(EK1(M)))<br>3DES 解密过程为：M=Dk(EK2(Dk3(C)))</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># d导入DES模块</span><br><span class="line">from Crypto.Cipher import DES</span><br><span class="line">import binascii</span><br><span class="line"></span><br><span class="line"># 这是秘钥</span><br><span class="line"></span><br><span class="line">key = b&apos;abcdefgh&apos;</span><br><span class="line"># 需要去生成一个DES对象</span><br><span class="line">des = DES.new(key, DES.MODE_ECB)</span><br><span class="line"># 需要加密的数据</span><br><span class="line">text = &apos;python spider&apos;</span><br><span class="line">text = text + (8 - (len(text) % 8)) * &apos;=&apos;</span><br><span class="line"></span><br><span class="line"># 加密的过程</span><br><span class="line">encrypto_text = des.encrypt(text.encode())</span><br><span class="line">encrypto_text = binascii.b2a_hex(encrypto_text)</span><br><span class="line">print(encrypto_text)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b&apos;084725d8f5ffafc68b7ddb6887c46c02&apos;</span><br></pre></td></tr></table></figure>
+<h4 id="AES"><a href="#AES" class="headerlink" title="AES"></a>AES</h4><p>高级加密标准，在软件以及硬件上都能快速地解密，相对来说较易于实现，且还需要很少的存储器，作为一个新的加密标准，目前正被部署应用到更广大的范围。</p>
+<h5 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h5><ol>
+<li>抵抗所有已知的攻击</li>
+<li>在多个平台上速度快，编码紧凑</li>
+<li>设计简单</li>
+</ol>
+<p><img src="/2019/04/21/学习python常见加密方式/../学习python常见加密方式/clipboard.png" alt="image"></p>
+<p>AES为分组密码，分组密码也就是把明文分成一组一组的，没组长度相等，每次加密一组数据，直到加密完整个明文，在AES标准中，分组长度只能是128位，也就是说，每个分组为16个字节（每个字节8位），秘钥的长度可以使用128位、192位或256位。秘钥的长度不同，推荐加密轮速也不同。</p>
+<p>一般常用语128位</p>
+<p>python 实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">from Crypto.Cipher import AES</span><br><span class="line">from Crypto import Random</span><br><span class="line">from binascii import b2a_hex</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 要加密的明文</span><br><span class="line">data = &apos;南来北往&apos;</span><br><span class="line"># 秘钥Key 长度必须为16(AES-128)、24(AES-192)、或32(AES-256) Bytes 长度</span><br><span class="line"># 目前AES-128足够用</span><br><span class="line">key =b&apos;this is a 16 key&apos;</span><br><span class="line"># 生成铲毒等于AES块大小的不可重复的秘钥向量</span><br><span class="line">iv = Random.new().read(AES.block_size)</span><br><span class="line"></span><br><span class="line"># 使用key和iv初始化AES对象，使用MOOE_CEB模式</span><br><span class="line">mycipher = AES.new(key, AES.MODE_CFB, iv)</span><br><span class="line"># 加密的明文长度必须为16的倍数，如果长度不为16的倍数，则需要补足为16的倍数</span><br><span class="line"></span><br><span class="line"># 将iv(秘钥向量) 加到加密的密文开头，一起传输</span><br><span class="line">ciphertext = iv + mycipher.encrypt(data.encode())</span><br><span class="line"></span><br><span class="line"># 解密的话要用key和iv生成新的AES对象</span><br><span class="line">mydecrypt = AES.new(key, AES.MODE_CFB, ciphertext[:16])</span><br><span class="line"># 使用新生成的AES对象，将加密的密文解密</span><br><span class="line">decrypttext = mydecrypt.decrypt(ciphertext[16:])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(&apos;秘钥k为:&apos;, key)</span><br><span class="line">print(&apos;iv为:&apos;, b2a_hex(ciphertext)[:16])</span><br><span class="line">print(&apos;加密后数据为:&apos;, b2a_hex(ciphertext)[16:])</span><br><span class="line">print(&apos;解密后数据为:&apos;, decrypttext.decode())</span><br></pre></td></tr></table></figure>
+<p>运行结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">秘钥k为: b&apos;this is a 16 key&apos;</span><br><span class="line">iv为: b&apos;638828724f733563&apos;</span><br><span class="line">加密后数据为: b&apos;e4a39d98e94872cd918b6e694bca944f6c644982&apos;</span><br><span class="line">解密后数据为: 南来北往</span><br></pre></td></tr></table></figure>
+<h4 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h4><p>RSA 加密算法是一种非对称加密算法。在公开秘钥加密和电子商业中RSA被广泛使用</p>
+<p>改算法基于一个简单的数论事实：将两个大素数相乘十分容易，但那是想要对其乘积进行因式分解却及其困难，因此可以将乘积公开作为加密秘钥。即公钥，而两个大素数组合成私钥。公钥是可发布的供任何人使用，私钥则为自己所有，供解密之用</p>
+<h5 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h5><p>典型的如RSA等，常见方法，使用openssl, keytools等工具生成一堆公钥对，使用被公钥加密的数据可以使用私钥来解密<br>，反之亦然（被私钥加密的数据也可以被公钥解密）。</p>
+<p>在实际使用中是要一般保存在发布者手中，是私有的不对外公开的，只将公钥对外公布，就能实现只要私钥的持有者才能将数据解密的方法，这种加密方式安全性很高，因为他不用将解密的秘钥进行传递。从而灭有秘钥在传递过程中被截获的风险，而破解密文几乎又是不吭你的</p>
+<p>但是算法的效率低，所以常用语很重要数据的加密，常和对称配合使用，使非对称加密的秘钥去加密对称加密的秘钥.</p>
+<h5 id="python-实现"><a href="#python-实现" class="headerlink" title="python 实现"></a>python 实现</h5><p>首先安装一个rsa模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">import rsa</span><br><span class="line">import binascii</span><br><span class="line"></span><br><span class="line"># 使用网页中会的的n和e值，将明文加密</span><br><span class="line">def rsa_encrypt(rsa_n, rsa_e, message):</span><br><span class="line">    # 用n值和e值生成公钥</span><br><span class="line">    key = rsa.PublicKey(rsa_n, rsa_e)</span><br><span class="line">    # 用公钥把明文加密</span><br><span class="line">    message = rsa.encrypt(message.encode(), key)</span><br><span class="line">    # 转化成常用的可读性高的十六进制</span><br><span class="line">    message = binascii.b2a_hex(message)</span><br><span class="line">    # 将加密结果转化回字符串并返回</span><br><span class="line">    return message.decode()</span><br><span class="line"></span><br><span class="line"># RSA的公钥有两个值n和e,我们在网站中获得的公钥一般就是这样的两个值</span><br><span class="line"># n常常为长度为526的十六进制字符串</span><br><span class="line"># e常常为十六进制‘10001’</span><br><span class="line">pubkey_n = &apos;8d7e6949d411ce14d7d233d7160f5b2cc753930caba4d5ad24f923a505253b9c39b09a059732250e56c594d735077cfcb0c3508e9f544f101bdf7e97fe1b0d97f273468264b8b24caaa2a90cd9708a417c51cf8ba35444d37c514a0490441a773ccb121034f29748763c6c4f76eb0303559c57071fd89234d140c8bb965f9725&apos;</span><br><span class="line">pubkey_e = &apos;10001&apos;</span><br><span class="line"></span><br><span class="line"># 需要将十六进制转换成十进制</span><br><span class="line">rsa_n = int(pubkey_n, 16)</span><br><span class="line">rsa_e = int(pubkey_e, 16)</span><br><span class="line"># 要加密的明文</span><br><span class="line">message = &apos;南北今天很忙&apos;</span><br><span class="line"></span><br><span class="line">print(&apos;公钥n值长度：&apos;, len(pubkey_n))</span><br><span class="line">print(rsa_encrypt(rsa_n, rsa_e, message))</span><br></pre></td></tr></table></figure>
+<p>结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">公钥n值长度： 256</span><br><span class="line">41adc4d100f7df49bb2938edbcefe3bd2f1e63e6ccdf29fe7146ed9f837e510e4d8c249d2b60fa747bc0684c5f5901a4da6cab79dcd264724bf1c8bed13a281043be9705d598877c39b23379ea8115f350e8443901076f6ccdcdcdac98783a8fddcfdd6b67b4c97153af4bc908452eb4c98fb103dcc28417a0c6468e99b74c9d</span><br></pre></td></tr></table></figure>
+<p>参考资料：<a href="https://www.jianshu.com/p/4ba20afacce2" target="_blank" rel="noopener">https://www.jianshu.com/p/4ba20afacce2</a></p>
+
+      
+    </div>
+    
+    
+    
+  
+      <div>
+          
+    <div style="text-align:center;color: #ccc;font-size:16px;">
+        ------ 本文结束------</div>
+    
+      </div>
+    
+
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/加密-解密/" rel="tag"># 加密 解密</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/30/django启动之后，一些源码分析/" rel="next" title="django启动之后，关于View源码分析">
+                <i class="fa fa-chevron-left"></i> django启动之后，关于View源码分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/25/有道云翻译/" rel="prev" title="有道云翻译">
+                有道云翻译 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="BrightLoong" />
+            
+              <p class="site-author-name" itemprop="name">BrightLoong</p>
+              <p class="site-description motion-element" itemprop="description">现实本就是不可逆的，心肠只会越来越硬</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/dreampeoplexyh" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#URL-编码"><span class="nav-number">1.1.</span> <span class="nav-text">URL 编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Base64-编码"><span class="nav-number">1.2.</span> <span class="nav-text">Base64 编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MD5-信息-摘要算法"><span class="nav-number">1.3.</span> <span class="nav-text">MD5 (信息-摘要算法)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三方包PyCryptodome"><span class="nav-number">1.4.</span> <span class="nav-text">第三方包PyCryptodome</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DES"><span class="nav-number">1.5.</span> <span class="nav-text">DES</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#python-使用"><span class="nav-number">1.5.1.</span> <span class="nav-text">python 使用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3DES"><span class="nav-number">1.6.</span> <span class="nav-text">3DES</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AES"><span class="nav-number">1.7.</span> <span class="nav-text">AES</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#特点"><span class="nav-number">1.7.1.</span> <span class="nav-text">特点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RSA"><span class="nav-number">1.8.</span> <span class="nav-text">RSA</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#非对称加密"><span class="nav-number">1.8.1.</span> <span class="nav-text">非对称加密</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#python-实现"><span class="nav-number">1.8.2.</span> <span class="nav-text">python 实现</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BrightLoong</span>
+
+  
+</div>
+
+
+  <!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+  -->
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>

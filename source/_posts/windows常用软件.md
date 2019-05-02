@@ -187,9 +187,10 @@ categories: 工具
 
 
 ## 笔记
-### 印象笔记
-* 目前在用的一款软件。习惯了，比较好用就行
-![](windows常用软件/28.png)
+### 有道云笔记
+* 目前在用的一款软件。习惯了，比较好用就行。再说下印象笔记垃圾，就这样
+![](https://raw.githubusercontent.com/dreampeoplexyh/images/master/data/20190429211708.png)
+    * [Picgo](https://github.com/Molunerfinn/PicGo) 图床工具。配合笔记使用特好。点赞
 
 ### xmind
 * 脑图，这个笔记就是这个画的，当然弃坑去wps画我觉得也是可以的
@@ -197,7 +198,7 @@ categories: 工具
 
 
 ## 科学上网
-### shadowsocks
+### [shadowsocks](https://github.com/shadowsocks)
 * 开源和应用性比较好的软件，相对成熟，但随着。。。
 ![](windows常用软件/30.png)
 
@@ -222,7 +223,7 @@ categories: 工具
     * Debugger for Chrome
         * 谷歌浏览器调试
     * Chinese (Simplified) Language
-        * 中文，其实看多了就那中英文都差不多
+        * 中文，其实看多了就那中英文都差不多(这我确实装x了)
     * Browsersync
         * 能让浏览器实时、快速响应您的文件更改（html、js、css、sass、less等）并自动刷新页面
             * 也就是让你写页面能所见即所得,同步到浏览器
