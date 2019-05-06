@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第一章 课程介绍学习目标：独立使用Django完成ORM的开发学习内容：Django ORM所有的知识点如何学习本课程？ 第二章 ORM介绍SQL 语句  什么是ORM(Object-Relational Mapping)?models.py?模型类的优势与劣势 第三章 字段类型和参数常用的字段 关系型字段一对一(OneToOneField)多对一(ForeignKey)多对多(ManyToMan">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jusk?">
+<meta property="og:url" content="https://dreampeoplexyh.github.io/2019/05/06/django 的ORM学习/index.html">
+<meta property="og:site_name" content="jusk?">
+<meta property="og:description" content="第一章 课程介绍学习目标：独立使用Django完成ORM的开发学习内容：Django ORM所有的知识点如何学习本课程？ 第二章 ORM介绍SQL 语句  什么是ORM(Object-Relational Mapping)?models.py?模型类的优势与劣势 第三章 字段类型和参数常用的字段 关系型字段一对一(OneToOneField)多对一(ForeignKey)多对多(ManyToMan">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/32DA1D792723495EBD4CD4E7737A9E4C">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/5DABAE0B9C2345B99E6CBDAC6C843DAA">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/A83853FD093B42A19723065E5A04EED9">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/22FAFC4B3A164045AF8B2889246EDCD9">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/D82CD3AAAAB34C39A8DD32412A7F67EC">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/0FAFA359B56E4298B70AF887120DD574">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/0D2397068FC5458488AAA3788C0A5992">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/286F7F4E6EA24316AC83271396ACD92C">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/BA3FFA99183F4AD9BEF0DEC410B168AC">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/B1031BE14803458399E1031F3DB17C62">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/60B5193351244021B235EF32993017A6">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/25B6F3411844496280CB70BA9A27F2B7">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/799F08CF33E04A46A1DA345AFC66BA81">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/4BC118A2EB9D4993901A28EB4796364D">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/0BC3F64EEBBC4F05937B35E0D89667BA">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/95FDD37D1C9040CB875E2E760F23E432">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/15151738233C4FB5BE6C169E60F4E432">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/B10B2F84F84F483BB4CD5B40B6ABB6D0">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/0FBF573BD18B41D592C0E2A6A7BA9433">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/F9B246EEDAEB46ED9EDCEDED645F6C7C">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/691A7B3B70454557889C3AA06EBC37BB">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/1CF4B04AD03F407DA7678D30EDF18B80">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/F50628261EE843309CBC0BF30790B4E0">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/4AA7C3CC726942A5800238D6B1B47272">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/D7BF3C93E8A94390BB93373A404C6317">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/BFDC1DE6590D4E688316720337D24B6A">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/D0E47242FAFE4263961769B42189FFFC">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/9E1B4EEAA8944F4DA43422F15100B6A6">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/0FC71E56B310435296383F3C2E786602">
+<meta property="og:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/3E701BDC59464F2C8283EB56395C70B6">
+<meta property="og:updated_time" content="2019-04-24T05:52:47.147Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="jusk?">
+<meta name="twitter:description" content="第一章 课程介绍学习目标：独立使用Django完成ORM的开发学习内容：Django ORM所有的知识点如何学习本课程？ 第二章 ORM介绍SQL 语句  什么是ORM(Object-Relational Mapping)?models.py?模型类的优势与劣势 第三章 字段类型和参数常用的字段 关系型字段一对一(OneToOneField)多对一(ForeignKey)多对多(ManyToMan">
+<meta name="twitter:image" content="https://dreampeoplexyh.github.io/2019/05/06/django%20的ORM学习/32DA1D792723495EBD4CD4E7737A9E4C">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://dreampeoplexyh.github.io/2019/05/06/django 的ORM学习/"/>
+
+
+
+
+
+  <title> | jusk?</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">jusk?</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录、分享、思想自由</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dreampeoplexyh.github.io/2019/05/06/django 的ORM学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BrightLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jusk?">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-06T17:55:39+08:00">
+                2019-05-06
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-04-24T13:52:47+08:00">
+                2019-04-24
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="第一章-课程介绍"><a href="#第一章-课程介绍" class="headerlink" title="第一章 课程介绍"></a>第一章 课程介绍</h3><h4 id="学习目标：独立使用Django完成ORM的开发"><a href="#学习目标：独立使用Django完成ORM的开发" class="headerlink" title="学习目标：独立使用Django完成ORM的开发"></a>学习目标：独立使用Django完成ORM的开发</h4><h4 id="学习内容：Django-ORM所有的知识点"><a href="#学习内容：Django-ORM所有的知识点" class="headerlink" title="学习内容：Django ORM所有的知识点"></a>学习内容：Django ORM所有的知识点</h4><h4 id="如何学习本课程？"><a href="#如何学习本课程？" class="headerlink" title="如何学习本课程？"></a>如何学习本课程？</h4><p><img src="/2019/05/06/django 的ORM学习/32DA1D792723495EBD4CD4E7737A9E4C" alt="image"></p>
+<h3 id="第二章-ORM介绍"><a href="#第二章-ORM介绍" class="headerlink" title="第二章 ORM介绍"></a>第二章 ORM介绍</h3><h4 id="SQL-语句"><a href="#SQL-语句" class="headerlink" title="SQL 语句"></a>SQL 语句</h4><p><img src="/2019/05/06/django 的ORM学习/5DABAE0B9C2345B99E6CBDAC6C843DAA" alt="image"></p>
+<p><img src="/2019/05/06/django 的ORM学习/A83853FD093B42A19723065E5A04EED9" alt="image"></p>
+<h4 id="什么是ORM-Object-Relational-Mapping-models-py"><a href="#什么是ORM-Object-Relational-Mapping-models-py" class="headerlink" title="什么是ORM(Object-Relational Mapping)?models.py?"></a>什么是ORM(Object-Relational Mapping)?models.py?</h4><h4 id="模型类的优势与劣势"><a href="#模型类的优势与劣势" class="headerlink" title="模型类的优势与劣势"></a>模型类的优势与劣势</h4><p><img src="/2019/05/06/django 的ORM学习/22FAFC4B3A164045AF8B2889246EDCD9" alt="image"></p>
+<h3 id="第三章-字段类型和参数"><a href="#第三章-字段类型和参数" class="headerlink" title="第三章 字段类型和参数"></a>第三章 字段类型和参数</h3><h4 id="常用的字段"><a href="#常用的字段" class="headerlink" title="常用的字段"></a>常用的字段</h4><p><img src="/2019/05/06/django 的ORM学习/D82CD3AAAAB34C39A8DD32412A7F67EC" alt="image"><br><img src="/2019/05/06/django 的ORM学习/0FAFA359B56E4298B70AF887120DD574" alt="image"><br><img src="/2019/05/06/django 的ORM学习/0D2397068FC5458488AAA3788C0A5992" alt="image"><br><img src="/2019/05/06/django 的ORM学习/286F7F4E6EA24316AC83271396ACD92C" alt="image"><br><img src="/2019/05/06/django 的ORM学习/BA3FFA99183F4AD9BEF0DEC410B168AC" alt="image"><br><img src="/2019/05/06/django 的ORM学习/B1031BE14803458399E1031F3DB17C62" alt="image"></p>
+<h4 id="关系型字段"><a href="#关系型字段" class="headerlink" title="关系型字段"></a>关系型字段</h4><h5 id="一对一-OneToOneField"><a href="#一对一-OneToOneField" class="headerlink" title="一对一(OneToOneField)"></a>一对一(OneToOneField)</h5><h5 id="多对一-ForeignKey"><a href="#多对一-ForeignKey" class="headerlink" title="多对一(ForeignKey)"></a>多对一(ForeignKey)</h5><h5 id="多对多-ManyToManyField-默认或自定义中间表"><a href="#多对多-ManyToManyField-默认或自定义中间表" class="headerlink" title="多对多(ManyToManyField),默认或自定义中间表"></a>多对多(ManyToManyField),默认或自定义中间表</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class A(models.Model):</span><br><span class="line">    onetoone = models.OneToOneField(Text)</span><br><span class="line">    </span><br><span class="line">class B(models.Model):</span><br><span class="line">    foreign = models.ForeignKey(A)</span><br><span class="line">    </span><br><span class="line">class C(models.Model):</span><br><span class="line">    manytomany = models.ManyToManyField(B)</span><br></pre></td></tr></table></figure>
+<h4 id="字段参数"><a href="#字段参数" class="headerlink" title="字段参数"></a>字段参数</h4><h5 id="1、所有字段都有的参数"><a href="#1、所有字段都有的参数" class="headerlink" title="1、所有字段都有的参数"></a>1、所有字段都有的参数</h5><p><img src="/2019/05/06/django 的ORM学习/60B5193351244021B235EF32993017A6" alt="image"></p>
+<h5 id="2、个别字段"><a href="#2、个别字段" class="headerlink" title="2、个别字段"></a>2、个别字段</h5><p><img src="/2019/05/06/django 的ORM学习/25B6F3411844496280CB70BA9A27F2B7" alt="image"></p>
+<h5 id="3、关系型字段的参数"><a href="#3、关系型字段的参数" class="headerlink" title="3、关系型字段的参数"></a>3、关系型字段的参数</h5><ul>
+<li>related_name</li>
+<li></li>
+</ul>
+<h6 id="on-delete"><a href="#on-delete" class="headerlink" title="on_delete"></a>on_delete</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">on_delete 当一个被外键关联的对象被删除时，Django 将模仿on_delete参数定义的SQL约束执行相应操作</span><br><span class="line">    如下6种操作</span><br><span class="line">    CASCADE:模拟SQL语句中的ON DELETE CASCADE约束，将定义有外键的模型对象同时删除！（该操作为当前Django版本的默认操作）</span><br><span class="line">    SET_NULL:将外键字段设为null,只有当字段设置了null=True时，放科使用该值</span><br><span class="line">    SET_DEFAULT:该外键字段设置为默认值，只有当字段设置了default参数，方可使用</span><br><span class="line">    DO_NOTHING: 什么也不做</span><br><span class="line">    SET():设置为一个传递给SET()的值或者一个回调的返回值，注意大小写</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/05/06/django 的ORM学习/799F08CF33E04A46A1DA345AFC66BA81" alt="image"></p>
+<p>解释下<br>CASCADE 就是A表的一些记录删除之后，对应的B表关联到A表的那些对应删除</p>
+<h4 id="自关联"><a href="#自关联" class="headerlink" title="自关联"></a>自关联</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class AddressInfo(models.Model):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    省市县地址信息</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    address = modles.CharField(max_length=200, null=True, blank=True, verbose_name=&quot;地址&quot;)</span><br><span class="line">    pid = models.Foreignkey(&apos;self&apos;, null=True, blank=True, verbose_name=&quot;自关联&quot;)</span><br><span class="line">     </span><br><span class="line">    def __str__(self):</span><br><span class="line">        return self.address</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/05/06/django 的ORM学习/4BC118A2EB9D4993901A28EB4796364D" alt="image"></p>
+<h3 id="元数据Meta"><a href="#元数据Meta" class="headerlink" title="元数据Meta"></a>元数据Meta</h3><p>什么是元数据</p>
+<p>常用的元数据有哪些</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">class AddressInfo(models.Model):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    省市县地址信息</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    address = modles.CharField(max_length=200, null=True, blank=True, verbose_name=&quot;地址&quot;)</span><br><span class="line">    pid = models.Foreignkey(&apos;self&apos;, null=True, blank=True, verbose_name=&quot;自关联&quot;)</span><br><span class="line">    note = models.CharField(max_length=200, null=True, blank=True, verbose_name=&quot;说明&quot;)</span><br><span class="line">    def __str__(self):</span><br><span class="line">        return self.address</span><br><span class="line">    </span><br><span class="line">    class Meta:</span><br><span class="line">        #定义元数据</span><br><span class="line">        db_table = &apos;address&apos;              # 数据库表名字</span><br><span class="line">        ordering = [&apos;pid&apos;]                # 指定按照什么字段排序</span><br><span class="line">        verbose_name = &apos;省市县地址信息&apos;</span><br><span class="line">        verbose_name_plural = verbose_name</span><br><span class="line">        # abstract = True</span><br><span class="line">        permission = ((&apos;定义好的权限&apos;, &apos;权限说明&apos;))</span><br><span class="line">        </span><br><span class="line">        managed = False</span><br><span class="line">        unique_together = (&apos;address&apos;, &apos;note&apos;)       </span><br><span class="line">        # app_label = &apos;courses&apos;</span><br><span class="line">        # db_tablespace                         # 定义数据库表空间的名字</span><br></pre></td></tr></table></figure>
+<h3 id="模型类开发示例"><a href="#模型类开发示例" class="headerlink" title="模型类开发示例"></a>模型类开发示例</h3><p><img src="/2019/05/06/django 的ORM学习/0BC3F64EEBBC4F05937B35E0D89667BA" alt="image"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line"># __author__ = &quot;Jack&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">from django.db import models</span><br><span class="line"></span><br><span class="line"># class Test(models.Model):  # courses_test</span><br><span class="line">#     &quot;&quot;&quot;测试学习用&quot;&quot;&quot;</span><br><span class="line">#     # Auto = models.AutoField()  # 自增长字段</span><br><span class="line">#     # BigAuto = models.BigAutoField()</span><br><span class="line">#</span><br><span class="line">#     # 二进制数据</span><br><span class="line">#     Binary = models.BinaryField()</span><br><span class="line">#</span><br><span class="line">#     # 布尔型</span><br><span class="line">#     Boolean = models.BooleanField()</span><br><span class="line">#     NullBoolean = models.NullBooleanField()</span><br><span class="line">#</span><br><span class="line">#     # 整型</span><br><span class="line">#     PositiveSmallInteger = models.PositiveSmallIntegerField(db_column=&quot;age&quot;)  # 5个字节</span><br><span class="line">#     SmallInteger = models.SmallIntegerField(primary_key=False)  # 6个字节</span><br><span class="line">#     PositiveInteger = models.PositiveIntegerField()  # 10个字节</span><br><span class="line">#     Integer = models.IntegerField(verbose_name=&quot;11个字节大小&quot;)  # 11个字节</span><br><span class="line">#     BigInteger = models.BigIntegerField(unique=True)  # 20个字节</span><br><span class="line">#</span><br><span class="line">#     # 字符串类型</span><br><span class="line">#     Char = models.CharField(max_length=100, null=True, blank=True, db_index=True)  # varchar</span><br><span class="line">#     Text = models.TextField(help_text=&quot;这个是longtext&quot;)  # longtext</span><br><span class="line">#</span><br><span class="line">#     # 时间日期类型</span><br><span class="line">#     Date = models.DateField(unique_for_date=True, auto_now=True)</span><br><span class="line">#     DateTime = models.DateTimeField(editable=False, unique_for_month=True, auto_now_add=True)</span><br><span class="line">#     Duration = models.DurationField()  # int, Python timedelta实现</span><br><span class="line">#</span><br><span class="line">#     # 浮点型</span><br><span class="line">#     Float = models.FloatField()</span><br><span class="line">#     Decimal = models.DecimalField(max_digits=4, decimal_places=2)  # 11.22, 16.34</span><br><span class="line">#</span><br><span class="line">#     # 其它字段</span><br><span class="line">#     Email = models.EmailField()  # 邮箱</span><br><span class="line">#     Image = models.ImageField()</span><br><span class="line">#     File = models.FileField()</span><br><span class="line">#     FilePath = models.FilePathField()</span><br><span class="line">#     URL = models.URLField()</span><br><span class="line">#     UUID = models.UUIDField()</span><br><span class="line">#     GenericIPAddress = models.GenericIPAddressField()</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line"># class A(models.Model):</span><br><span class="line">#     onetoone = models.OneToOneField(Test, related_name=&quot;one&quot;)</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line"># class B(models.Model):</span><br><span class="line">#     foreign = models.ForeignKey(A, on_delete=models.CASCADE)  # 删除级联</span><br><span class="line">#     # foreign = models.ForeignKey(A, on_delete=models.PROTECT)</span><br><span class="line">#     # foreign = models.ForeignKey(A, on_delete=models.SET_NULL, null=True, blank=True)  # 删除置空</span><br><span class="line">#     # foreign = models.ForeignKey(A, on_delete=models.SET_DEFAULT, default=0)</span><br><span class="line">#     # foreign = models.ForeignKey(A, on_delete=models.DO_NOTHING)</span><br><span class="line">#     # foreign = models.ForeignKey(A, on_delete=models.SET)</span><br><span class="line">#</span><br><span class="line">#</span><br><span class="line"># class C(models.Model):</span><br><span class="line">#     manytomany = models.ManyToManyField(B)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 1.所有字段都有的参数</span><br><span class="line"># 2.个别字段才有的参数</span><br><span class="line"># 3.关系型字段的参数</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">on_delete 当一个被外键关联的对象被删除时，Django将模仿on_delete参数定义的SQL约束执行相应操作</span><br><span class="line">	如下6种操作</span><br><span class="line">	CASCADE：模拟SQL语言中的ON DELETE CASCADE约束，将定义有外键的模型对象同时删除！（该操作为当前Django版本的默认操作！）</span><br><span class="line">	PROTECT:阻止上面的删除操作，但是弹出ProtectedError异常</span><br><span class="line">	SET_NULL：将外键字段设为null，只有当字段设置了null=True时，方可使用该值。</span><br><span class="line">	SET_DEFAULT:将外键字段设为默认值。只有当字段设置了default参数时，方可使用。</span><br><span class="line">	DO_NOTHING：什么也不做。</span><br><span class="line">	SET()：设置为一个传递给SET()的值或者一个回调函数的返回值。注意大小写。</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class AddressInfo(models.Model):  # coures_addressinfo</span><br><span class="line">    &quot;&quot;&quot;省市县地址信息&quot;&quot;&quot;</span><br><span class="line">    address = models.CharField(max_length=200, null=True, blank=True, verbose_name=&quot;地址&quot;)</span><br><span class="line">    pid = models.ForeignKey(&apos;self&apos;, null=True, blank=True, verbose_name=&quot;自关联&quot;)</span><br><span class="line">    # pid = models.ForeignKey(&apos;AddressInfo&apos;, null=True, blank=True, verbose_name=&quot;自关联&quot;)</span><br><span class="line">    note = models.CharField(max_length=200, null=True, blank=True, verbose_name=&quot;说明&quot;)</span><br><span class="line"></span><br><span class="line">    def __str__(self):  # __unicode__(self)</span><br><span class="line">        return self.address</span><br><span class="line"></span><br><span class="line">    class Meta:</span><br><span class="line">        # 定义元数据</span><br><span class="line">        db_table = &apos;address&apos;</span><br><span class="line">        # ordering = [&apos;pid&apos;]  # 指定按照什么字段排序</span><br><span class="line">        verbose_name = &apos;省市县地址信息&apos;</span><br><span class="line">        verbose_name_plural = verbose_name</span><br><span class="line">        # abstract = True</span><br><span class="line">        # permissions = ((&apos;定义好的权限&apos;, &apos;权限说明&apos;),)</span><br><span class="line">        # managed = False</span><br><span class="line">        unique_together = (&apos;address&apos;, &apos;note&apos;)  # ((),())</span><br><span class="line">        # app_label = &apos;courses&apos;</span><br><span class="line">        # db_tablespace  # 定义数据库表空间的名字</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Teacher(models.Model):</span><br><span class="line">    &quot;&quot;&quot;讲师信息表&quot;&quot;&quot;</span><br><span class="line">    nickname = models.CharField(max_length=30, primary_key=True, db_index=True, verbose_name=&quot;昵称&quot;)</span><br><span class="line">    introduction = models.TextField(default=&quot;这位同学很懒，木有签名的说~&quot;, verbose_name=&quot;简介&quot;)</span><br><span class="line">    fans = models.PositiveIntegerField(default=&quot;0&quot;, verbose_name=&quot;粉丝数&quot;)</span><br><span class="line">    created_at = models.DateTimeField(auto_now_add=True, verbose_name=&quot;创建时间&quot;)</span><br><span class="line">    updated_at = models.DateTimeField(auto_now=True, verbose_name=&quot;更新时间&quot;)</span><br><span class="line"></span><br><span class="line">    class Meta:</span><br><span class="line">        verbose_name = &quot;讲师信息表&quot;</span><br><span class="line">        verbose_name_plural = verbose_name</span><br><span class="line"></span><br><span class="line">    def __str__(self):  # Python2:__unicode__</span><br><span class="line">        return self.nickname</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Course(models.Model):</span><br><span class="line">    &quot;&quot;&quot;课程信息表&quot;&quot;&quot;</span><br><span class="line">    title = models.CharField(max_length=100, primary_key=True, db_index=True, verbose_name=&quot;课程名&quot;)</span><br><span class="line">    teacher = models.ForeignKey(Teacher, null=True, blank=True, on_delete=models.CASCADE,</span><br><span class="line">                                verbose_name=&quot;课程讲师&quot;)  # 删除级联</span><br><span class="line">    type = models.CharField(choices=((1, &quot;实战课&quot;), (2, &quot;免费课&quot;), (0, &quot;其它&quot;)), max_length=1,</span><br><span class="line">                            default=0, verbose_name=&quot;课程类型&quot;)</span><br><span class="line">    price = models.PositiveSmallIntegerField(verbose_name=&quot;价格&quot;)</span><br><span class="line">    volume = models.BigIntegerField(verbose_name=&quot;销量&quot;)</span><br><span class="line">    online = models.DateField(verbose_name=&quot;上线时间&quot;)</span><br><span class="line">    created_at = models.DateTimeField(auto_now_add=True, verbose_name=&quot;创建时间&quot;)</span><br><span class="line">    updated_at = models.DateTimeField(auto_now=True, verbose_name=&quot;更新时间&quot;)</span><br><span class="line"></span><br><span class="line">    class Meta:</span><br><span class="line">        verbose_name = &quot;课程信息表&quot;</span><br><span class="line">        get_latest_by = &quot;created_at&quot;</span><br><span class="line">        verbose_name_plural = verbose_name</span><br><span class="line"></span><br><span class="line">    def __str__(self):</span><br><span class="line">        return f&quot;&#123;self.get_type_display()&#125;-&#123;self.title&#125;&quot;  # 示例：实战课-Django零基础入门到实战</span><br><span class="line">        # return &quot;&#123;&#125;-&#123;&#125;&quot;.format(self.get_type_display(), self.title)  # 示例：实战课-Django零基础入门到实战</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Student(models.Model):</span><br><span class="line">    &quot;&quot;&quot;学生信息表&quot;&quot;&quot;</span><br><span class="line">    nickname = models.CharField(max_length=30, primary_key=True, db_index=True, verbose_name=&quot;昵称&quot;)</span><br><span class="line">    course = models.ManyToManyField(Course, verbose_name=&quot;课程&quot;)</span><br><span class="line">    age = models.PositiveSmallIntegerField(verbose_name=&quot;年龄&quot;)</span><br><span class="line">    gender = models.CharField(choices=((1, &quot;男&quot;), (2, &quot;女&quot;), (0, &quot;保密&quot;)), max_length=1,</span><br><span class="line">                              default=0, verbose_name=&quot;性别&quot;)</span><br><span class="line">    study_time = models.PositiveIntegerField(default=&quot;0&quot;, verbose_name=&quot;学习时长(h)&quot;)</span><br><span class="line">    created_at = models.DateTimeField(auto_now_add=True, verbose_name=&quot;创建时间&quot;)</span><br><span class="line">    updated_at = models.DateTimeField(auto_now=True, verbose_name=&quot;更新时间&quot;)</span><br><span class="line"></span><br><span class="line">    class Meta:</span><br><span class="line">        verbose_name = &quot;学生信息表&quot;</span><br><span class="line">        ordering = [&apos;age&apos;]</span><br><span class="line">        verbose_name_plural = verbose_name</span><br><span class="line"></span><br><span class="line">    def __str__(self):</span><br><span class="line">        return self.nickname</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class TeacherAssistant(models.Model):</span><br><span class="line">    &quot;&quot;&quot;助教信息表&quot;&quot;&quot;</span><br><span class="line">    nickname = models.CharField(max_length=30, primary_key=True, db_index=True, verbose_name=&quot;昵称&quot;)</span><br><span class="line">    teacher = models.OneToOneField(Teacher, null=True, blank=True, on_delete=models.SET_NULL,</span><br><span class="line">                                   verbose_name=&quot;讲师&quot;)  # 删除置空</span><br><span class="line">    hobby = models.CharField(max_length=100, null=True, blank=True, verbose_name=&quot;爱好&quot;)</span><br><span class="line">    created_at = models.DateTimeField(auto_now_add=True, verbose_name=&quot;创建时间&quot;)</span><br><span class="line">    updated_at = models.DateTimeField(auto_now=True, verbose_name=&quot;更新时间&quot;)</span><br><span class="line"></span><br><span class="line">    class Meta:</span><br><span class="line">        verbose_name = &quot;助教信息表&quot;</span><br><span class="line">        db_table = &quot;courses_assistant&quot;</span><br><span class="line">        verbose_name_plural = verbose_name</span><br><span class="line"></span><br><span class="line">    def __str__(self):</span><br><span class="line">        return self.nickname</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class GroupConcat(models.Aggregate):</span><br><span class="line">    &quot;&quot;&quot;自定义实现聚合功能，实现GROUP_CONCAT功能&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">    function = &apos;GROUP_CONCAT&apos;</span><br><span class="line">    template = &apos;%(function)s(%(distinct)s%(expressions)s%(ordering)s%(separator)s)&apos;</span><br><span class="line"></span><br><span class="line">    def __init__(self, expression, distinct=False, ordering=None, separator=&apos;,&apos;, **extra):</span><br><span class="line">        super(GroupConcat, self).__init__(expression,</span><br><span class="line">                                          distinct=&apos;DISTINCT &apos; if distinct else &apos;&apos;,</span><br><span class="line">                                          ordering=&apos; ORDER BY %s&apos; % ordering if ordering is not None else &apos;&apos;,</span><br><span class="line">                                          separator=&apos; SEPARATOR &quot;%s&quot;&apos; % separator,</span><br><span class="line">                                          output_field=models.CharField(), **extra)</span><br></pre></td></tr></table></figure>
+<h3 id="第五章-Django-数据表操作"><a href="#第五章-Django-数据表操作" class="headerlink" title="第五章 Django 数据表操作"></a>第五章 Django 数据表操作</h3><p><img src="/2019/05/06/django 的ORM学习/95FDD37D1C9040CB875E2E760F23E432" alt="image"></p>
+<h4 id="django-更改数据表"><a href="#django-更改数据表" class="headerlink" title="django 更改数据表"></a>django 更改数据表</h4><p><img src="/2019/05/06/django 的ORM学习/15151738233C4FB5BE6C169E60F4E432" alt="image"></p>
+<p>migration 表示每次我们更改数据库时，这里存放更改的内容，当我们执行makemigrations 时，如果更改了models里面的字段，或增删等了一些表结构，就会多生成一条记录</p>
+<h4 id="django-migrations表的含义"><a href="#django-migrations表的含义" class="headerlink" title="django_migrations表的含义"></a>django_migrations表的含义</h4><p><img src="/2019/05/06/django 的ORM学习/B10B2F84F84F483BB4CD5B40B6ABB6D0" alt="image"></p>
+<ol>
+<li>makemigrations 是生成文件夹下migrations 表</li>
+<li>migrate是将migrations文件夹下的生成表结构等对应到django_migrations表上。发现表中有记录的话，数据库不动，没有的话就执行新的操作数据表语句。</li>
+</ol>
+<h4 id="那么怎么删除一个模型类呢"><a href="#那么怎么删除一个模型类呢" class="headerlink" title="那么怎么删除一个模型类呢"></a>那么怎么删除一个模型类呢</h4><ol>
+<li>删除models下的语句</li>
+<li>删除新增在migrations下的文件</li>
+<li>删除django_migrations表中增加的对应migrations下的生成记录，比如id为30的那行数据就是新增的语句。我们只要删除他就行。</li>
+<li>再来删除新增的数据表</li>
+<li>最后执行makemigrations, migration就行了<br><img src="/2019/05/06/django 的ORM学习/0FBF573BD18B41D592C0E2A6A7BA9433" alt="image"></li>
+</ol>
+<h4 id="Django数据导入"><a href="#Django数据导入" class="headerlink" title="Django数据导入"></a>Django数据导入</h4><p>使用python manage.py shell/loaddata写入，使用脚本或creat()、bulk_create()批量导入。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line"># __author__ = &apos;Jack&apos;</span><br><span class="line"></span><br><span class="line">import os</span><br><span class="line">import sys</span><br><span class="line">import random</span><br><span class="line">import django</span><br><span class="line">from datetime import date</span><br><span class="line"></span><br><span class="line">project_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))</span><br><span class="line">sys.path.append(project_path)  # 将项目路径添加到系统搜寻路径当中</span><br><span class="line">os.environ[&apos;DJANGO_SETTINGS_MODULE&apos;] = &apos;imooc.settings&apos;  # 设置项目的配置文件</span><br><span class="line">django.setup()</span><br><span class="line"></span><br><span class="line">from courses.models import Teacher, Course, Student, TeacherAssistant</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def import_data():</span><br><span class="line">    &quot;&quot;&quot;使用Django ORM导入数据&quot;&quot;&quot;</span><br><span class="line">    # 讲师数据 create()</span><br><span class="line">    Teacher.objects.create(nickname=&quot;Jack&quot;, introduction=&quot;Python工程师&quot;, fans=666)</span><br><span class="line">    Teacher.objects.create(nickname=&quot;Allen&quot;, introduction=&quot;Java工程师&quot;, fans=123)</span><br><span class="line">    Teacher.objects.create(nickname=&quot;Henry&quot;, introduction=&quot;Golang工程师&quot;, fans=818)</span><br><span class="line"></span><br><span class="line">    # 课程数据 bulk_create()</span><br><span class="line">    Course.objects.bulk_create([Course(title=f&quot;Python系列教程&#123;i&#125;&quot;, teacher=Teacher.objects.get(nickname=&quot;Jack&quot;),</span><br><span class="line">                                       type=random.choice((0, 1, 2)),</span><br><span class="line">                                       price=random.randint(200, 300), volume=random.randint(100, 10000),</span><br><span class="line">                                       online=date(2018, 10, 1))</span><br><span class="line">                                for i in range(1, 5)])</span><br><span class="line"></span><br><span class="line">    Course.objects.bulk_create([Course(title=f&quot;Java系列教程&#123;i&#125;&quot;, teacher=Teacher.objects.get(nickname=&quot;Allen&quot;),</span><br><span class="line">                                       type=random.choice((0, 1, 2)),</span><br><span class="line">                                       price=random.randint(200, 300), volume=random.randint(100, 10000),</span><br><span class="line">                                       online=date(2018, 6, 4))</span><br><span class="line">                                for i in range(1, 4)])</span><br><span class="line"></span><br><span class="line">    Course.objects.bulk_create([Course(title=f&quot;Golang系列教程&#123;i&#125;&quot;, teacher=Teacher.objects.get(nickname=&quot;Henry&quot;),</span><br><span class="line">                                       type=random.choice((0, 1, 2)),</span><br><span class="line">                                       price=random.randint(200, 300), volume=random.randint(100, 10000),</span><br><span class="line">                                       online=date(2018, 1, 1))</span><br><span class="line">                                for i in range(1, 3)])</span><br><span class="line"></span><br><span class="line">    # 学生数据 update_or_create()</span><br><span class="line">    Student.objects.update_or_create(nickname=&quot;A同学&quot;, defaults=&#123;&quot;age&quot;: random.randint(18, 58),</span><br><span class="line">                                                               &quot;gender&quot;: random.choice((0, 1, 2)),</span><br><span class="line">                                                               &quot;study_time&quot;: random.randint(9, 999)&#125;)</span><br><span class="line">    Student.objects.update_or_create(nickname=&quot;B同学&quot;, defaults=&#123;&quot;age&quot;: random.randint(18, 58),</span><br><span class="line">                                                               &quot;gender&quot;: random.choice((0, 1, 2)),</span><br><span class="line">                                                               &quot;study_time&quot;: random.randint(9, 999)&#125;)</span><br><span class="line">    Student.objects.update_or_create(nickname=&quot;C同学&quot;, defaults=&#123;&quot;age&quot;: random.randint(18, 58),</span><br><span class="line">                                                               &quot;gender&quot;: random.choice((0, 1, 2)),</span><br><span class="line">                                                               &quot;study_time&quot;: random.randint(9, 999)&#125;)</span><br><span class="line">    Student.objects.update_or_create(nickname=&quot;D同学&quot;, defaults=&#123;&quot;age&quot;: random.randint(18, 58),</span><br><span class="line">                                                               &quot;gender&quot;: random.choice((0, 1, 2)),</span><br><span class="line">                                                               &quot;study_time&quot;: random.randint(9, 999)&#125;)</span><br><span class="line">    # 正向添加</span><br><span class="line">    # 销量大于等于1000的课程</span><br><span class="line">    Student.objects.get(nickname=&quot;A同学&quot;).course.add(*Course.objects.filter(volume__gte=1000))</span><br><span class="line">    # 销量大于5000的课程</span><br><span class="line">    Student.objects.get(nickname=&quot;B同学&quot;).course.add(*Course.objects.filter(volume__gt=5000))</span><br><span class="line">    # 反向添加</span><br><span class="line">    # 学习时间大于等于500小时的同学</span><br><span class="line">    Course.objects.get(title=&quot;Python系列教程1&quot;).student_set.add(*Student.objects.filter(study_time__gte=500))</span><br><span class="line">    # 学习时间小于等于500小时的同学</span><br><span class="line">    Course.objects.get(title=&quot;Python系列教程2&quot;).student_set.add(*Student.objects.filter(study_time__lte=500))</span><br><span class="line"></span><br><span class="line">    # 助教数据 get_or_create()</span><br><span class="line">    TeacherAssistant.objects.get_or_create(nickname=&quot;助教1&quot;, defaults=&#123;&quot;hobby&quot;: &quot;慕课网学习&quot;, &quot;teacher&quot;:</span><br><span class="line">        Teacher.objects.get(nickname=&quot;Jack&quot;)&#125;)</span><br><span class="line">    TeacherAssistant.objects.get_or_create(nickname=&quot;助教2&quot;, defaults=&#123;&quot;hobby&quot;: &quot;追慕女神&quot;, &quot;teacher&quot;:</span><br><span class="line">        Teacher.objects.get(nickname=&quot;Allen&quot;)&#125;)</span><br><span class="line">    TeacherAssistant.objects.get_or_create(nickname=&quot;助教3&quot;, defaults=&#123;&quot;hobby&quot;: &quot;减肥减肥&quot;, &quot;teacher&quot;:</span><br><span class="line">        Teacher.objects.get(nickname=&quot;Henry&quot;)&#125;)</span><br><span class="line"></span><br><span class="line">    return True</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    if import_data():</span><br><span class="line">        print(&quot;数据导入成功！&quot;)</span><br><span class="line"></span><br><span class="line"># fixtures Django serialization → model 保存</span><br><span class="line"># 数据库层面的导入数据</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">windows下的MySQL客户端	mysql.exe/mysql -hPup 数据库名字 &lt; 备份文件目录</span><br><span class="line">						source 备份文件所在路径;</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"># 数据库层面导出数据</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">其它：数据库层面导出数据</span><br><span class="line">		mysqldump/mysqldump.exe -hPup 数据库名字 [数据表名字1 [数据表名字2…]] &gt; 外部文件目录(建议使用.sql)</span><br><span class="line">&quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="Django数据导出"><a href="#Django数据导出" class="headerlink" title="Django数据导出"></a>Django数据导出</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">通过 python manage.py dumpdata导出数据，或用数据库自带的导出命令。</span><br></pre></td></tr></table></figure>
+<p>建议使用Navicat Premium导入导出数据，特别方便。。</p>
+<h3 id="对数据库的增删改查"><a href="#对数据库的增删改查" class="headerlink" title="对数据库的增删改查"></a>对数据库的增删改查</h3><p><img src="/2019/05/06/django 的ORM学习/F9B246EEDAEB46ED9EDCEDED645F6C7C" alt="image"></p>
+<h4 id="查询集QuerySet介绍"><a href="#查询集QuerySet介绍" class="headerlink" title="查询集QuerySet介绍"></a>查询集QuerySet介绍</h4><p>查询集QuerySet介绍，如何创建、保存、检索、过滤；</p>
+<p>字段数据正则匹配，大小写敏感；</p>
+<p>结果切片，排序，链式查询；</p>
+<p>如何查看与执行生SQL语句。</p>
+<h4 id="返回新QuerySet的API"><a href="#返回新QuerySet的API" class="headerlink" title="返回新QuerySet的API"></a>返回新QuerySet的API</h4><table>
+<thead>
+<tr>
+<th>Models API</th>
+<th>使用说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>filter()</strong></td>
+<td>过滤查询对象</td>
+</tr>
+<tr>
+<td><strong>exclude()</strong></td>
+<td>排除满足条件的对象</td>
+</tr>
+<tr>
+<td><strong>annotate()</strong></td>
+<td>使用聚合计数，求和，平均数等</td>
+</tr>
+<tr>
+<td><strong>order_by()</strong></td>
+<td>对查询集进行排序</td>
+</tr>
+<tr>
+<td><strong>reverse()</strong></td>
+<td>反向排序</td>
+</tr>
+<tr>
+<td><strong>distinct()</strong></td>
+<td>对查询集去重</td>
+</tr>
+<tr>
+<td><strong>values()</strong></td>
+<td>返回包含对象具体值的字典的QuerySet</td>
+</tr>
+<tr>
+<td><strong>values_list()</strong></td>
+<td>与values()类似，只是返回的是元组而不是字典</td>
+</tr>
+<tr>
+<td>dates()</td>
+<td>根据日期获取查询集</td>
+</tr>
+<tr>
+<td>datetimes()</td>
+<td>根据时间获取查询集</td>
+</tr>
+<tr>
+<td><strong>none()</strong></td>
+<td>创建空的查询集</td>
+</tr>
+<tr>
+<td><strong>all()</strong></td>
+<td>获取所有的对象</td>
+</tr>
+<tr>
+<td>union()</td>
+<td>并集</td>
+</tr>
+<tr>
+<td>intersection()</td>
+<td>交集</td>
+</tr>
+<tr>
+<td>difference()</td>
+<td>差集</td>
+</tr>
+<tr>
+<td><code>select_related()</code></td>
+<td>附带查询外键关联的对象，优化一对一，多对一查询</td>
+</tr>
+<tr>
+<td><code>prefetch_related()</code></td>
+<td>预先查询外键关联的对象，优化一对多，多对多查询</td>
+</tr>
+<tr>
+<td>extra()</td>
+<td>实现别名，条件，排序等</td>
+</tr>
+<tr>
+<td>defer()</td>
+<td>排除不需要的字段</td>
+</tr>
+<tr>
+<td>only()</td>
+<td>仅选择需要的字段</td>
+</tr>
+<tr>
+<td>using()</td>
+<td>选择数据库</td>
+</tr>
+<tr>
+<td><code>select_for_update()</code></td>
+<td>锁住选择的对象，直到事务结束</td>
+</tr>
+<tr>
+<td>raw()</td>
+<td>接收一个原始的SQL查询</td>
+</tr>
+</tbody>
+</table>
+<h4 id="不返回QuerySet的API"><a href="#不返回QuerySet的API" class="headerlink" title="不返回QuerySet的API"></a>不返回QuerySet的API</h4><table>
+<thead>
+<tr>
+<th>Models API</th>
+<th>使用说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>get()</strong></td>
+<td>获取单个对象</td>
+</tr>
+<tr>
+<td><strong>create()</strong></td>
+<td>创建对象，无需save()</td>
+</tr>
+<tr>
+<td><strong>get_or_create()</strong></td>
+<td>查询对象，如果没有找到就新建对象</td>
+</tr>
+<tr>
+<td><strong>update_or_create()</strong></td>
+<td>更新对象，如果没有找到就创建对象</td>
+</tr>
+<tr>
+<td><code>bulk_create()</code></td>
+<td>批量创建对象</td>
+</tr>
+<tr>
+<td><strong>count()</strong></td>
+<td>统计对象的个数</td>
+</tr>
+<tr>
+<td><code>in_bulk()</code></td>
+<td>根据<strong>主键值</strong>的列表，批量返回对象</td>
+</tr>
+<tr>
+<td><code>iterator()</code></td>
+<td>获取包含对象的迭代器</td>
+</tr>
+<tr>
+<td><strong>latest()</strong></td>
+<td>获取最近的对象</td>
+</tr>
+<tr>
+<td><strong>earliest()</strong></td>
+<td>获取最早的对象</td>
+</tr>
+<tr>
+<td><strong>first()</strong></td>
+<td>获取第一个对象</td>
+</tr>
+<tr>
+<td><strong>last()</strong></td>
+<td>获取最后一个对象</td>
+</tr>
+<tr>
+<td><strong>aggregate()</strong></td>
+<td>聚合操作</td>
+</tr>
+<tr>
+<td><strong>exists()</strong></td>
+<td>判断queryset中是否有对象</td>
+</tr>
+<tr>
+<td><strong>update()</strong></td>
+<td>批量更新对象</td>
+</tr>
+<tr>
+<td><strong>delete()</strong></td>
+<td>批量删除对象</td>
+</tr>
+<tr>
+<td>as_manager()</td>
+<td>获取管理器</td>
+</tr>
+</tbody>
+</table>
+<h3 id="第七章-F对象与Q对象"><a href="#第七章-F对象与Q对象" class="headerlink" title="第七章　F对象与Q对象"></a>第七章　F对象与Q对象</h3><p><img src="/2019/05/06/django 的ORM学习/691A7B3B70454557889C3AA06EBC37BB" alt="image"></p>
+<h4 id="F对象"><a href="#F对象" class="headerlink" title="F对象"></a>F对象</h4><p><img src="/2019/05/06/django 的ORM学习/1CF4B04AD03F407DA7678D30EDF18B80" alt="image"><br><img src="/2019/05/06/django 的ORM学习/F50628261EE843309CBC0BF30790B4E0" alt="image"><br>所有的课程价格都减了11</p>
+<p>假如需要获取价格小于课程销量10倍的对象<br><img src="/2019/05/06/django 的ORM学习/4AA7C3CC726942A5800238D6B1B47272" alt="image"></p>
+<p><img src="/2019/05/06/django 的ORM学习/D7BF3C93E8A94390BB93373A404C6317" alt="image"></p>
+<p><img src="/2019/05/06/django 的ORM学习/BFDC1DE6590D4E688316720337D24B6A" alt="image"></p>
+<h4 id="Q对象"><a href="#Q对象" class="headerlink" title="Q对象"></a>Q对象</h4><p>假设我们需要查询到所有的java课程并且销量大于5000</p>
+<p><img src="/2019/05/06/django 的ORM学习/D0E47242FAFE4263961769B42189FFFC" alt="image"><br><img src="/2019/05/06/django 的ORM学习/9E1B4EEAA8944F4DA43422F15100B6A6" alt="image"></p>
+<p>查询课程标题包含golang 或者销量大于1000的对象<br><img src="/2019/05/06/django 的ORM学习/0FC71E56B310435296383F3C2E786602" alt="image"><br><img src="/2019/05/06/django 的ORM学习/3E701BDC59464F2C8283EB56395C70B6" alt="image"></p>
+<h3 id="第八章-课程总结"><a href="#第八章-课程总结" class="headerlink" title="第八章 课程总结"></a>第八章 课程总结</h3><p>如上每一章标题</p>
+<p>学习地址 </p>
+<p><a href="https://coding.imooc.com/class/333.html" target="_blank" rel="noopener">https://coding.imooc.com/class/333.html</a></p>
+<p>参考地址： </p>
+<p><a href="https://github.com/liaogx/imooc" target="_blank" rel="noopener">https://github.com/liaogx/imooc</a></p>
+<p><a href="http://www.liujiangblog.com/course/django/129" target="_blank" rel="noopener">http://www.liujiangblog.com/course/django/129</a></p>
+
+      
+    </div>
+    
+    
+    
+  
+      <div>
+          
+    <div style="text-align:center;color: #ccc;font-size:16px;">
+        ------ 本文结束------</div>
+    
+      </div>
+    
+
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/25/有道云翻译/" rel="next" title="有道云翻译">
+                <i class="fa fa-chevron-left"></i> 有道云翻译
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="BrightLoong" />
+            
+              <p class="site-author-name" itemprop="name">BrightLoong</p>
+              <p class="site-description motion-element" itemprop="description">现实本就是不可逆的，心肠只会越来越硬</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/dreampeoplexyh" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一章-课程介绍"><span class="nav-number">1.</span> <span class="nav-text">第一章 课程介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#学习目标：独立使用Django完成ORM的开发"><span class="nav-number">1.1.</span> <span class="nav-text">学习目标：独立使用Django完成ORM的开发</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#学习内容：Django-ORM所有的知识点"><span class="nav-number">1.2.</span> <span class="nav-text">学习内容：Django ORM所有的知识点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何学习本课程？"><span class="nav-number">1.3.</span> <span class="nav-text">如何学习本课程？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二章-ORM介绍"><span class="nav-number">2.</span> <span class="nav-text">第二章 ORM介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL-语句"><span class="nav-number">2.1.</span> <span class="nav-text">SQL 语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是ORM-Object-Relational-Mapping-models-py"><span class="nav-number">2.2.</span> <span class="nav-text">什么是ORM(Object-Relational Mapping)?models.py?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模型类的优势与劣势"><span class="nav-number">2.3.</span> <span class="nav-text">模型类的优势与劣势</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三章-字段类型和参数"><span class="nav-number">3.</span> <span class="nav-text">第三章 字段类型和参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常用的字段"><span class="nav-number">3.1.</span> <span class="nav-text">常用的字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关系型字段"><span class="nav-number">3.2.</span> <span class="nav-text">关系型字段</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#一对一-OneToOneField"><span class="nav-number">3.2.1.</span> <span class="nav-text">一对一(OneToOneField)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多对一-ForeignKey"><span class="nav-number">3.2.2.</span> <span class="nav-text">多对一(ForeignKey)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多对多-ManyToManyField-默认或自定义中间表"><span class="nav-number">3.2.3.</span> <span class="nav-text">多对多(ManyToManyField),默认或自定义中间表</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字段参数"><span class="nav-number">3.3.</span> <span class="nav-text">字段参数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1、所有字段都有的参数"><span class="nav-number">3.3.1.</span> <span class="nav-text">1、所有字段都有的参数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2、个别字段"><span class="nav-number">3.3.2.</span> <span class="nav-text">2、个别字段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3、关系型字段的参数"><span class="nav-number">3.3.3.</span> <span class="nav-text">3、关系型字段的参数</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#on-delete"><span class="nav-number">3.3.3.1.</span> <span class="nav-text">on_delete</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自关联"><span class="nav-number">3.4.</span> <span class="nav-text">自关联</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元数据Meta"><span class="nav-number">4.</span> <span class="nav-text">元数据Meta</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型类开发示例"><span class="nav-number">5.</span> <span class="nav-text">模型类开发示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第五章-Django-数据表操作"><span class="nav-number">6.</span> <span class="nav-text">第五章 Django 数据表操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#django-更改数据表"><span class="nav-number">6.1.</span> <span class="nav-text">django 更改数据表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#django-migrations表的含义"><span class="nav-number">6.2.</span> <span class="nav-text">django_migrations表的含义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#那么怎么删除一个模型类呢"><span class="nav-number">6.3.</span> <span class="nav-text">那么怎么删除一个模型类呢</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Django数据导入"><span class="nav-number">6.4.</span> <span class="nav-text">Django数据导入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Django数据导出"><span class="nav-number">6.5.</span> <span class="nav-text">Django数据导出</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对数据库的增删改查"><span class="nav-number">7.</span> <span class="nav-text">对数据库的增删改查</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查询集QuerySet介绍"><span class="nav-number">7.1.</span> <span class="nav-text">查询集QuerySet介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#返回新QuerySet的API"><span class="nav-number">7.2.</span> <span class="nav-text">返回新QuerySet的API</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不返回QuerySet的API"><span class="nav-number">7.3.</span> <span class="nav-text">不返回QuerySet的API</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第七章-F对象与Q对象"><span class="nav-number">8.</span> <span class="nav-text">第七章　F对象与Q对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#F对象"><span class="nav-number">8.1.</span> <span class="nav-text">F对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Q对象"><span class="nav-number">8.2.</span> <span class="nav-text">Q对象</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第八章-课程总结"><span class="nav-number">9.</span> <span class="nav-text">第八章 课程总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BrightLoong</span>
+
+  
+</div>
+
+
+  <!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+  -->
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
