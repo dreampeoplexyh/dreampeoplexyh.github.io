@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="运维，负载均衡，双机热备," />
+
+
+
+
+
+
+
+
+
+
+<meta name="keywords" content="运维，负载均衡，双机热备">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker运维笔记">
+<meta property="og:url" content="https://dreampeoplexyh.github.io/2019/06/09/docker 运维笔记之安装PXC集群，负载均衡，双机热备(1)/index.html">
+<meta property="og:site_name" content="jusk?">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://raw.githubusercontent.com/jusk9527/images/master/data/20190609114719.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608191837.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608192128.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608192646.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608204057.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608204208.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608204331.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608213925.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608221804.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608225228.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608225330.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608225840.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608230035.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608230322.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608225840.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608230035.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608230322.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/jusk9527/images/master/data/20190609114719.png">
+<meta property="og:updated_time" content="2019-06-09T14:32:37.708Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker运维笔记">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/jusk9527/images/master/data/20190609114719.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://dreampeoplexyh.github.io/2019/06/09/docker 运维笔记之安装PXC集群，负载均衡，双机热备(1)/"/>
+
+
+
+
+
+  <title>Docker运维笔记 | jusk?</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">jusk?</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录、分享、思想自由</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dreampeoplexyh.github.io/2019/06/09/docker 运维笔记之安装PXC集群，负载均衡，双机热备(1)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BrightLoong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jusk?">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Docker运维笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-09T18:22:25+08:00">
+                2019-06-09
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-06-09T22:32:37+08:00">
+                2019-06-09
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index">
+                    <span itemprop="name">Docker</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="https://raw.githubusercontent.com/jusk9527/images/master/data/20190609114719.png" alt=""></p>
+<a id="more"></a>
+<h3 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h3><ol>
+<li>linux基本命令</li>
+</ol>
+<p><strong>重启网络服务</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl  restart network</span><br></pre></td></tr></table></figure>
+<p><strong>权限</strong></p>
+<p>chomod 700 文件，目录名</p>
+<p>700表示 rwx———</p>
+<p><a href="https://blog.csdn.net/u013197629/article/details/73608613" target="_blank" rel="noopener">https://blog.csdn.net/u013197629/article/details/73608613</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">若要同时设置 rwx (可读写运行） 权限则将该权限位 设置 为 4 + 2 + 1 = 7</span><br><span class="line"></span><br><span class="line">若要同时设置 rw- （可读写不可运行）权限则将该权限位 设置 为 4 + 2 = 6</span><br><span class="line"></span><br><span class="line">若要同时设置 r-x （可读可运行不可写）权限则将该权限位 设置 为 4 +1 = 5</span><br><span class="line"></span><br><span class="line">上面我们提到，每个文件都可以针对三个粒度，设置不同的rwx(读写执行)权限。即我们可以用用三个8进制数字分别表示 拥有者 、群组 、其它组( u、 g 、o)的权限详情，并用chmod直接加三个8进制数字的方式直接改变文件权限。语法格式为 ：</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>Centos管理防火墙</li>
+</ol>
+<p><strong>查看、启动、关闭、重启防火墙</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --state</span><br><span class="line"></span><br><span class="line">service firewall start</span><br><span class="line"></span><br><span class="line">service fiewall stop</span><br><span class="line"></span><br><span class="line">service fiewall restart·</span><br></pre></td></tr></table></figure>
+<p><strong>端口管理</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 开放一定范围端口</span><br><span class="line">filewall-cmd --permanent --add-port=8080-8085/tcp</span><br><span class="line"># 加载设置</span><br><span class="line">firewall-cmd --reload</span><br><span class="line"></span><br><span class="line"># 删除</span><br><span class="line">firewall-cmd --permanent --remove-port=8080-8085/tcp</span><br></pre></td></tr></table></figure>
+<h3 id="docker技术简介"><a href="#docker技术简介" class="headerlink" title="docker技术简介"></a>docker技术简介</h3><ol>
+<li>资料</li>
+</ol>
+<p>docker从入门到实战</p>
+<p><a href="https://yeasy.gitbooks.io/docker_practice/content/" target="_blank" rel="noopener">https://yeasy.gitbooks.io/docker_practice/content/</a></p>
+<p><a href="https://www.imooc.com/learn/867" target="_blank" rel="noopener">https://www.imooc.com/learn/867</a></p>
+<p><img src="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608191837.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608192128.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608192646.png" alt=""></p>
+<ol start="2">
+<li>配置加速</li>
+</ol>
+<h3 id="linux等-下安装"><a href="#linux等-下安装" class="headerlink" title="linux等 下安装"></a>linux等 下安装</h3><p><a href="https://docs.docker.com/" target="_blank" rel="noopener">docker文档</a></p>
+<p>配置加速，用阿里云</p>
+<p><a href="https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors" target="_blank" rel="noopener">https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors</a></p>
+<p>查看doucker镜像我们可以在这个网站上看到</p>
+<p><a href="https://hub.docker.com" target="_blank" rel="noopener">https://hub.docker.com</a></p>
+<ol start="3">
+<li>基本命令</li>
+</ol>
+<p>详细 命令</p>
+<p><a href="https://www.runoob.com/docker/docker-command-manual.html" target="_blank" rel="noopener">https://www.runoob.com/docker/docker-command-manual.html</a></p>
+<p><strong>容器生命周期管理</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>docker run &lt;镜像ID&gt;</td>
+<td>启动一个镜像到容器</td>
+</tr>
+<tr>
+<td>docker start &lt;容器ID&gt;</td>
+<td>启动指定容器</td>
+</tr>
+<tr>
+<td>docker stop &lt;容器ID&gt;</td>
+<td>停止指定容器</td>
+</tr>
+<tr>
+<td>docker restart &lt;容器ID&gt;</td>
+<td>重启指定容器</td>
+</tr>
+<tr>
+<td>docker kill</td>
+<td></td>
+</tr>
+<tr>
+<td>docker rm &lt;容器ID&gt;</td>
+<td>删除指定容器</td>
+</tr>
+<tr>
+<td>docker pauser &lt;容器ID&gt;</td>
+<td>暂停指定容器，配套unpausel</td>
+</tr>
+<tr>
+<td>docker unpausel &lt;容器ID&gt;</td>
+<td>恢复指定容器，配套pauser</td>
+</tr>
+</tbody>
+</table>
+<p><strong>容器操作运维</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>docker ps</td>
+<td>查看正在运行的容器，docker ps -a 是查看全部容器</td>
+</tr>
+<tr>
+<td>docker inspect &lt;容器ID&gt;</td>
+<td>查看指定容器的配置等</td>
+</tr>
+<tr>
+<td>docker top &lt;容器ID&gt;</td>
+<td>查看容器中运行的进程信息</td>
+</tr>
+<tr>
+<td>docker attach &lt;容器ID&gt;</td>
+<td>从服务器获取实时事件</td>
+</tr>
+<tr>
+<td>docker logs</td>
+<td>获取容器的日志</td>
+</tr>
+<tr>
+<td>docker wait</td>
+<td>阻塞运行直到容器停止，然后打印出它的退出代码</td>
+</tr>
+<tr>
+<td>docker export</td>
+<td>将文件系统作为一个tar归档文件导出到STDOUT</td>
+</tr>
+<tr>
+<td> docker port</td>
+<td>列出指定的容器的端口映射，或者查找将PRIVATE_PORT NAT到面向公众的端口</td>
+</tr>
+<tr>
+<td> docker rename</td>
+<td>改名</td>
+</tr>
+</tbody>
+</table>
+<p> <strong>容器rootfs命令</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>docker commit</td>
+<td>从容器创建一个新的镜像。</td>
+</tr>
+<tr>
+<td>docker cp</td>
+<td>用于容器与主机之间的数据拷贝。</td>
+</tr>
+<tr>
+<td>docker diff</td>
+<td>检查容器里文件结构的更改。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>镜像仓库</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>docker login</td>
+<td>登录</td>
+</tr>
+<tr>
+<td>docker pull</td>
+<td>下载</td>
+</tr>
+<tr>
+<td>docker push</td>
+<td>提交</td>
+</tr>
+<tr>
+<td>docker search</td>
+<td>搜索</td>
+</tr>
+</tbody>
+</table>
+<p><strong>本地镜像管理</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>docker images</td>
+<td>查看本地镜像</td>
+</tr>
+<tr>
+<td>dcoker rmi</td>
+<td>删除镜像</td>
+</tr>
+<tr>
+<td>docker tag</td>
+<td>改标签</td>
+</tr>
+<tr>
+<td>docker build</td>
+<td>创建一个镜像</td>
+</tr>
+<tr>
+<td>docker history</td>
+<td>查看镜像的创建记录</td>
+</tr>
+<tr>
+<td>docker save</td>
+<td>将指定镜像保存成 tar 归档文件。</td>
+</tr>
+<tr>
+<td>docker import</td>
+<td>从归档文件中创建镜像。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>网络管理</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>docker network ls</td>
+<td>查看网络信息</td>
+</tr>
+<tr>
+<td>docker network create –subnet=网段 网络名称</td>
+<td>….</td>
+</tr>
+<tr>
+<td>docker network rm 网络名称</td>
+<td>删除某个网段</td>
+</tr>
+</tbody>
+</table>
+<p><strong>其他命令</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>docker version</td>
+<td>查看版本</td>
+</tr>
+<tr>
+<td>docker info</td>
+<td>查看详细docker信息</td>
+</tr>
+</tbody>
+</table>
+<h3 id="数据库负载均衡"><a href="#数据库负载均衡" class="headerlink" title="数据库负载均衡"></a>数据库负载均衡</h3><p><img src="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608204057.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608204208.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608204331.png" alt=""></p>
+<h4 id="安装Haproxy-镜像"><a href="#安装Haproxy-镜像" class="headerlink" title="安装Haproxy 镜像"></a>安装Haproxy 镜像</h4><p>Docker 仓库中保存了Haproxy 的镜像,只需要下载即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull haproxy</span><br></pre></td></tr></table></figure>
+<h4 id="创建Haproxy配置文件"><a href="#创建Haproxy配置文件" class="headerlink" title="创建Haproxy配置文件"></a>创建Haproxy配置文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch /home/soft/haproxy/haproxy.cfg</span><br></pre></td></tr></table></figure>
+<p>参考教程：<a href="https://zhangge.net/5125.html" target="_blank" rel="noopener">https://zhangge.net/5125.html</a></p>
+<h4 id="编写宿主机上的配置文件"><a href="#编写宿主机上的配置文件" class="headerlink" title="编写宿主机上的配置文件"></a>编写宿主机上的配置文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /home/soft/haproxy/haproxy.cfg</span><br></pre></td></tr></table></figure>
+<p>配置文件如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">global</span><br><span class="line">	#工作目录</span><br><span class="line">	chroot /usr/local/etc/haproxy</span><br><span class="line">	#日志文件，使用rsyslog服务中local5日志设备（/var/log/local5），等级info</span><br><span class="line">	log 127.0.0.1 local5 info</span><br><span class="line">	#守护进程运行</span><br><span class="line">	daemon</span><br><span class="line"></span><br><span class="line">defaults</span><br><span class="line">	log	global</span><br><span class="line">	mode	http</span><br><span class="line">	#日志格式</span><br><span class="line">	option	httplog</span><br><span class="line">	#日志中不记录负载均衡的心跳检测记录</span><br><span class="line">	option	dontlognull</span><br><span class="line">    #连接超时（毫秒）</span><br><span class="line">	timeout connect 5000</span><br><span class="line">    #客户端超时（毫秒）</span><br><span class="line">	timeout client  50000</span><br><span class="line">	#服务器超时（毫秒）</span><br><span class="line">    timeout server  50000</span><br><span class="line"></span><br><span class="line">#监控界面</span><br><span class="line">listen  admin_stats</span><br><span class="line">	#监控界面的访问的IP和端口</span><br><span class="line">	bind  0.0.0.0:8888</span><br><span class="line">	#访问协议</span><br><span class="line">    mode        http</span><br><span class="line">	#URI相对地址</span><br><span class="line">    stats uri   /dbs</span><br><span class="line">	#统计报告格式</span><br><span class="line">    stats realm     Global\ statistics</span><br><span class="line">	#登陆帐户信息</span><br><span class="line">    stats auth  admin:abc123456</span><br><span class="line">#数据库负载均衡</span><br><span class="line">listen  proxy-mysql</span><br><span class="line">	#访问的IP和端口</span><br><span class="line">	bind  0.0.0.0:3306</span><br><span class="line">    #网络协议</span><br><span class="line">	mode  tcp</span><br><span class="line">	#负载均衡算法（轮询算法）</span><br><span class="line">	#轮询算法：roundrobin</span><br><span class="line">	#权重算法：static-rr</span><br><span class="line">	#最少连接算法：leastconn</span><br><span class="line">	#请求源IP算法：source</span><br><span class="line">    balance  roundrobin</span><br><span class="line">	#日志格式</span><br><span class="line">    option  tcplog</span><br><span class="line">	#在MySQL中创建一个没有权限的haproxy用户，密码为空。Haproxy使用这个账户对MySQL数据库心跳检测</span><br><span class="line">    option  mysql-check user haproxy</span><br><span class="line">    server  MySQL_1 172.18.0.2:3306 check weight 1 maxconn 2000</span><br><span class="line">    server  MySQL_2 172.18.0.3:3306 check weight 1 maxconn 2000</span><br><span class="line">	server  MySQL_3 172.18.0.4:3306 check weight 1 maxconn 2000</span><br><span class="line">	server  MySQL_4 172.18.0.5:3306 check weight 1 maxconn 2000</span><br><span class="line">	server  MySQL_5 172.18.0.6:3306 check weight 1 maxconn 2000</span><br><span class="line">	#使用keepalive检测死链</span><br><span class="line">    option  tcpka</span><br></pre></td></tr></table></figure></p>
+<h4 id="创建两个Haproxy容器"><a href="#创建两个Haproxy容器" class="headerlink" title="创建两个Haproxy容器"></a>创建两个Haproxy容器</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#创建第1个Haproxy负载均衡服务器</span><br><span class="line">docker run -it -d -p 4001:8888 -p 4002:3306 -v /home/soft/haproxy:/usr/local/etc/haproxy --name h1 --privileged --net=net1 --ip 172.18.0.7 haproxy</span><br><span class="line">#进入h1容器，启动Haproxy</span><br><span class="line">docker exec -it h1 bash</span><br><span class="line">haproxy -f /usr/local/etc/haproxy/haproxy.cfg</span><br><span class="line">#创建第2个Haproxy负载均衡服务器</span><br><span class="line">docker run -it -d -p 4003:8888 -p 4004:3306 -v /home/soft/haproxy:/usr/local/etc/haproxy --name h2 --privileged --net=net1 --ip 172.18.0.8 haproxy</span><br><span class="line">#进入h2容器，启动Haproxy</span><br><span class="line">docker exec -it h2 bash</span><br><span class="line">haproxy -f /usr/local/etc/haproxy/haproxy.cfg</span><br></pre></td></tr></table></figure>
+<h4 id="查看监控"><a href="#查看监控" class="headerlink" title="查看监控"></a>查看监控</h4><p>密码啥的在配置文件里面可以看到</p>
+<p><a href="http://183.134.196.226:4001/dbs" target="_blank" rel="noopener">http://183.134.196.226:4001/dbs</a></p>
+<p>我也不知道在DB1上要不要创建<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER &apos;haproxy&apos;@&apos;%&apos; IDENTIFIED BY;</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608213925.png" alt=""></p>
+<h4 id="连接H1中间。轮训算法分发"><a href="#连接H1中间。轮训算法分发" class="headerlink" title="连接H1中间。轮训算法分发"></a>连接H1中间。轮训算法分发</h4><p>连接数据库4001，用户名和密码在配置文件中</p>
+<h4 id="冷备份、热备份数据"><a href="#冷备份、热备份数据" class="headerlink" title="冷备份、热备份数据"></a>冷备份、热备份数据</h4><h5 id="冷备份"><a href="#冷备份" class="headerlink" title="冷备份"></a>冷备份</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">冷备份是关闭数据库时候的备份方式，通常做法是拷贝数据文件</span><br><span class="line"></span><br><span class="line">冷备份是最简单最安全的一种备份方式</span><br><span class="line"></span><br><span class="line">大型网站无法做到关闭业务备份数据，所以冷备份不是最佳选择</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">可以让某一个数据库停掉，在备份数据，可否？</span><br></pre></td></tr></table></figure>
+<h5 id="热备份"><a href="#热备份" class="headerlink" title="热备份"></a>热备份</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">热备份是在系统运行的状态下备份数据，也是难度最大的备份</span><br><span class="line"></span><br><span class="line">MySQL 常见的备份有LVM何和XtraBackup两种方案</span><br><span class="line"></span><br><span class="line">建议使用XtraBackUP 热备MySQL</span><br></pre></td></tr></table></figure>
+<p>XtraBackup 介绍</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">XtraBackup 是一款基于InnoDB的在线热备工具,具有开源免费，支持在线热备，占用磁盘空间小，能够分厂快速地备份与恢复mysql数据库</span><br></pre></td></tr></table></figure>
+<p>XtraBackup 优势</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">XtraBackup 备份过程不锁表，快速可靠</span><br><span class="line"></span><br><span class="line">XtraBackup 备份过程不会打断正在执行的事务</span><br><span class="line"></span><br><span class="line">XtraBackup 能够基于压缩等功能节约磁盘空间和流量</span><br></pre></td></tr></table></figure>
+<h4 id="全量备份和增量备份"><a href="#全量备份和增量备份" class="headerlink" title="全量备份和增量备份"></a>全量备份和增量备份</h4><p>全量备份是备份全部数据，备份过程空间长，占用空间大</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">PXC--&gt;完整备份</span><br></pre></td></tr></table></figure>
+<p>增量备份是只别分变化的那部分数据，备份时间短，占用空间小</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">PXC--&gt;快照123</span><br></pre></td></tr></table></figure>
+<h3 id="PXC全量备份步骤"><a href="#PXC全量备份步骤" class="headerlink" title="PXC全量备份步骤"></a>PXC全量备份步骤</h3><ol>
+<li>pxc容器中安装XtraBackup, 并执行备份</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br><span class="line"></span><br><span class="line">apt-get install percona-xtrabackup-24</span><br><span class="line"></span><br><span class="line">innobackupex --user=root --password=abc123456 /data/backup/full</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608221804.png" alt=""></p>
+<h4 id="PXC全量恢复步骤"><a href="#PXC全量恢复步骤" class="headerlink" title="PXC全量恢复步骤"></a>PXC全量恢复步骤</h4><ul>
+<li><p>数据库可以热备份，但是不能热还原，为了避免恢复过程中的数据同步，我们采用空白的Mysql还原数据，然后在简历PXC集群</p>
+</li>
+<li><p>还原数据前要将为提交的事务回滚，还原数据之后重启MySQL</p>
+</li>
+</ul>
+<p>指令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /var/lib/mysql/*</span><br><span class="line"></span><br><span class="line">innobackupex --user=root --password=abc123456 --apply-back /data/bacjup/full/2019-6-12-07/</span><br><span class="line"></span><br><span class="line">innobackupex --user=root --password=abc123456 --copy-back /data/backup/full/2019-6-12-07/</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608225228.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608225330.png" alt=""></p>
+<h3 id="Redis-高速缓存"><a href="#Redis-高速缓存" class="headerlink" title="Redis 高速缓存"></a>Redis 高速缓存</h3><p><img src="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608225840.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608230035.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608230322.png" alt=""></p>
+<p>为什么需要keepalived+Haproxy</p>
+<p><a href="https://blog.csdn.net/qq_21108311/article/details/82973763" target="_blank" rel="noopener">https://blog.csdn.net/qq_21108311/article/details/82973763</a></p>
+<h3 id="安装PXC集群，负载均衡，双机热备"><a href="#安装PXC集群，负载均衡，双机热备" class="headerlink" title="安装PXC集群，负载均衡，双机热备"></a>安装PXC集群，负载均衡，双机热备</h3><ol>
+<li>安装PXC镜像</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull percona/percona-xtradb-cluster</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>为PXC镜像改名</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker tag percona/percona-xtradb-cluster pxc</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>创建net1网段</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network create --subnet=172.18.0.0/16 net1</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>创建5个数据卷</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker volume create --name v1</span><br><span class="line">docker volume create --name v2</span><br><span class="line">docker volume create --name v3</span><br><span class="line">docker volume create --name v4</span><br><span class="line">docker volume create --name v5</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>创建备份数据卷（用于热备份数据）</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker volume create --name backup</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>创建5节点的PXC集群</li>
+</ol>
+<p>注意，每个MySQL容器创建之后，因为要执行PXC的初始化和加入集群等工作，耐心等待1分钟左右再用客户端连接MySQL。另外，必须第1个MySQL节点启动成功，用MySQL客户端能连接上之后，再去创建其他MySQL节点。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#创建第1个MySQL节点</span><br><span class="line">docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=abc123456 -v v1:/var/lib/mysql -v backup:/data --privileged --name=node1 --net=net1 --ip 172.18.0.2 pxc</span><br><span class="line">#创建第2个MySQL节点</span><br><span class="line">docker run -d -p 3307:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=abc123456 -e CLUSTER_JOIN=node1 -v v2:/var/lib/mysql -v backup:/data --privileged --name=node2 --net=net1 --ip 172.18.0.3 pxc</span><br><span class="line">#创建第3个MySQL节点</span><br><span class="line">docker run -d -p 3308:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=abc123456 -e CLUSTER_JOIN=node1 -v v3:/var/lib/mysql --privileged --name=node3 --net=net1 --ip 172.18.0.4 pxc</span><br><span class="line">#创建第4个MySQL节点</span><br><span class="line">docker run -d -p 3309:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=abc123456 -e CLUSTER_JOIN=node1 -v v4:/var/lib/mysql --privileged --name=node4 --net=net1 --ip 172.18.0.5 pxc</span><br><span class="line">#创建第5个MySQL节点</span><br><span class="line">docker run -d -p 3310:3306 -e MYSQL_ROOT_PASSWORD=abc123456 -e CLUSTER_NAME=PXC -e XTRABACKUP_PASSWORD=abc123456 -e CLUSTER_JOIN=node1 -v v5:/var/lib/mysql -v backup:/data --privileged --name=node5 --net=net1 --ip 172.18.0.6 pxc</span><br></pre></td></tr></table></figure>
+<ol start="7">
+<li>安装Haproxy镜像</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull haproxy</span><br></pre></td></tr></table></figure>
+<ol start="8">
+<li>宿主机上编写Haproxy配置文件,没有的touch -p 创建一个</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /home/soft/haproxy/haproxy.cfg</span><br></pre></td></tr></table></figure>
+<p>配置文件如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">global</span><br><span class="line">	#工作目录</span><br><span class="line">	chroot /usr/local/etc/haproxy</span><br><span class="line">	#日志文件，使用rsyslog服务中local5日志设备（/var/log/local5），等级info</span><br><span class="line">	log 127.0.0.1 local5 info</span><br><span class="line">	#守护进程运行</span><br><span class="line">	daemon</span><br><span class="line"></span><br><span class="line">defaults</span><br><span class="line">	log	global</span><br><span class="line">	mode	http</span><br><span class="line">	#日志格式</span><br><span class="line">	option	httplog</span><br><span class="line">	#日志中不记录负载均衡的心跳检测记录</span><br><span class="line">	option	dontlognull</span><br><span class="line">    #连接超时（毫秒）</span><br><span class="line">	timeout connect 5000</span><br><span class="line">    #客户端超时（毫秒）</span><br><span class="line">	timeout client  50000</span><br><span class="line">	#服务器超时（毫秒）</span><br><span class="line">    timeout server  50000</span><br><span class="line"></span><br><span class="line">#监控界面</span><br><span class="line">listen  admin_stats</span><br><span class="line">	#监控界面的访问的IP和端口</span><br><span class="line">	bind  0.0.0.0:8888</span><br><span class="line">	#访问协议</span><br><span class="line">    mode        http</span><br><span class="line">	#URI相对地址</span><br><span class="line">    stats uri   /dbs</span><br><span class="line">	#统计报告格式</span><br><span class="line">    stats realm     Global\ statistics</span><br><span class="line">	#登陆帐户信息</span><br><span class="line">    stats auth  admin:abc123456</span><br><span class="line">#数据库负载均衡</span><br><span class="line">listen  proxy-mysql</span><br><span class="line">	#访问的IP和端口</span><br><span class="line">	bind  0.0.0.0:3306</span><br><span class="line">    #网络协议</span><br><span class="line">	mode  tcp</span><br><span class="line">	#负载均衡算法（轮询算法）</span><br><span class="line">	#轮询算法：roundrobin</span><br><span class="line">	#权重算法：static-rr</span><br><span class="line">	#最少连接算法：leastconn</span><br><span class="line">	#请求源IP算法：source</span><br><span class="line">    balance  roundrobin</span><br><span class="line">	#日志格式</span><br><span class="line">    option  tcplog</span><br><span class="line">	#在MySQL中创建一个没有权限的haproxy用户，密码为空。Haproxy使用这个账户对MySQL数据库心跳检测</span><br><span class="line">    option  mysql-check user haproxy</span><br><span class="line">    server  MySQL_1 172.18.0.2:3306 check weight 1 maxconn 2000</span><br><span class="line">    server  MySQL_2 172.18.0.3:3306 check weight 1 maxconn 2000</span><br><span class="line">	server  MySQL_3 172.18.0.4:3306 check weight 1 maxconn 2000</span><br><span class="line">	server  MySQL_4 172.18.0.5:3306 check weight 1 maxconn 2000</span><br><span class="line">	server  MySQL_5 172.18.0.6:3306 check weight 1 maxconn 2000</span><br><span class="line">	#使用keepalive检测死链</span><br><span class="line">    option  tcpka</span><br></pre></td></tr></table></figure>
+<ol start="9">
+<li>创建两个Haproxy容器</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#创建第1个Haproxy负载均衡服务器</span><br><span class="line">docker run -it -d -p 4001:8888 -p 4002:3306 -v /home/soft/haproxy:/usr/local/etc/haproxy --name h1 --privileged --net=net1 --ip 172.18.0.7 haproxy</span><br><span class="line">#进入h1容器，启动Haproxy</span><br><span class="line">docker exec -it h1 bash</span><br><span class="line">haproxy -f /usr/local/etc/haproxy/haproxy.cfg</span><br><span class="line">#创建第2个Haproxy负载均衡服务器</span><br><span class="line">docker run -it -d -p 4003:8888 -p 4004:3306 -v /home/soft/haproxy:/usr/local/etc/haproxy --name h2 --privileged --net=net1 --ip 172.18.0.8 haproxy</span><br><span class="line">#进入h2容器，启动Haproxy</span><br><span class="line">docker exec -it h2 bash</span><br><span class="line">haproxy -f /usr/local/etc/haproxy/haproxy.cfg</span><br></pre></td></tr></table></figure>
+<p>为什么需要keepalived+Haproxy</p>
+<p><a href="https://blog.csdn.net/qq_21108311/article/details/82973763" target="_blank" rel="noopener">https://blog.csdn.net/qq_21108311/article/details/82973763</a></p>
+<ol start="10">
+<li>Haproxy容器内安装Keepalived，设置虚拟IP</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#进入h1容器</span><br><span class="line">docker exec -it h1 bash</span><br><span class="line">#更新软件包</span><br><span class="line">apt-get update</span><br><span class="line">#安装VIM</span><br><span class="line">apt-get install vim</span><br><span class="line">#安装Keepalived</span><br><span class="line">apt-get install keepalived</span><br><span class="line">#编辑Keepalived配置文件（参考下方配置文件）</span><br><span class="line">vim /etc/keepalived/keepalived.conf</span><br><span class="line">#启动Keepalived</span><br><span class="line">service keepalived start</span><br><span class="line">#宿主机执行ping命令</span><br><span class="line">ping 172.18.0.201</span><br></pre></td></tr></table></figure>
+<p>配置文件内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">vrrp_instance  VI_1 &#123;</span><br><span class="line">    state  MASTER</span><br><span class="line">    interface  eth0</span><br><span class="line">    virtual_router_id  51</span><br><span class="line">    priority  100</span><br><span class="line">    advert_int  1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type  PASS</span><br><span class="line">        auth_pass  123456</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        172.18.0.201</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#进入h2容器</span><br><span class="line">docker exec -it h2 bash</span><br><span class="line">#更新软件包</span><br><span class="line">apt-get update</span><br><span class="line">#安装VIM</span><br><span class="line">apt-get install vim</span><br><span class="line">#安装Keepalived</span><br><span class="line">apt-get install keepalived</span><br><span class="line">#编辑Keepalived配置文件</span><br><span class="line">vim /etc/keepalived/keepalived.conf</span><br><span class="line">#启动Keepalived</span><br><span class="line">service keepalived start</span><br><span class="line">#宿主机执行ping命令</span><br><span class="line">ping 127.19.0.201</span><br></pre></td></tr></table></figure>
+<p>配置文件内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">vrrp_instance  VI_1 &#123;</span><br><span class="line">    state  MASTER</span><br><span class="line">    interface  eth0</span><br><span class="line">    virtual_router_id  51</span><br><span class="line">    priority  100</span><br><span class="line">    advert_int  1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type  PASS</span><br><span class="line">        auth_pass  123456</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        172.18.0.201</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="11">
+<li>宿主机安装Keepalived，实现双击热备</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#宿主机执行安装Keepalived</span><br><span class="line">yum -y install keepalived</span><br><span class="line">#修改Keepalived配置文件</span><br><span class="line">vi /etc/keepalived/keepalived.conf</span><br><span class="line">#启动Keepalived</span><br><span class="line">service keepalived sta</span><br></pre></td></tr></table></figure>
+<p>Keepalived配置文件如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line">    interface ens33</span><br><span class="line">    virtual_router_id 51</span><br><span class="line">    priority 100</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">       	192.168.99.150</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">virtual_server 192.168.99.150 8888 &#123;</span><br><span class="line">    delay_loop 3</span><br><span class="line">    lb_algo rr</span><br><span class="line">    lb_kind NAT</span><br><span class="line">    persistence_timeout 50</span><br><span class="line">    protocol TCP</span><br><span class="line"></span><br><span class="line">    real_server 127.19.0.201 8888 &#123;</span><br><span class="line">        weight 1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">virtual_server 192.168.99.150 3306 &#123;</span><br><span class="line">    delay_loop 3</span><br><span class="line">    lb_algo rr</span><br><span class="line">    lb_kind NAT</span><br><span class="line">    persistence_timeout 50</span><br><span class="line">    protocol TCP</span><br><span class="line"></span><br><span class="line">    real_server 127.19.0.201 3306 &#123;</span><br><span class="line">        weight 1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="12">
+<li>热备份数据</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#进入node1容器</span><br><span class="line">docker exec -it node1 bash</span><br><span class="line">#更新软件包</span><br><span class="line">apt-get update</span><br><span class="line">#安装热备工具</span><br><span class="line">apt-get install percona-xtrabackup-24</span><br><span class="line">#全量热备</span><br><span class="line">innobackupex --user=root --password=abc123456 /data/backup/full</span><br></pre></td></tr></table></figure>
+<ol start="13">
+<li>冷还原数据</li>
+</ol>
+<p>停止其余4个节点，并删除节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker stop node2</span><br><span class="line">docker stop node3</span><br><span class="line">docker stop node4</span><br><span class="line">docker stop node5</span><br><span class="line">docker rm node2</span><br><span class="line">docker rm node3</span><br><span class="line">docker rm node4</span><br><span class="line">docker rm node5</span><br></pre></td></tr></table></figure>
+<p>node1容器中删除MySQL的数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#删除数据</span><br><span class="line">rm -rf /var/lib/mysql/*</span><br><span class="line">#清空事务</span><br><span class="line">innobackupex --user=root --password=abc123456 --apply-back /data/backup/full/2018-04-15_05-09-07/</span><br><span class="line">#还原数据</span><br><span class="line">innobackupex --user=root --password=abc123456 --copy-back  /data/backup/full/2018-04-15_05-09-07/</span><br></pre></td></tr></table></figure>
+<p>重新创建其余4个节点，组件PXC集群</p>
+<h3 id="安装Redis-配置RedisCluster集群"><a href="#安装Redis-配置RedisCluster集群" class="headerlink" title="安装Redis, 配置RedisCluster集群"></a>安装Redis, 配置RedisCluster集群</h3><p><img src="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608225840.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608230035.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/jusk9527/images/master/data/20190608230322.png" alt=""></p>
+<ol>
+<li>安装Redis镜像</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull yyyyttttwwww/redis</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>创建net2网段</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network create --subnet=172.19.0.0/16 net2</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>创建6节点Redis容器</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -d --name r1 -p 5001:6379 --net=net2 --ip 172.19.0.2 redis bash</span><br><span class="line">docker run -it -d --name r2 -p 5002:6379 --net=net2 --ip 172.19.0.3 redis bash</span><br><span class="line">docker run -it -d --name r3 -p 5003:6379 --net=net2 --ip 172.19.0.4 redis bash</span><br><span class="line">docker run -it -d --name r4 -p 5004:6379 --net=net2 --ip 172.19.0.5 redis bash</span><br><span class="line">docker run -it -d --name r5 -p 5005:6379 --net=net2 --ip 172.19.0.6 redis bash</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>启动6节点Redis服务器</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">#进入r1节点</span><br><span class="line">docker exec -it r1 bash</span><br><span class="line">cp /home/redis/redis.conf /usr/redis/redis.conf</span><br><span class="line">cd /usr/redis/src</span><br><span class="line">./redis-server ../redis.conf</span><br><span class="line">#进入r2节点</span><br><span class="line">docker exec -it r2 bash</span><br><span class="line">cp /home/redis/redis.conf /usr/redis/redis.conf</span><br><span class="line">cd /usr/redis/src</span><br><span class="line">./redis-server ../redis.conf</span><br><span class="line">#进入r3节点</span><br><span class="line">docker exec -it r3 bash</span><br><span class="line">cp /home/redis/redis.conf /usr/redis/redis.conf</span><br><span class="line">cd /usr/redis/src</span><br><span class="line">./redis-server ../redis.conf</span><br><span class="line">#进入r4节点</span><br><span class="line">docker exec -it r4 bash</span><br><span class="line">cp /home/redis/redis.conf /usr/redis/redis.conf</span><br><span class="line">cd /usr/redis/src</span><br><span class="line">./redis-server ../redis.conf</span><br><span class="line">#进入r5节点</span><br><span class="line">docker exec -it r5 bash</span><br><span class="line">cp /home/redis/redis.conf /usr/redis/redis.conf</span><br><span class="line">cd /usr/redis/src</span><br><span class="line">./redis-server ../redis.conf</span><br><span class="line">#进入r6节点</span><br><span class="line">docker exec -it r6 bash</span><br><span class="line">cp /home/redis/redis.conf /usr/redis/redis.conf</span><br><span class="line">cd /usr/redis/src</span><br><span class="line">./redis-server ../redis.conf</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>创建Cluster集群</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#在r1节点上执行下面的指令</span><br><span class="line">cd /usr/redis/src</span><br><span class="line">mkdir -p ../cluster</span><br><span class="line">cp redis-trib.rb ../cluster/</span><br><span class="line">cd ../cluster</span><br><span class="line">#创建Cluster集群</span><br><span class="line">./redis-trib.rb create --replicas 1 172.19.0.2:6379 172.19.0.3:6379 172.19.0.4:6379 172.19.0.5:6379 172.19.0.6:6379 172.19.0.7:6379</span><br></pre></td></tr></table></figure>
+<h3 id="打包部署后端项目"><a href="#打包部署后端项目" class="headerlink" title="打包部署后端项目"></a>打包部署后端项目</h3><ol>
+<li>进入人人开源后端项目，执行打包（修改配置文件，更改端口，打包三次生成三个JAR文件）</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean install -Dmaven.test.skip=true</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>安装Java镜像</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull java</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>创建3节点Java容器</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#创建数据卷，上传JAR文件</span><br><span class="line">docker volume create j1</span><br><span class="line">#启动容器</span><br><span class="line">docker run -it -d --name j1 -v j1:/home/soft --net=host java</span><br><span class="line">#进入j1容器</span><br><span class="line">docker exec -it j1 bash</span><br><span class="line">#启动Java项目</span><br><span class="line">nohup java -jar /home/soft/renren-fast.jar</span><br><span class="line"></span><br><span class="line">#创建数据卷，上传JAR文件</span><br><span class="line">docker volume create j2</span><br><span class="line">#启动容器</span><br><span class="line">docker run -it -d --name j2 -v j2:/home/soft --net=host java</span><br><span class="line">#进入j1容器</span><br><span class="line">docker exec -it j2 bash</span><br><span class="line">#启动Java项目</span><br><span class="line">nohup java -jar /home/soft/renren-fast.jar</span><br><span class="line"></span><br><span class="line">#创建数据卷，上传JAR文件</span><br><span class="line">docker volume create j3</span><br><span class="line">#启动容器</span><br><span class="line">docker run -it -d --name j3 -v j3:/home/soft --net=host java</span><br><span class="line">#进入j1容器</span><br><span class="line">docker exec -it j3 bash</span><br><span class="line">#启动Java项目</span><br><span class="line">nohup java -jar /home/soft/renren-fast.jar</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>安装Nginx镜像</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull nginx</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>创建Nginx容器，配置负载均衡</li>
+</ol>
+<p>宿主机上/home/n1/nginx.conf配置文件内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">user  nginx;</span><br><span class="line">worker_processes  1;</span><br><span class="line">error_log  /var/log/nginx/error.log warn;</span><br><span class="line">pid        /var/run/nginx.pid;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       /etc/nginx/mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;</span><br><span class="line">                      &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;</span><br><span class="line">                      &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;</span><br><span class="line"></span><br><span class="line">    access_log  /var/log/nginx/access.log  main;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line">    #tcp_nopush     on;</span><br><span class="line"></span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    #gzip  on;</span><br><span class="line"></span><br><span class="line">	proxy_redirect          off;</span><br><span class="line">	proxy_set_header        Host $host;</span><br><span class="line">	proxy_set_header        X-Real-IP $remote_addr;</span><br><span class="line">	proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">	client_max_body_size    10m;</span><br><span class="line">	client_body_buffer_size   128k;</span><br><span class="line">	proxy_connect_timeout   5s;</span><br><span class="line">	proxy_send_timeout      5s;</span><br><span class="line">	proxy_read_timeout      5s;</span><br><span class="line">	proxy_buffer_size        4k;</span><br><span class="line">	proxy_buffers           4 32k;</span><br><span class="line">	proxy_busy_buffers_size  64k;</span><br><span class="line">	proxy_temp_file_write_size 64k;</span><br><span class="line"></span><br><span class="line">	upstream tomcat &#123;</span><br><span class="line">		server 192.168.99.104:6001;</span><br><span class="line">		server 192.168.99.104:6002;</span><br><span class="line">		server 192.168.99.104:6003;</span><br><span class="line">	&#125;</span><br><span class="line">	server &#123;</span><br><span class="line">        listen       6101;</span><br><span class="line">        server_name  192.168.99.104;</span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass   http://tomcat;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>创建第1个Nginx节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -d --name n1 -v /home/n1/nginx.conf:/etc/nginx/nginx.conf --net=host --privileged nginx</span><br></pre></td></tr></table></figure>
+<p>宿主机上/home/n2/nginx.conf配置文件内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">user  nginx;</span><br><span class="line">worker_processes  1;</span><br><span class="line">error_log  /var/log/nginx/error.log warn;</span><br><span class="line">pid        /var/run/nginx.pid;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       /etc/nginx/mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;</span><br><span class="line">                      &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;</span><br><span class="line">                      &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;</span><br><span class="line"></span><br><span class="line">    access_log  /var/log/nginx/access.log  main;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line">    #tcp_nopush     on;</span><br><span class="line"></span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    #gzip  on;</span><br><span class="line"></span><br><span class="line">	proxy_redirect          off;</span><br><span class="line">	proxy_set_header        Host $host;</span><br><span class="line">	proxy_set_header        X-Real-IP $remote_addr;</span><br><span class="line">	proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">	client_max_body_size    10m;</span><br><span class="line">	client_body_buffer_size   128k;</span><br><span class="line">	proxy_connect_timeout   5s;</span><br><span class="line">	proxy_send_timeout      5s;</span><br><span class="line">	proxy_read_timeout      5s;</span><br><span class="line">	proxy_buffer_size        4k;</span><br><span class="line">	proxy_buffers           4 32k;</span><br><span class="line">	proxy_busy_buffers_size  64k;</span><br><span class="line">	proxy_temp_file_write_size 64k;</span><br><span class="line"></span><br><span class="line">	upstream tomcat &#123;</span><br><span class="line">		server 192.168.99.104:6001;</span><br><span class="line">		server 192.168.99.104:6002;</span><br><span class="line">		server 192.168.99.104:6003;</span><br><span class="line">	&#125;</span><br><span class="line">	server &#123;</span><br><span class="line">        listen       6102;</span><br><span class="line">        server_name  192.168.99.104;</span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass   http://tomcat;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>创建第2个Nginx节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -d --name n2 -v /home/n2/nginx.conf:/etc/nginx/nginx.conf --net=host --privileged nginx</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>在Nginx容器安装Keepalived</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#进入n1节点</span><br><span class="line">docker exec -it n1 bash</span><br><span class="line">#更新软件包</span><br><span class="line">apt-get update</span><br><span class="line">#安装VIM</span><br><span class="line">apt-get install vim</span><br><span class="line">#安装Keepalived</span><br><span class="line">apt-get install keepalived</span><br><span class="line">#编辑Keepalived配置文件(如下)</span><br><span class="line">vim /etc/keepalived/keepalived.conf</span><br><span class="line">#启动Keepalived</span><br><span class="line">service keepalived start</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line">    interface ens33</span><br><span class="line">    virtual_router_id 51</span><br><span class="line">    priority 100</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 123456</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.99.151</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">virtual_server 192.168.99.151 6201 &#123;</span><br><span class="line">    delay_loop 3</span><br><span class="line">    lb_algo rr</span><br><span class="line">    lb_kind NAT</span><br><span class="line">    persistence_timeout 50</span><br><span class="line">    protocol TCP</span><br><span class="line">    real_server 192.168.99.104 6101 &#123;</span><br><span class="line">        weight 1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#进入n1节点</span><br><span class="line">docker exec -it n2 bash</span><br><span class="line">#更新软件包</span><br><span class="line">apt-get update</span><br><span class="line">#安装VIM</span><br><span class="line">apt-get install vim</span><br><span class="line">#安装Keepalived</span><br><span class="line">apt-get install keepalived</span><br><span class="line">#编辑Keepalived配置文件(如下)</span><br><span class="line">vim /etc/keepalived/keepalived.conf</span><br><span class="line">#启动Keepalived</span><br><span class="line">service keepalived start</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line">    interface ens33</span><br><span class="line">    virtual_router_id 51</span><br><span class="line">    priority 100</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 123456</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.99.151</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">virtual_server 192.168.99.151 6201 &#123;</span><br><span class="line">    delay_loop 3</span><br><span class="line">    lb_algo rr</span><br><span class="line">    lb_kind NAT</span><br><span class="line">    persistence_timeout 50</span><br><span class="line">    protocol TCP</span><br><span class="line">    real_server 192.168.99.104 6102 &#123;</span><br><span class="line">        weight 1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="打包部署前端项目"><a href="#打包部署前端项目" class="headerlink" title="打包部署前端项目"></a>打包部署前端项目</h3><ol>
+<li>在前端项目路径下执行打包指令</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>build目录的文件拷贝到宿主机的/home/fn1/renren-vue、/home/fn2/renren-vue、/home/fn3/renren-vue的目录下面</li>
+<li>创建3节点的Nginx，部署前端项目</li>
+</ol>
+<p>宿主机/home/fn1/nginx.conf的配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">user  nginx;</span><br><span class="line">worker_processes  1;</span><br><span class="line">error_log  /var/log/nginx/error.log warn;</span><br><span class="line">pid        /var/run/nginx.pid;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       /etc/nginx/mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;</span><br><span class="line">                      &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;</span><br><span class="line">                      &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;</span><br><span class="line"></span><br><span class="line">    access_log  /var/log/nginx/access.log  main;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line">    #tcp_nopush     on;</span><br><span class="line"></span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    #gzip  on;</span><br><span class="line"></span><br><span class="line">	proxy_redirect          off;</span><br><span class="line">	proxy_set_header        Host $host;</span><br><span class="line">	proxy_set_header        X-Real-IP $remote_addr;</span><br><span class="line">	proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">	client_max_body_size    10m;</span><br><span class="line">	client_body_buffer_size   128k;</span><br><span class="line">	proxy_connect_timeout   5s;</span><br><span class="line">	proxy_send_timeout      5s;</span><br><span class="line">	proxy_read_timeout      5s;</span><br><span class="line">	proxy_buffer_size        4k;</span><br><span class="line">	proxy_buffers           4 32k;</span><br><span class="line">	proxy_busy_buffers_size  64k;</span><br><span class="line">	proxy_temp_file_write_size 64k;</span><br><span class="line"></span><br><span class="line">	server &#123;</span><br><span class="line">		listen 6501;</span><br><span class="line">		server_name  192.168.99.104;</span><br><span class="line">		location  /  &#123;</span><br><span class="line">			root  /home/fn1/renren-vue;</span><br><span class="line">			index  index.html;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#启动第fn1节点</span><br><span class="line">docker run -it -d --name fn1 -v /home/fn1/nginx.conf:/etc/nginx/nginx.conf -v /home/fn1/renren-vue:/home/fn1/renren-vue --privileged --net=host nginx</span><br></pre></td></tr></table></figure>
+<p>宿主机/home/fn2/nginx.conf的配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">user  nginx;</span><br><span class="line">worker_processes  1;</span><br><span class="line">error_log  /var/log/nginx/error.log warn;</span><br><span class="line">pid        /var/run/nginx.pid;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       /etc/nginx/mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;</span><br><span class="line">                      &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;</span><br><span class="line">                      &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;</span><br><span class="line"></span><br><span class="line">    access_log  /var/log/nginx/access.log  main;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line">    #tcp_nopush     on;</span><br><span class="line"></span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    #gzip  on;</span><br><span class="line"></span><br><span class="line">	proxy_redirect          off;</span><br><span class="line">	proxy_set_header        Host $host;</span><br><span class="line">	proxy_set_header        X-Real-IP $remote_addr;</span><br><span class="line">	proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">	client_max_body_size    10m;</span><br><span class="line">	client_body_buffer_size   128k;</span><br><span class="line">	proxy_connect_timeout   5s;</span><br><span class="line">	proxy_send_timeout      5s;</span><br><span class="line">	proxy_read_timeout      5s;</span><br><span class="line">	proxy_buffer_size        4k;</span><br><span class="line">	proxy_buffers           4 32k;</span><br><span class="line">	proxy_busy_buffers_size  64k;</span><br><span class="line">	proxy_temp_file_write_size 64k;</span><br><span class="line"></span><br><span class="line">	server &#123;</span><br><span class="line">		listen 6502;</span><br><span class="line">		server_name  192.168.99.104;</span><br><span class="line">		location  /  &#123;</span><br><span class="line">			root  /home/fn2/renren-vue;</span><br><span class="line">			index  index.html;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#启动第fn2节点</span><br><span class="line">docker run -it -d --name fn2 -v /home/fn2/nginx.conf:/etc/nginx/nginx.conf -v /home/fn2/renren-vue:/home/fn2/renren-vue --privileged --net=host nginx</span><br></pre></td></tr></table></figure>
+<p>宿主机/home/fn3/nginx.conf的配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">user  nginx;</span><br><span class="line">worker_processes  1;</span><br><span class="line">error_log  /var/log/nginx/error.log warn;</span><br><span class="line">pid        /var/run/nginx.pid;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       /etc/nginx/mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;</span><br><span class="line">                      &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;</span><br><span class="line">                      &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;</span><br><span class="line"></span><br><span class="line">    access_log  /var/log/nginx/access.log  main;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line">    #tcp_nopush     on;</span><br><span class="line"></span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    #gzip  on;</span><br><span class="line"></span><br><span class="line">	proxy_redirect          off;</span><br><span class="line">	proxy_set_header        Host $host;</span><br><span class="line">	proxy_set_header        X-Real-IP $remote_addr;</span><br><span class="line">	proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">	client_max_body_size    10m;</span><br><span class="line">	client_body_buffer_size   128k;</span><br><span class="line">	proxy_connect_timeout   5s;</span><br><span class="line">	proxy_send_timeout      5s;</span><br><span class="line">	proxy_read_timeout      5s;</span><br><span class="line">	proxy_buffer_size        4k;</span><br><span class="line">	proxy_buffers           4 32k;</span><br><span class="line">	proxy_busy_buffers_size  64k;</span><br><span class="line">	proxy_temp_file_write_size 64k;</span><br><span class="line"></span><br><span class="line">	server &#123;</span><br><span class="line">		listen 6503;</span><br><span class="line">		server_name  192.168.99.104;</span><br><span class="line">		location  /  &#123;</span><br><span class="line">			root  /home/fn3/renren-vue;</span><br><span class="line">			index  index.html;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>启动fn3节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#启动第fn3节点</span><br><span class="line">docker run -it -d --name fn3 -v /home/fn3/nginx.conf:/etc/nginx/nginx.conf -v /home/fn3/renren-vue:/home/fn3/renren-vue --privileged --net=host nginx</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>配置负载均衡</li>
+</ol>
+<p>宿主机/home/ff1/nginx.conf配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">user  nginx;</span><br><span class="line">worker_processes  1;</span><br><span class="line">error_log  /var/log/nginx/error.log warn;</span><br><span class="line">pid        /var/run/nginx.pid;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       /etc/nginx/mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;</span><br><span class="line">                      &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;</span><br><span class="line">                      &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;</span><br><span class="line"></span><br><span class="line">    access_log  /var/log/nginx/access.log  main;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line">    #tcp_nopush     on;</span><br><span class="line"></span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    #gzip  on;</span><br><span class="line"></span><br><span class="line">	proxy_redirect          off;</span><br><span class="line">	proxy_set_header        Host $host;</span><br><span class="line">	proxy_set_header        X-Real-IP $remote_addr;</span><br><span class="line">	proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">	client_max_body_size    10m;</span><br><span class="line">	client_body_buffer_size   128k;</span><br><span class="line">	proxy_connect_timeout   5s;</span><br><span class="line">	proxy_send_timeout      5s;</span><br><span class="line">	proxy_read_timeout      5s;</span><br><span class="line">	proxy_buffer_size        4k;</span><br><span class="line">	proxy_buffers           4 32k;</span><br><span class="line">	proxy_busy_buffers_size  64k;</span><br><span class="line">	proxy_temp_file_write_size 64k;</span><br><span class="line"></span><br><span class="line">	upstream fn &#123;</span><br><span class="line">		server 192.168.99.104:6501;</span><br><span class="line">		server 192.168.99.104:6502;</span><br><span class="line">		server 192.168.99.104:6503;</span><br><span class="line">	&#125;</span><br><span class="line">	server &#123;</span><br><span class="line">        listen       6601;</span><br><span class="line">        server_name  192.168.99.104;</span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass   http://fn;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#启动ff1节点</span><br><span class="line">docker run -it -d --name ff1 -v /home/ff1/nginx.conf:/etc/nginx/nginx.conf --net=host --privileged nginx</span><br></pre></td></tr></table></figure>
+<p>宿主机/home/ff2/nginx.conf配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">user  nginx;</span><br><span class="line">worker_processes  1;</span><br><span class="line">error_log  /var/log/nginx/error.log warn;</span><br><span class="line">pid        /var/run/nginx.pid;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       /etc/nginx/mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;</span><br><span class="line">                      &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;</span><br><span class="line">                      &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;</span><br><span class="line"></span><br><span class="line">    access_log  /var/log/nginx/access.log  main;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line">    #tcp_nopush     on;</span><br><span class="line"></span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    #gzip  on;</span><br><span class="line"></span><br><span class="line">	proxy_redirect          off;</span><br><span class="line">	proxy_set_header        Host $host;</span><br><span class="line">	proxy_set_header        X-Real-IP $remote_addr;</span><br><span class="line">	proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">	client_max_body_size    10m;</span><br><span class="line">	client_body_buffer_size   128k;</span><br><span class="line">	proxy_connect_timeout   5s;</span><br><span class="line">	proxy_send_timeout      5s;</span><br><span class="line">	proxy_read_timeout      5s;</span><br><span class="line">	proxy_buffer_size        4k;</span><br><span class="line">	proxy_buffers           4 32k;</span><br><span class="line">	proxy_busy_buffers_size  64k;</span><br><span class="line">	proxy_temp_file_write_size 64k;</span><br><span class="line"></span><br><span class="line">	upstream fn &#123;</span><br><span class="line">		server 192.168.99.104:6501;</span><br><span class="line">		server 192.168.99.104:6502;</span><br><span class="line">		server 192.168.99.104:6503;</span><br><span class="line">	&#125;</span><br><span class="line">	server &#123;</span><br><span class="line">        listen       6602;</span><br><span class="line">        server_name  192.168.99.104;</span><br><span class="line">        location / &#123;</span><br><span class="line">            proxy_pass   http://fn;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#启动ff2节点</span><br><span class="line">docker run -it -d --name ff2 -v /home/ff2/nginx.conf:/etc/nginx/nginx.conf --net=host --privileged nginx</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>配置双机热备</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#进入ff1节点</span><br><span class="line">docker exec -it ff1 bash</span><br><span class="line">#更新软件包</span><br><span class="line">apt-get update</span><br><span class="line">#安装VIM</span><br><span class="line">apt-get install vim</span><br><span class="line">#安装Keepalived</span><br><span class="line">apt-get install keepalived</span><br><span class="line">#编辑Keepalived配置文件(如下)</span><br><span class="line">vim /etc/keepalived/keepalived.conf</span><br><span class="line">#启动Keepalived</span><br><span class="line">service keepalived start</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line">    interface ens33</span><br><span class="line">    virtual_router_id 52</span><br><span class="line">    priority 100</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 123456</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.99.152</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">virtual_server 192.168.99.151 6701 &#123;</span><br><span class="line">    delay_loop 3</span><br><span class="line">    lb_algo rr</span><br><span class="line">    lb_kind NAT</span><br><span class="line">    persistence_timeout 50</span><br><span class="line">    protocol TCP</span><br><span class="line">    real_server 192.168.99.104 6601 &#123;</span><br><span class="line">        weight 1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#进入ff1节点</span><br><span class="line">docker exec -it ff2 bash</span><br><span class="line">#更新软件包</span><br><span class="line">apt-get update</span><br><span class="line">#安装VIM</span><br><span class="line">apt-get install vim</span><br><span class="line">#安装Keepalived</span><br><span class="line">apt-get install keepalived</span><br><span class="line">#编辑Keepalived配置文件(如下)</span><br><span class="line">vim /etc/keepalived/keepalived.conf</span><br><span class="line">#启动Keepalived</span><br><span class="line">service keepalived start</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line">    interface ens33</span><br><span class="line">    virtual_router_id 52</span><br><span class="line">    priority 100</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 123456</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.99.152</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">virtual_server 192.168.99.151 6701 &#123;</span><br><span class="line">    delay_loop 3</span><br><span class="line">    lb_algo rr</span><br><span class="line">    lb_kind NAT</span><br><span class="line">    persistence_timeout 50</span><br><span class="line">    protocol TCP</span><br><span class="line">    real_server 192.168.99.104 6602 &#123;</span><br><span class="line">        weight 1</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="https://coding.imooc.com/class/219.html" target="_blank" rel="noopener">https://coding.imooc.com/class/219.html</a></p>
+<p><a href="https://www.renren.io/community/project" target="_blank" rel="noopener">https://www.renren.io/community/project</a></p>
+<p><a href="https://www.zhangjiarui.cn/2018/08/21/%E6%85%95%E8%AF%BE%E7%BD%91%E3%80%8ADocker%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E4%B8%8E%E8%BF%90%E7%BB%B4%E3%80%8B%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" target="_blank" rel="noopener">https://www.zhangjiarui.cn/2018/08/21/%E6%85%95%E8%AF%BE%E7%BD%91%E3%80%8ADocker%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%E4%B8%8E%E8%BF%90%E7%BB%B4%E3%80%8B%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/</a></p>
+<p><img src="https://raw.githubusercontent.com/jusk9527/images/master/data/20190609114719.png" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+  
+      <div>
+          
+    <div style="text-align:center;color: #ccc;font-size:16px;">
+        ------ 本文结束------</div>
+    
+      </div>
+    
+
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/运维，负载均衡，双机热备/" rel="tag"># 运维，负载均衡，双机热备</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/25/frp 搭建web穿透指南/" rel="next" title="frp 搭建web穿透指南">
+                <i class="fa fa-chevron-left"></i> frp 搭建web穿透指南
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="BrightLoong" />
+            
+              <p class="site-author-name" itemprop="name">BrightLoong</p>
+              <p class="site-description motion-element" itemprop="description">现实本就是不可逆的，心肠只会越来越硬</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/dreampeoplexyh" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础知识"><span class="nav-number">1.</span> <span class="nav-text">基础知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker技术简介"><span class="nav-number">2.</span> <span class="nav-text">docker技术简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linux等-下安装"><span class="nav-number">3.</span> <span class="nav-text">linux等 下安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库负载均衡"><span class="nav-number">4.</span> <span class="nav-text">数据库负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装Haproxy-镜像"><span class="nav-number">4.1.</span> <span class="nav-text">安装Haproxy 镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建Haproxy配置文件"><span class="nav-number">4.2.</span> <span class="nav-text">创建Haproxy配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编写宿主机上的配置文件"><span class="nav-number">4.3.</span> <span class="nav-text">编写宿主机上的配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建两个Haproxy容器"><span class="nav-number">4.4.</span> <span class="nav-text">创建两个Haproxy容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看监控"><span class="nav-number">4.5.</span> <span class="nav-text">查看监控</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#连接H1中间。轮训算法分发"><span class="nav-number">4.6.</span> <span class="nav-text">连接H1中间。轮训算法分发</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#冷备份、热备份数据"><span class="nav-number">4.7.</span> <span class="nav-text">冷备份、热备份数据</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#冷备份"><span class="nav-number">4.7.1.</span> <span class="nav-text">冷备份</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#热备份"><span class="nav-number">4.7.2.</span> <span class="nav-text">热备份</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全量备份和增量备份"><span class="nav-number">4.8.</span> <span class="nav-text">全量备份和增量备份</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PXC全量备份步骤"><span class="nav-number">5.</span> <span class="nav-text">PXC全量备份步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#PXC全量恢复步骤"><span class="nav-number">5.1.</span> <span class="nav-text">PXC全量恢复步骤</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-高速缓存"><span class="nav-number">6.</span> <span class="nav-text">Redis 高速缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装PXC集群，负载均衡，双机热备"><span class="nav-number">7.</span> <span class="nav-text">安装PXC集群，负载均衡，双机热备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Redis-配置RedisCluster集群"><span class="nav-number">8.</span> <span class="nav-text">安装Redis, 配置RedisCluster集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打包部署后端项目"><span class="nav-number">9.</span> <span class="nav-text">打包部署后端项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打包部署前端项目"><span class="nav-number">10.</span> <span class="nav-text">打包部署前端项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">11.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BrightLoong</span>
+
+  
+</div>
+
+
+  <!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+  -->
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
+<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
